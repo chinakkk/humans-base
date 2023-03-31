@@ -1,21 +1,32 @@
-import styles from './ButtonPages.module.scss'
-import {FC} from "react";
+import styles from './PagesButton.module.scss'
+import {FC, useState} from "react";
+import {Link} from "react-router-dom";
 
 type ButtonPagesProps = {
     pagesArr: string[]
 }
 
-const ButtonPages: FC<ButtonPagesProps> = ({pagesArr}) => {
+const PagesButton: FC<ButtonPagesProps> = ({pagesArr}) => {
+    const [pageIsOpen, setPageIsOpen] = useState<string>('Profile')
+
+
     return (
         <div className={styles.pages}>
             {
-                pagesArr.map((page) =>
-                    <div className={styles.page}>
-                        {page}
-                    </div>
+                pagesArr.map((page: string) =>
+                    <Link to={`/menu/${page.toLowerCase()}`}
+                          key={page}
+                    >
+                        <div
+                            onClick={() => setPageIsOpen(page)}
+                            className={styles.page + ' ' + (pageIsOpen === page ? styles.opened : '')}
+                        >
+                            {page}
+                        </div>
+                    </Link>
                 )
             }
         </div>
     )
 }
-export default ButtonPages;
+export default PagesButton;

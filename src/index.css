@@ -1,6 +1,12 @@
-
 body{
   background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Titillium Web", sans-serif;
+}
+a {
+  text-decoration: none;
 }
 /* Указываем box sizing */
 *,

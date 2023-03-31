@@ -1,11 +1,20 @@
 import styles from './Favorites.module.scss'
-import {FC} from "react"
+import pagesStyle from '../pagesWithCard.module.scss'
 
-const Favorites :FC= () => {
+import {FC} from "react"
+import CardHuman from "../../../components/cardHuman/CardHuman";
+
+const Favorites: FC = () => {
+    const studentsArr=[1,2,3]
     return (
-        <div className={styles.container}>
-            
+        <div className={pagesStyle.container}>
+            {
+                studentsArr.map((student) =>
+                    <CardHuman
+                        key={student}
+                    />)
+            }
         </div>
-    ) 
+    )
 }
 export default Favorites;
