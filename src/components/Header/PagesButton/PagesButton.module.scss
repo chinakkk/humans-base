@@ -1,0 +1,28 @@
+.pages{
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+
+  .page{
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    background-color: #638892;
+    color: #FFF6F6;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 500;
+    font-size: 21px;
+    margin-right: 40px;
+    height: 70px;
+    width: 200px;
+    padding-top: 10px;
+    transition: transform 0.05s linear;
+    cursor: pointer;
+    &:hover{
+      transform: translateY(-10px);
+    }
+
+
+
+  }
+}

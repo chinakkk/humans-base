@@ -1,0 +1,29 @@
+.container {
+  position: absolute;
+  right: 66px;
+  top: 30px;
+  input::-moz-placeholder {
+    color: white;
+    opacity: 0.6;
+  }
+  input::-webkit-input-placeholder {
+    color: white;
+    opacity: 0.6;
+
+  }
+
+  .search{
+    background-color: #638892;
+    border: 0;
+    border-radius: 8px;
+    width: 224px;
+    height: 34px;
+    color: #FFF6F6;
+    padding-left: 15px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 500;
+    outline: none;
+
+
+  }
+}
