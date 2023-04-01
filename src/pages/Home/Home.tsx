@@ -13,13 +13,13 @@ const Home: FC = () => {
 
             <div className={styles.goToButtons}>
 
-                <Link to={'/auth'}>
+                <Link to={'/authentication'}>
                     <div className={styles.button}>Перейти к авторизации</div>
                 </Link>
                 <Link to={'/menu/profile'}>
                     <div className={styles.button}>Перейти в меню</div>
                 </Link>
-                <Link to={'/reg'}>
+                <Link to={'/registration'}>
                     <div className={styles.button}>Перейти к регистрации</div>
                 </Link>
             </div>

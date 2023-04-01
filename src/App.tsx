@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './App.module.scss'
 import {Navigate, Route, Routes} from 'react-router-dom'
-import MenuLayout from "./layouts/MainLayout/MenuLayout";
+import MenuLayout from "./layouts/MenuLayout/MenuLayout";
 import Profile from "./pages/menuPages/Profile/Profile";
 import Students from "./pages/menuPages/Students/Students";
-import Authentication from "./pages/Authentication/Authentication";
-import Registration from "./pages/Registration/Registration";
+import Authentication from "./pages/formPages/Authentication/Authentication";
+import RegistrationBasic from "./pages/formPages/registrationPages/RegistrationBasic/RegistrationBasic";
 import Home from "./pages/Home/Home";
 import Deleted from "./pages/menuPages/Deleted/Deleted";
 import Favorites from "./pages/menuPages/Favorites/Favorites";
@@ -17,8 +17,8 @@ function App() {
             <Routes>
 
                 <Route path={'/'} element={<Home/>}/>
-                <Route path={'/auth'} element={<Authentication/>}/>
-                <Route path={'/reg'} element={<Registration/>}/>
+                <Route path={'/authentication'} element={<Authentication/>}/>
+                <Route path={'/registration'} element={<RegistrationBasic/>}/>
 
                 <Route path={'/menu'} element={<MenuLayout/>}>
                     <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>

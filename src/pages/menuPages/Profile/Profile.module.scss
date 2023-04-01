@@ -1,3 +1,51 @@
 .container {
+  position: relative;
+  padding: 40px;
+  height: 650px;
 
+  .contentTop{
+    display: flex;
+
+    .photo{
+      text-align: center;
+      padding-top: 100px;
+
+      width: 245px;
+      height: 245px;
+      border: 2px #DFDFDF solid;
+      border-radius: 14px;
+      margin: 0 40px 40px 0;
+    }
+    .info{
+
+    }
+    .cardProfile{
+      position: absolute;
+      right: 40px;
+      top: 40px;
+    }
+  }
+
+  .contentBot{
+
+    .aboutMeInput{
+      height: 240px;
+      width: 1200px;
+      border: 0;
+      border-radius: 18px;
+    }
+    .editButton{
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      width: 80px;
+      background-color: white;
+      border: 1px #D9D9D9 solid;
+      border-radius: 7px;
+      cursor: pointer;
+      &:active{
+        transform: translateY(1px);
+      }
+    }
+  }
 }
