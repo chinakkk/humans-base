@@ -5,10 +5,11 @@ import MenuLayout from "./layouts/MenuLayout/MenuLayout";
 import Profile from "./pages/menuPages/Profile/Profile";
 import Students from "./pages/menuPages/Students/Students";
 import Authentication from "./pages/formPages/Authentication/Authentication";
-import RegistrationBasic from "./pages/formPages/registrationPages/RegistrationBasic/RegistrationBasic";
+import RegistrationAboutMe from "./pages/formPages/registrationPages/RegistrationBasic/RegistrationAboutMe";
 import Home from "./pages/Home/Home";
 import Deleted from "./pages/menuPages/Deleted/Deleted";
 import Favorites from "./pages/menuPages/Favorites/Favorites";
+import RegistrationLogin from "./pages/formPages/registrationPages/RegistrationLogin/RegistrationLogin";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
 
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/authentication'} element={<Authentication/>}/>
-                <Route path={'/registration'} element={<RegistrationBasic/>}/>
+                <Route path={'/registration/about'} element={<RegistrationAboutMe/>}/>
+                <Route path={'/registration/login'} element={<RegistrationLogin/>}/>
 
                 <Route path={'/menu'} element={<MenuLayout/>}>
                     <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>

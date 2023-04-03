@@ -1,0 +1,24 @@
+
+.container {
+  margin-bottom: 20px;
+  height: 22px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  .toggleButton {
+    display: flex;
+    height: 22px;
+    width: 124px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+    //border: 1px #9F9F9F solid;
+    margin-bottom: 10px;
+
+  }
+
+}

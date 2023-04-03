@@ -19,7 +19,7 @@ const Home: FC = () => {
                 <Link to={'/menu/profile'}>
                     <div className={styles.button}>Перейти в меню</div>
                 </Link>
-                <Link to={'/registration'}>
+                <Link to={'/registration/about'}>
                     <div className={styles.button}>Перейти к регистрации</div>
                 </Link>
             </div>

@@ -9,9 +9,7 @@ const Authentication: FC = () => {
     const [loginInputValue, setLoginInputValue] = useState<string>('')
     const logAndPassEntered = loginInputValue.length > 0 && passwordInputValue.length > 0
 
-    useEffect(() => {
-
-    }, [])
+    const inputBlockTitles=['Login', 'Password']
 
     return (
         <div className={styles.container}>
@@ -69,9 +67,11 @@ const Authentication: FC = () => {
                 </div>
 
 
-                <Link className={logAndPassEntered? '' : styles.authButtonLink} to={'/menu/profile'}>
+                <Link  to={'/menu/profile'}
+                       className={logAndPassEntered? '' : styles.authButtonLink}
+                >
                     <button
-                        className={styles.authButton + ' ' + (logAndPassEntered? styles.authButtonActive : styles.authButtonDisable)}>
+                        className={commonStyles.continueButton + ' ' + (logAndPassEntered? styles.authButtonActive : styles.authButtonDisable)}>
                         Log in
                     </button>
 
@@ -80,7 +80,7 @@ const Authentication: FC = () => {
             </div>
 
 
-            <Link to={'/registration'}>
+            <Link to={'/registration/about'}>
                 <button className={commonStyles.buttonUnderWindow}>
                     Sign up
                 </button>

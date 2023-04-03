@@ -44,17 +44,6 @@
 
 
     }
-    .authButton{
-      height: 30px;
-      background-color: #78BBB8;
-      border-radius: 5px;
-      border: 0;
-      color: #F4F4F4;
-      width: 100%;
-      opacity: 0.8;
-
-      transition: opacity 0.1s linear;
-    }
     .authButtonActive{
       opacity: 1;
       cursor: pointer;
