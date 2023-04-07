@@ -1,35 +1,46 @@
 import styles from './RegistrationLogin.module.scss'
-import {FC} from "react"
-import {Link} from "react-router-dom";
+import {FC, useState} from "react"
 import commonStyles from "../../commonForm.module.scss";
-import InputBlocks from "../InputBlocks/InputBlocks";
+import InputBlocks from "../../Components/InputBlocks/InputBlocks";
+import ButtonInForm from "../../Components/ButtonInForm/ButtonInForm";
+import ButtonOutsideForm from "../../Components/ButtonOutsideForm/ButtonOutsideForm";
 
 const RegistrationLogin: FC = () => {
 
-    const inputBlockTitles=['Enter a new login', 'Enter a new password', 'Repeat new password']
+    const [loginInputValue,setLoginInputValue]=useState<string>('')
+    const [passwordInputValue,setPasswordInputValue]=useState<string>('')
+    const [repeatPasswordInputValue,setRepeatPasswordInputValue]=useState<string>('')
 
+    const inputBlockArr = [
+        {
+            title: 'Enter a new login',
+            inputValue: loginInputValue,
+            inputOnChange: setLoginInputValue,
+        },
+        {
+            title: 'Enter a new password',
+            inputValue: passwordInputValue,
+            inputOnChange: setPasswordInputValue,
+        },
+        {
+            title: 'Repeat new password',
+            inputValue: repeatPasswordInputValue,
+            inputOnChange: setRepeatPasswordInputValue,
+        },
+
+    ]
     return (
         <div className={styles.container}>
             <div className={commonStyles.window}>
 
-                <InputBlocks inputBlockTitles={inputBlockTitles}/>
+                <InputBlocks inputBlockArr={inputBlockArr}/>
 
                 {/*Кнопка завершения регистрации*/}
-                <Link style={{pointerEvents: 'none'}} to={'/menu/profile'}>
-                    <button
-                        className={commonStyles.continueButton}>
-                        Sign up
-                    </button>
-                </Link>
+                <ButtonInForm title={'Sign up'} linkTo={'/menu/profile'} activeIf={true}/>
 
             </div>
-
             {/*Кнопка назад*/}
-            <Link to={'/registration/about'}>
-                <button className={commonStyles.buttonUnderWindow}>
-                    Go back
-                </button>
-            </Link>
+            <ButtonOutsideForm title={'Go back'} linkTo={'/registration/about'}/>
 
         </div>
     )

@@ -1,9 +1,12 @@
 import styles from './Profile.module.scss'
 
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import CardHuman from "../../../components/CardHuman/CardHuman";
 
 const Profile: FC = () => {
+    useEffect(() => {
+
+    }, [])
     return (
         <div className={styles.container}>
             <div className={styles.contentTop}>

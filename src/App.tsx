@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './App.module.scss'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import MenuLayout from "./layouts/MenuLayout/MenuLayout";
@@ -13,10 +13,10 @@ import RegistrationLogin from "./pages/formPages/registrationPages/RegistrationL
 
 
 function App() {
+
     return (
         <div className={styles.container}>
             <Routes>
-
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/authentication'} element={<Authentication/>}/>
                 <Route path={'/registration/about'} element={<RegistrationAboutMe/>}/>
