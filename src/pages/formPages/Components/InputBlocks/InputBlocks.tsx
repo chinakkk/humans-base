@@ -5,7 +5,7 @@ import InputBlock from "./InputBlock/InputBlock";
 type inputBlockType = {
     title: string;
     inputValue: string,
-    inputOnChange: (value:string) => void;
+    inputOnChange: (value: string) => void;
 }
 
 type inputBlockNames = {
@@ -18,11 +18,12 @@ const InputBlocks: FC<inputBlockNames> = ({inputBlockArr, showPassword = true}) 
     return (
         <div className={styles.container}>
             {
-                inputBlockArr.map((item) => {
+                inputBlockArr.map((inputBlock) => {
                     return (
-                        <div className={styles.block}>
+                        <div className={styles.block} key={inputBlock.title}
+                        >
                             <InputBlock showPassword={showPassword}
-                                        {...item}
+                                        {...inputBlock}
                             />
                         </div>
                     )

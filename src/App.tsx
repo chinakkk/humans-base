@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import styles from './App.module.scss'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import MenuLayout from "./layouts/MenuLayout/MenuLayout";
@@ -10,10 +10,12 @@ import Home from "./pages/Home/Home";
 import Deleted from "./pages/menuPages/Deleted/Deleted";
 import Favorites from "./pages/menuPages/Favorites/Favorites";
 import RegistrationLogin from "./pages/formPages/registrationPages/RegistrationLogin/RegistrationLogin";
+import {useSelector} from "react-redux";
+import {RootState} from "./redux/store";
 
 
 function App() {
-
+    const {user}=useSelector((state:RootState) => state.userSlice)
     return (
         <div className={styles.container}>
             <Routes>
@@ -21,14 +23,27 @@ function App() {
                 <Route path={'/authentication'} element={<Authentication/>}/>
                 <Route path={'/registration/about'} element={<RegistrationAboutMe/>}/>
                 <Route path={'/registration/login'} element={<RegistrationLogin/>}/>
+                <Route path={'*'} element={<Navigate to={'/authentication'}/>}/>
 
-                <Route path={'/menu'} element={<MenuLayout/>}>
-                    <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>
-                    <Route path={'/menu/profile'} element={<Profile/>}/>
-                    <Route path={'/menu/students'} element={<Students/>}/>
-                    <Route path={'/menu/deleted'} element={<Deleted/>}/>
-                    <Route path={'/menu/favorites'} element={<Favorites/>}/>
-                </Route>
+                {
+                    user &&
+                    <Route path={'/menu'} element={<MenuLayout/>}>
+                      <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>
+                      <Route path={'/menu/*'} element={<Navigate to={'/menu/profile'}/>}/>
+                      <Route path={'/menu/profile'} element={<Profile/>}/>
+                      <Route path={'/menu/students'} element={<Students/>}/>
+                        {
+                            (user.role!=='student')&&
+                            <>
+                              <Route path={'/menu/deleted'} element={<Deleted/>}/>
+                              <Route path={'/menu/favorites'} element={<Favorites/>}/>
+                            </>
+
+                        }
+
+                    </Route>
+                }
+
 
             </Routes>
         </div>
