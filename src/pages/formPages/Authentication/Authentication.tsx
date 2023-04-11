@@ -7,7 +7,7 @@ import ButtonOutsideForm from "../Components/ButtonOutsideForm/ButtonOutsideForm
 import ShowPasswordSVG from "./ShowPasswordSVG/ShowPasswordSVG";
 import axios from "axios";
 
-import { useAppDispatch} from "../../../redux/store";
+import {useAppDispatch} from "../../../redux/store";
 import {setUser, userType} from "../../../redux/slices/userSlice";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -15,7 +15,6 @@ import {Link, useNavigate} from "react-router-dom";
 const Authentication: FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const buttonRef=useRef<HTMLButtonElement>(null)
     //useState
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [loginInputValue, setLoginInputValue] = useState<string>('')
@@ -39,14 +38,18 @@ const Authentication: FC = () => {
     const onClickAuthentication = async () => {
         try {
             const {data} = await axios.get('https://64303a35b289b1dec4c4281e.mockapi.io/users')
-            const currentUser: userType | undefined = (data.filter((user: userType) => user.login === loginInputValue))[0]
-            if (currentUser && currentUser.login === loginInputValue && currentUser.password === passwordInputValue) {
+            const currentUser:userType| undefined= (data.filter((user: userType) => {
+                return user.login === loginInputValue && user.password === passwordInputValue
+            }))[0]
+
+            if (currentUser) {
                 navigate('/menu/profile')
                 dispatch(setUser(currentUser))
 
                 console.log('Логин и пароль верны')
             } else {
                 setPasswordInputValue('')
+
                 console.log('Логин или пароль не верны')
             }
 
@@ -55,11 +58,21 @@ const Authentication: FC = () => {
         }
 
     }
+
+    //комменты для артема
+    //побочный чел
+    //login chin
+    //password chin
+
+    //главный чел
+    //login gaf
+    //password gaf
+
     useEffect(() => {
-        const onKeypress=(event:KeyboardEvent) => {
-           if (event.key==='Enter'){
-               onClickAuthentication().then()
-           }
+        const onKeypress = (event: KeyboardEvent) => {
+            if (event.key === 'Enter' && inputIsFilled) {
+                onClickAuthentication().then()
+            }
         }
         document.addEventListener('keypress', onKeypress);
 
@@ -86,10 +99,6 @@ const Authentication: FC = () => {
 
             <ButtonOutsideForm title={'Sigh up'}
                                linkTo={'/registration/about'}/>
-            {/*<Link to={'/'}>*/}
-            {/*    <button>home</button>*/}
-
-            {/*</Link>*/}
 
         </div>
     )

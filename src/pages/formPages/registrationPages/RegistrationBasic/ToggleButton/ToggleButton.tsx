@@ -1,11 +1,27 @@
 import styles from './ToggleButton.module.scss'
-import {FC} from "react"
+import {FC, useState} from "react"
 
-const ToggleButton: FC = () => {
+type ToggleButtonProps={
+    checkedToggleButton:string;
+    setCheckedToggleButton: (value:string ) => void;
+}
+
+const ToggleButton: FC <ToggleButtonProps>= ({checkedToggleButton, setCheckedToggleButton}) => {
+    const toggleTitleArr = ['Junior', 'Middle', 'Senior']
     return (
         <div className={styles.container}>
-            <div className={styles.toggleButton}>Student</div>
-            <div className={styles.toggleButton}>Professor</div>
+            {
+                toggleTitleArr.map((title) => {
+                    return (
+                        <button
+                            key={title}
+                            onClick={() => setCheckedToggleButton(title.toLowerCase())}
+                            className={styles.toggleButton + ' ' + ((checkedToggleButton === title.toLowerCase()) ? styles.activeToggleButton : '')}>
+                            {title}
+                        </button>
+                    )
+                })
+            }
         </div>
     )
 }

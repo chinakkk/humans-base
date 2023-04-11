@@ -7,7 +7,7 @@ const cardHuman: FC = () => {
             <div className={styles.wrapper}>
                 <div className={styles.photo}>Photo</div>
                 <div className={styles.about}>
-                    <div className={styles.title}>Student</div>
+                    <div className={styles.title}>Junior</div>
                     <div className={styles.name}>Keldibekov Chingiz, 23 years</div>
                     <div className={styles.skills}>React Redux</div>
                     <div className={styles.note}>Note</div>

@@ -26,17 +26,17 @@ function App() {
                 <Route path={'*'} element={<Navigate to={'/authentication'}/>}/>
 
                 {
-                    user &&
+                    !!user.login &&
                     <Route path={'/menu'} element={<MenuLayout/>}>
                       <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>
                       <Route path={'/menu/*'} element={<Navigate to={'/menu/profile'}/>}/>
                       <Route path={'/menu/profile'} element={<Profile/>}/>
-                      <Route path={'/menu/students'} element={<Students/>}/>
+                      <Route path={'/menu/programmers'} element={<Students/>}/>
                         {
                             (user.role!=='student')&&
                             <>
-                              <Route path={'/menu/deleted'} element={<Deleted/>}/>
-                              <Route path={'/menu/favorites'} element={<Favorites/>}/>
+                              <Route path={'/menu/tasks'} element={<Deleted/>}/>
+                              <Route path={'/menu/chat'} element={<Favorites/>}/>
                             </>
 
                         }
