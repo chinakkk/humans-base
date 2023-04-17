@@ -1,20 +1,47 @@
 import styles from './CardHuman.module.scss'
-import {FC} from "react"
+import React, {FC, useState} from "react"
+import {userInfoType} from "../../types/types";
+import {toUpperHeadString} from "../../functions/toUpperHeadString";
+import DeleteHumanButton from "../DeleteHumanButton/DeleteHumanButton";
+import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 
-const cardHuman: FC = () => {
+type CardHumanProps = {
+    userInfo: userInfoType;
+    setUsersCardArr?: React.Dispatch<React.SetStateAction<userInfoType[]>>;
+    openOnClick?: boolean
+}
+
+const CardHuman: FC<CardHumanProps> = ({
+                                           userInfo,
+                                           setUsersCardArr = () => {
+                                           },
+                                           openOnClick = true
+                                       }) => {
+    const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
     return (
+
         <div className={styles.container}>
-            <div className={styles.wrapper}>
+            {
+                (cardIsOpen && openOnClick) && <OpenedCardHuman
+                    cardIsOpen={cardIsOpen}
+                    setCardIsOpen={setCardIsOpen}
+                    userInfo={userInfo}
+                    setUsersCardArr={setUsersCardArr}
+                />
+            }
+            <div
+                onClick={() => setCardIsOpen(true)}
+                className={styles.wrapper}>
+
                 <div className={styles.photo}>Photo</div>
                 <div className={styles.about}>
-                    <div className={styles.title}>Junior</div>
-                    <div className={styles.name}>Keldibekov Chingiz, 23 years</div>
-                    <div className={styles.skills}>React Redux</div>
-                    <div className={styles.note}>Note</div>
-                    <div className={styles.characteristics}>attack defence level</div>
+                    <div className={styles.level}>{toUpperHeadString(userInfo.level)}</div>
+                    <div
+                        className={styles.name}>{toUpperHeadString(userInfo.name)} {toUpperHeadString(userInfo.surname)}</div>
                 </div>
             </div>
+
         </div>
     )
 }
-export default cardHuman;
+export default CardHuman;

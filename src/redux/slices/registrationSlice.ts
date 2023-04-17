@@ -4,10 +4,10 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export type registrationType = {
     login?: string ,
     password?: string ,
+    repeatPassword?: string ,
     name?: string ,
     surname?: string ,
-    role?: string ,
-    group?: string ,
+    level?: string ,
     birthday?: string ,
 }
 
@@ -20,10 +20,10 @@ const initialState: registrationSliceType = {
     registrationUser: {
         login: '',
         password: '',
+        repeatPassword:'',
         name: '',
         surname: '',
-        role: '',
-        group: '',
+        level: '',
         birthday: '',
     }
 
@@ -36,22 +36,22 @@ const registrationSlice = createSlice({
         setRegistrationAbout(state, action: PayloadAction<registrationType>) {
           state.registrationUser.name = action.payload.name
           state.registrationUser.surname = action.payload.surname
-          state.registrationUser.role = action.payload.role
-          state.registrationUser.group = action.payload.group
+          state.registrationUser.level = action.payload.level
           state.registrationUser.birthday = action.payload.birthday
         },
         setRegistrationLogPass(state, action: PayloadAction<registrationType>) {
           state.registrationUser.login=action.payload.login
           state.registrationUser.password=action.payload.password
+          state.registrationUser.repeatPassword=action.payload.repeatPassword
         },
         clearRegistrationData(state) {
             state.registrationUser.login = ''
             state.registrationUser.password = ''
             state.registrationUser.name = ''
             state.registrationUser.surname = ''
-            state.registrationUser.role = ''
-            state.registrationUser.group = ''
+            state.registrationUser.level = ''
             state.registrationUser.birthday = ''
+            state.registrationUser.repeatPassword = ''
         },
 
     }

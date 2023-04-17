@@ -4,12 +4,14 @@ import {FC, useEffect, useRef, useState} from "react"
 import InputBlocks from "../Components/InputBlocks/InputBlocks";
 import ButtonInForm from "../Components/ButtonInForm/ButtonInForm";
 import ButtonOutsideForm from "../Components/ButtonOutsideForm/ButtonOutsideForm";
-import ShowPasswordSVG from "./ShowPasswordSVG/ShowPasswordSVG";
+import ShowPasswordSVG from "../Components/ShowPasswordSVG/ShowPasswordSVG";
 import axios from "axios";
 
 import {useAppDispatch} from "../../../redux/store";
 import {setUser, userType} from "../../../redux/slices/userSlice";
 import {Link, useNavigate} from "react-router-dom";
+import {getAxiosUsers} from "../../../functions/axiosFunction";
+import ErrorMessage from "../Components/ErrorMessage/ErrorMessage";
 
 
 const Authentication: FC = () => {
@@ -19,8 +21,15 @@ const Authentication: FC = () => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [loginInputValue, setLoginInputValue] = useState<string>('')
     const [passwordInputValue, setPasswordInputValue] = useState<string>('')
+    const [buttonIsLoading, setButtonIsLoading] = useState<boolean>(false)
+    const [errorMessage, setErrorMessage] = useState<string>('')
 
-    const inputIsFilled: boolean = (loginInputValue.length > 0 && passwordInputValue.length > 0)
+    const loginIsActive: boolean = (
+        loginInputValue.length > 0 &&
+        passwordInputValue.length > 0 &&
+        !buttonIsLoading &&
+        !errorMessage
+    )
     const inputBlockArr = [
         {
             title: 'Login',
@@ -35,43 +44,40 @@ const Authentication: FC = () => {
 
     ]
 
-    const onClickAuthentication = async () => {
+    const onClickLogin = async () => {
+        await setButtonIsLoading(true)
+
         try {
-            const {data} = await axios.get('https://64303a35b289b1dec4c4281e.mockapi.io/users')
-            const currentUser:userType| undefined= (data.filter((user: userType) => {
+            const data = await getAxiosUsers()
+            const currentUser: userType | undefined = (data.filter((user: userType) => {
                 return user.login === loginInputValue && user.password === passwordInputValue
             }))[0]
 
-            if (currentUser) {
-                navigate('/menu/profile')
-                dispatch(setUser(currentUser))
+            if (currentUser) {//логин и пароль подошел
+                await dispatch(setUser(currentUser))
+                await navigate('/menu/profile')
+            } else {//не подошел
+                // await setPasswordInputValue('')
+                await setErrorMessage('Invalid username or password.')
 
-                console.log('Логин и пароль верны')
-            } else {
-                setPasswordInputValue('')
-
-                console.log('Логин или пароль не верны')
             }
 
         } catch (error) {
             console.log('Ошибка при авторизации ', error)
         }
+        await setButtonIsLoading(false)
 
     }
+    useEffect(() => {
+        //очищение сообщения об ошибке, если пользователь отредактировал пароль
+        setErrorMessage('')
+    }, [loginInputValue, passwordInputValue])
 
-    //комменты для артема
-    //побочный чел
-    //login chin
-    //password chin
-
-    //главный чел
-    //login gaf
-    //password gaf
 
     useEffect(() => {
         const onKeypress = (event: KeyboardEvent) => {
-            if (event.key === 'Enter' && inputIsFilled) {
-                onClickAuthentication().then()
+            if (event.key === 'Enter' && loginIsActive) {
+                onClickLogin().then((error) => console.log(error))
             }
         }
         document.addEventListener('keypress', onKeypress);
@@ -80,6 +86,7 @@ const Authentication: FC = () => {
             document.removeEventListener('keypress', onKeypress);
         };
     });
+
 
     return (
         <div className={styles.container}>
@@ -90,10 +97,12 @@ const Authentication: FC = () => {
                 <ShowPasswordSVG showIf={passwordInputValue.length > 0}
                                  showPassword={showPassword}
                                  setShowPassword={setShowPassword}/>
+                <ErrorMessage errorMessage={errorMessage}/>
 
                 <ButtonInForm title={'Log in'}
-                              activeIf={inputIsFilled}
-                              onClickProps={onClickAuthentication}
+                              activeIf={loginIsActive}
+                              onClickProps={onClickLogin}
+                              buttonIsLoading={buttonIsLoading}
                 />
             </div>
 

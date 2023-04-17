@@ -1,6 +1,7 @@
 import styles from './ButtonInForm.module.scss'
 import {FC} from "react"
 import {Link} from "react-router-dom";
+import loading from '../../../../assets/gif/loading.gif'
 
 
 type ContinueButtonProps = {
@@ -9,6 +10,7 @@ type ContinueButtonProps = {
     activeIf: boolean;
     disable?: boolean;
     onClickProps?: () => void;
+    buttonIsLoading?: boolean;
 }
 
 
@@ -19,6 +21,7 @@ const ButtonInForm: FC<ContinueButtonProps> = ({
                                                    disable = false,
                                                    onClickProps = () => {
                                                    },
+                                                   buttonIsLoading = false
                                                }) => {
     return (
         <Link to={linkTo}
@@ -27,7 +30,10 @@ const ButtonInForm: FC<ContinueButtonProps> = ({
                 className={styles.continueButton + ' ' + (activeIf ? styles.continueButtonActive : '')}
                 onClick={onClickProps}
             >
-                {title}
+                {buttonIsLoading?
+                    <img className={styles.loadingGif} src={loading} alt="loading"/> : title
+                }
+
             </button>
         </Link>
     )

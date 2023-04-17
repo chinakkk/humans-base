@@ -2,12 +2,12 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 export type userType = {
+    id?:string,
     login: string | null,
     password: string | null,
     name: string | null,
     surname: string | null,
-    role: string | null,
-    group: string | null,
+    level: string | null,
     birthday: string | null,
 }
 
@@ -18,13 +18,12 @@ interface userSliceType {
 
 const initialState: userSliceType = {
     user: {
-        login: null,
-        password: null,
-        name: null,
-        surname: null,
-        role: null,
-        group: null,
-        birthday: null,
+        login: '',
+        password: '',
+        name: '',
+        surname: '',
+        level: '',
+        birthday: '',
     }
 
 }
@@ -38,8 +37,7 @@ const userSlice = createSlice({
             state.user.password = action.payload.password
             state.user.name = action.payload.name
             state.user.surname = action.payload.surname
-            state.user.role = action.payload.role
-            state.user.group = action.payload.group
+            state.user.level = action.payload.level
             state.user.birthday = action.payload.birthday
         },
         removeUser(state) {
@@ -47,8 +45,7 @@ const userSlice = createSlice({
             state.user.password = null
             state.user.name = null
             state.user.surname = null
-            state.user.role = null
-            state.user.group = null
+            state.user.level = null
             state.user.birthday = null
         }
     }

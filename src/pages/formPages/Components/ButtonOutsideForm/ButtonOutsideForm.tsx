@@ -5,12 +5,15 @@ import {Link} from "react-router-dom";
 type ButtonOutsideForm = {
     title: string;
     linkTo: string;
+    onClickProps?:() => void
 }
 
-const ButtonOutsideForm: FC<ButtonOutsideForm> = ({title, linkTo}) => {
+const ButtonOutsideForm: FC<ButtonOutsideForm> = ({title, linkTo,onClickProps}) => {
     return (
         <Link to={linkTo}>
-            <button className={styles.buttonUnderWindow}>
+            <button
+                onClick={onClickProps}
+                className={styles.buttonUnderWindow}>
                 {title}
             </button>
         </Link>

@@ -3,25 +3,41 @@ import styles from './App.module.scss'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import MenuLayout from "./layouts/MenuLayout/MenuLayout";
 import Profile from "./pages/menuPages/Profile/Profile";
-import Students from "./pages/menuPages/Students/Students";
+import Programmers from "./pages/menuPages/Programmers/Programmers";
 import Authentication from "./pages/formPages/Authentication/Authentication";
-import RegistrationAboutMe from "./pages/formPages/registrationPages/RegistrationBasic/RegistrationAboutMe";
+import RegistrationAbout from "./pages/formPages/registrationPages/RegistrationAbout/RegistrationAbout";
 import Home from "./pages/Home/Home";
-import Deleted from "./pages/menuPages/Deleted/Deleted";
-import Favorites from "./pages/menuPages/Favorites/Favorites";
+import Tasks from "./pages/menuPages/Tasks/Tasks";
+import Chat from "./pages/menuPages/Chat/Chat";
 import RegistrationLogin from "./pages/formPages/registrationPages/RegistrationLogin/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
+import image from './assets/background/ocean.svg'
 
 
 function App() {
-    const {user}=useSelector((state:RootState) => state.userSlice)
+    const {user} = useSelector((state: RootState) => state.userSlice)
+    const {registrationUser} = useSelector((state:RootState) => state.registrationSlice)
     return (
-        <div className={styles.container}>
+        <div className={styles.container} style={{ backgroundImage: `url(${image})` }}>
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
-                <Route path={'/authentication'} element={<Authentication/>}/>
-                <Route path={'/registration/about'} element={<RegistrationAboutMe/>}/>
+                <Route path={'/*'} element={<Navigate to={'/'}/>}/>
+
+                {
+                    !user.login&&
+                    <>
+                      <Route path={'/authentication'} element={<Authentication/>}/>
+                      <Route path={'/registration/*'} element={<Navigate to={'/registration/about'}/>}/>
+                        <Route path={'/registration/about'} element={<RegistrationAbout/>}/>
+                    </>
+                }
+
+                {
+                    !registrationUser.name&&
+                    <Route path={'/registration/login'} element={<Navigate to={'/registration/about'}/>}/>
+                }
+
                 <Route path={'/registration/login'} element={<RegistrationLogin/>}/>
                 <Route path={'*'} element={<Navigate to={'/authentication'}/>}/>
 
@@ -31,16 +47,9 @@ function App() {
                       <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>
                       <Route path={'/menu/*'} element={<Navigate to={'/menu/profile'}/>}/>
                       <Route path={'/menu/profile'} element={<Profile/>}/>
-                      <Route path={'/menu/programmers'} element={<Students/>}/>
-                        {
-                            (user.role!=='student')&&
-                            <>
-                              <Route path={'/menu/tasks'} element={<Deleted/>}/>
-                              <Route path={'/menu/chat'} element={<Favorites/>}/>
-                            </>
-
-                        }
-
+                      <Route path={'/menu/programmers'} element={<Programmers/>}/>
+                      <Route path={'/menu/tasks'} element={<Tasks/>}/>
+                      <Route path={'/menu/chat'} element={<Chat/>}/>
                     </Route>
                 }
 

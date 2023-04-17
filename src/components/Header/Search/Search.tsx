@@ -2,15 +2,18 @@ import styles from './Search.module.scss'
 import React, {FC, useRef, useState} from "react"
 import {useLocation} from "react-router-dom";
 
-const Search: FC = () => {
+type SearchProps = {
+    searchInput: string;
+    setSearchInput: (value:string) => void
+}
+
+const Search: FC <SearchProps>= ({searchInput, setSearchInput}) => {
     const location = useLocation()
-    const inputRef=useRef<HTMLInputElement>(null)
-    const [searchInput, setSearchInput] = useState<string>('')
+    const inputRef = useRef<HTMLInputElement>(null)
     const pageIsProfile = location.pathname === '/menu/profile'
 
     const onClickClearSearch = () => {
         setSearchInput('')
-        inputRef.current?.focus()
     }
     return (
         <div className={styles.container + ' ' + (pageIsProfile ? styles.hidden : '')}>

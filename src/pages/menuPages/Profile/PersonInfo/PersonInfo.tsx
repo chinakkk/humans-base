@@ -1,23 +1,18 @@
 import styles from './PersonInfo.module.scss'
 import {FC} from "react"
-import {useSelector} from "react-redux";
-import {RootState} from "../../../../redux/store";
+import {userInfoType} from "../../../../types/types";
 
-const PersonInfo: FC = () => {
-    const {user} = useSelector((state: RootState) => state.userSlice)
+type PersonInfo = {
+    userInfo:userInfoType
+}
 
-    //создание заглавных букв
-    const name = user.name ? user.name[0].toUpperCase() + user.name.slice(1) : ''
-    const surName = user.surname ? user.surname[0].toUpperCase() + user.surname.slice(1) : ''
-    const role = user.role ? user.role[0].toUpperCase() + user.role.slice(1) : ''
-    //
+const PersonInfo: FC<PersonInfo> = ({userInfo}) => {
 
     return (
         <div className={styles.container}>
-            <div>{role}</div>
-            <div>{name + ' ' + surName}</div>
-            <div>{user?.birthday}</div>
-            <div>{user?.group} +</div>
+            <div>{userInfo.level}</div>
+            <div>{userInfo.name + ' ' + userInfo.surname}</div>
+            <div>{userInfo.birthday}</div>
         </div>
     )
 }
