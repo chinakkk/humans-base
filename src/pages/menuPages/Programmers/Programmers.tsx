@@ -7,12 +7,12 @@ import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman/S
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {userType} from "../../../redux/slices/userSlice";
-import {getAxiosUsers} from "../../../functions/axiosFunction";
+import {getAxiosUsers} from "../../../functions/usersAxios";
 
 
 const Programmers: FC = () => {
     const [pageIsLoading, setPageIsLoading] = useState<boolean>(true)
-    const [usersCardArr, setUsersCardArr] = useState<userInfoType[]>([])
+    const [usersCardItems, setUsersCardItems] = useState<userType[]>([])
     const {user} = useSelector((state: RootState) => state.userSlice)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const Programmers: FC = () => {
 
                 const data = await getAxiosUsers()
                 const filteredData = data.filter((dataUser: userType) => dataUser.login !== user.login)
-                setUsersCardArr(filteredData)
+                setUsersCardItems(filteredData)
                 setPageIsLoading(false)//спросить у Адиля когда надо использовать await
             } catch (error) {
                 console.log('Ошибка при запросе программистов', error)
@@ -34,16 +34,14 @@ const Programmers: FC = () => {
 
     return (
         <div className={styles.container}>
-
-
             {
                 pageIsLoading ?
                     [...new Array(9)].map((value, index) => <SkeletonCardHuman key={index}/>)
                     :
-                    usersCardArr.map((user) =>
+                    usersCardItems.map((user) =>
                         <CardHuman userInfo={user}
                                    key={user.id}
-                                   setUsersCardArr={setUsersCardArr}
+                                   setUsersCardArr={setUsersCardItems}
                         />
                     )
 

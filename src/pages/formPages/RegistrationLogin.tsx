@@ -1,18 +1,17 @@
-import styles from './RegistrationLogin.module.scss'
-import {FC, useEffect, useState} from "react"
-import commonStyles from "../../commonForm.module.scss";
-import InputBlocks from "../../Components/InputBlocks/InputBlocks";
-import ButtonInForm from "../../Components/ButtonInForm/ButtonInForm";
-import ButtonOutsideForm from "../../Components/ButtonOutsideForm/ButtonOutsideForm";
+import React, {FC, useEffect, useState} from "react"
+import commonStyles from "./commonForm.module.scss";
+import InputBlocks from "./Components/InputBlocks/InputBlocks";
+import ButtonInForm from "./Components/ButtonInForm/ButtonInForm";
+import ButtonOutsideForm from "./Components/ButtonOutsideForm/ButtonOutsideForm";
 import axios from "axios";
 import {useSelector} from "react-redux";
-import {RootState, useAppDispatch} from "../../../../redux/store";
-import {clearRegistrationData, setRegistrationLogPass} from "../../../../redux/slices/registrationSlice";
-import {setUser} from "../../../../redux/slices/userSlice";
+import {RootState, useAppDispatch} from "../../redux/store";
+import {clearRegistrationData, setRegistrationLogPass} from "../../redux/slices/registrationSlice";
+import {setUser} from "../../redux/slices/userSlice";
 import {useNavigate} from "react-router-dom";
-import ShowPasswordSVG from "../../Components/ShowPasswordSVG/ShowPasswordSVG";
-import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
-import {userIsExistsAxios} from "../../../../functions/axiosFunction";
+import ShowPasswordSVG from "./Components/ShowPasswordSVG/ShowPasswordSVG";
+import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
+import {userIsExistsAxios} from "../../functions/usersAxios";
 
 const RegistrationLogin: FC = () => {
     const dispatch = useAppDispatch()
@@ -30,6 +29,7 @@ const RegistrationLogin: FC = () => {
         loginInputValue.length > 0 &&
         passwordInputValue.length > 0 &&
         repeatPasswordInputValue.length > 0 &&
+        !buttonIsLoading &&
         !errorMessage
 
     )
@@ -37,7 +37,7 @@ const RegistrationLogin: FC = () => {
     useEffect(() => {
         //очищение сообщения об ошибке, если пользователь отредактировал пароль
         setErrorMessage('')
-    }, [repeatPasswordInputValue, passwordInputValue,loginInputValue])
+    }, [repeatPasswordInputValue, passwordInputValue, loginInputValue])
 
     const inputBlockArr = [
         {
@@ -84,40 +84,33 @@ const RegistrationLogin: FC = () => {
             await setTimeout(() => dispatch(clearRegistrationData()), 3000)//удаление регистрационных данных после регистрации
         } else {
             // clearTimeout() сделать обнуление таймаута при повторном нажатии
-            const errorMessage= userIsExists?'This username already exists.':'Passwords don\'t match, please try again.'
+            const errorMessage = userIsExists ? 'This username already exists.' : 'Passwords don\'t match, please try again.'
             setErrorMessage(errorMessage)
         }
         setButtonIsLoading(false)
 
     }
-    useEffect(() => {
-        const onKeypress = (event: KeyboardEvent) => {
-            if (event.key === 'Enter' && signupIsActive) {
-                onClickSignUp().then((error) => console.log(error))
-            }
-        }
-        document.addEventListener('keypress', onKeypress);
 
-        return () => {
-            document.removeEventListener('keypress', onKeypress);
-        };
-    });
     return (
-        <div className={styles.container}>
+        <div>
             <div className={commonStyles.window}>
 
-                <InputBlocks inputBlockArr={inputBlockArr} showPassword={showPassword}/>
-                <ShowPasswordSVG showIf={passwordInputValue.length > 0} showPassword={showPassword}
-                                 setShowPassword={setShowPassword}/>
-                <ErrorMessage errorMessage={errorMessage}/>
+                <form>
+                    <InputBlocks inputBlockArr={inputBlockArr} showPassword={showPassword}/>
 
-                {/*Кнопка завершения регистрации*/}
-                <ButtonInForm title={'Sign up'}
-                              activeIf={signupIsActive}
-                              onClickProps={onClickSignUp}
-                              buttonIsLoading={buttonIsLoading}
+                    <ShowPasswordSVG showIf={passwordInputValue.length > 0} showPassword={showPassword}
+                                     setShowPassword={setShowPassword}/>
 
-                />
+                    <ErrorMessage errorMessage={errorMessage}/>
+
+                    {/*Кнопка завершения регистрации*/}
+                    <ButtonInForm title={'Sign up'}
+                                  activeIf={signupIsActive}
+                                  onClickProps={onClickSignUp}
+                                  buttonIsLoading={buttonIsLoading}
+                    />
+                </form>
+
             </div>
             {/*Кнопка назад*/}
             <ButtonOutsideForm title={'Go back'} linkTo={'/registration/about'} onClickProps={saveRegistrationData}/>

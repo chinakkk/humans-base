@@ -8,6 +8,7 @@ import PersonInfo from "./PersonInfo/PersonInfo";
 import Note from "./Note/Note";
 import {userInfoType} from "../../../types/types";
 import {toUpperHeadString} from "../../../functions/toUpperHeadString";
+import {userType} from "../../../redux/slices/userSlice";
 
 
 
@@ -15,12 +16,14 @@ const Profile: FC = () => {
     const {user} = useSelector((state: RootState) => state.userSlice)
 
     //форматированные данные
-    const userInfo: userInfoType = {
+    const userInfo: userType = {
         id: user.id || '',
         name: toUpperHeadString(user.name),
         surname: toUpperHeadString(user.surname),
         level: toUpperHeadString(user.level),
         birthday: user.birthday || '',
+        login:'',
+
     }
     //
 

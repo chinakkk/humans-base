@@ -1,8 +1,17 @@
 .container{
   background-color: #264E58;
+  margin: 0 auto;
+  min-width: 1280px;
+  min-height: 720px;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url("./assets/background/oceanAnimate.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
 }

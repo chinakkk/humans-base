@@ -2,13 +2,13 @@ import styles from './ButtonOutsideForm.module.scss'
 import {FC} from "react"
 import {Link} from "react-router-dom";
 
-type ButtonOutsideForm = {
+type ButtonOutsideFormType = {
     title: string;
     linkTo: string;
     onClickProps?:() => void
 }
 
-const ButtonOutsideForm: FC<ButtonOutsideForm> = ({title, linkTo,onClickProps}) => {
+const ButtonOutsideForm: FC<ButtonOutsideFormType> = ({title, linkTo,onClickProps}) => {
     return (
         <Link to={linkTo}>
             <button

@@ -14,9 +14,11 @@ const ToggleButton: FC <ToggleButtonProps>= ({checkedToggleButton, setCheckedTog
                 toggleTitleArr.map((title) => {
                     return (
                         <button
+                            type={"button"}
                             key={title}
                             onClick={() => setCheckedToggleButton(title.toLowerCase())}
-                            className={styles.toggleButton + ' ' + ((checkedToggleButton === title.toLowerCase()) ? styles.activeToggleButton : '')}>
+                            className={styles.toggleButton + ' ' + ((checkedToggleButton === title.toLowerCase()) ? styles.activeToggleButton : '')}
+                        >
                             {title}
                         </button>
                     )

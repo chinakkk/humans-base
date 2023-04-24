@@ -4,37 +4,37 @@ import {Navigate, Route, Routes} from 'react-router-dom'
 import MenuLayout from "./layouts/MenuLayout/MenuLayout";
 import Profile from "./pages/menuPages/Profile/Profile";
 import Programmers from "./pages/menuPages/Programmers/Programmers";
-import Authentication from "./pages/formPages/Authentication/Authentication";
-import RegistrationAbout from "./pages/formPages/registrationPages/RegistrationAbout/RegistrationAbout";
+import Authentication from "./pages/formPages/Authentication";
+import RegistrationAbout from "./pages/formPages/RegistrationAbout";
 import Home from "./pages/Home/Home";
 import Tasks from "./pages/menuPages/Tasks/Tasks";
 import Chat from "./pages/menuPages/Chat/Chat";
-import RegistrationLogin from "./pages/formPages/registrationPages/RegistrationLogin/RegistrationLogin";
+import RegistrationLogin from "./pages/formPages/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import image from './assets/background/ocean.svg'
+import OceanMIN from "./animationSVG/OceanMIN";
 
 
 function App() {
     const {user} = useSelector((state: RootState) => state.userSlice)
-    const {registrationUser} = useSelector((state:RootState) => state.registrationSlice)
+    const {registrationUser} = useSelector((state: RootState) => state.registrationSlice)
     return (
-        <div className={styles.container} style={{ backgroundImage: `url(${image})` }}>
+        <div className={styles.container}>
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/*'} element={<Navigate to={'/'}/>}/>
 
                 {
-                    !user.login&&
+                    !user.login &&
                     <>
                       <Route path={'/authentication'} element={<Authentication/>}/>
                       <Route path={'/registration/*'} element={<Navigate to={'/registration/about'}/>}/>
-                        <Route path={'/registration/about'} element={<RegistrationAbout/>}/>
+                      <Route path={'/registration/about'} element={<RegistrationAbout/>}/>
                     </>
                 }
 
                 {
-                    !registrationUser.name&&
+                    !registrationUser.name &&
                     <Route path={'/registration/login'} element={<Navigate to={'/registration/about'}/>}/>
                 }
 

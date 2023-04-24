@@ -46,12 +46,16 @@
   }
 
 
-  transition: opacity 0.2s linear, overflow 0.2s linear;
+  transition: opacity 0.2s linear, overflow 0.2s linear,top 0.2s linear;
+
 }
 
 .hidden {
+  top: 40px;
   opacity: 0;
   overflow: hidden;
+
   pointer-events: none;
+
 
 }

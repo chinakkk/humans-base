@@ -1,13 +1,12 @@
 import styles from './CardHuman.module.scss'
 import React, {FC, useState} from "react"
-import {userInfoType} from "../../types/types";
 import {toUpperHeadString} from "../../functions/toUpperHeadString";
-import DeleteHumanButton from "../DeleteHumanButton/DeleteHumanButton";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
+import {userType} from "../../redux/slices/userSlice";
 
 type CardHumanProps = {
-    userInfo: userInfoType;
-    setUsersCardArr?: React.Dispatch<React.SetStateAction<userInfoType[]>>;
+    userInfo: userType;
+    setUsersCardArr?: React.Dispatch<React.SetStateAction<userType[]>>;
     openOnClick?: boolean
 }
 

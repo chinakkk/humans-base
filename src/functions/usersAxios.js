@@ -22,7 +22,6 @@ export const userIsExistsAxios = async (login) => {
   try {
     const {data} = await axios.get(`https://64303a35b289b1dec4c4281e.mockapi.io/users`)
     const existsUser = data.filter((user) => user.login === login)
-    console.log(existsUser)
 
     return !!existsUser.length
   } catch (error) {

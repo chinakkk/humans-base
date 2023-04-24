@@ -1,3 +1,9 @@
+
+.container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .container {
   max-width: 1280px;
   height: 650px;
@@ -9,7 +15,14 @@
   overflow: auto;
   position: relative;
 
-  .openedCardHuman{
-  }
 
+}
+
+
+//::-webkit-scrollbar {
+//  width: 0;
+//  //ширина полосы
+//}
+
+.openedCardHuman {
 }

@@ -1,16 +1,17 @@
-import styles from './RegistrationAbout.module.scss'
-import commonStyles from '../../commonForm.module.scss'
+import commonStyles from './commonForm.module.scss'
 import {FC, memo, useEffect, useState} from "react"
-import ToggleButton from "./ToggleButton/ToggleButton";
-import InputBlocks from "../../Components/InputBlocks/InputBlocks";
-import ButtonInForm from "../../Components/ButtonInForm/ButtonInForm";
-import ButtonOutsideForm from "../../Components/ButtonOutsideForm/ButtonOutsideForm";
-import {RootState, useAppDispatch} from "../../../../redux/store";
-import {clearRegistrationData, setRegistrationAbout} from "../../../../redux/slices/registrationSlice";
+import ToggleButton from "./Components/ToggleButton/ToggleButton";
+import InputBlocks from "./Components/InputBlocks/InputBlocks";
+import ButtonInForm from "./Components/ButtonInForm/ButtonInForm";
+import ButtonOutsideForm from "./Components/ButtonOutsideForm/ButtonOutsideForm";
+import {RootState, useAppDispatch} from "../../redux/store";
+import {clearRegistrationData, setRegistrationAbout} from "../../redux/slices/registrationSlice";
 import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const RegistrationAbout: FC = memo(() => {
     const dispatch = useAppDispatch()
+    const navigate=useNavigate()
     const {registrationUser} = useSelector((state: RootState) => state.registrationSlice)
 
     const [nameInputValue, setNameInputValue] = useState<string>(registrationUser.name || '')
@@ -51,6 +52,7 @@ const RegistrationAbout: FC = memo(() => {
             birthday: birthDaInputValue,
             level:checkedToggleButton
         }))
+        navigate('/registration/login')
     }
     useEffect(() => {
         const onKeypress = (event: KeyboardEvent) => {
@@ -67,18 +69,20 @@ const RegistrationAbout: FC = memo(() => {
     });
 
     return (
-        <div className={styles.container}>
-            <div className={styles.window + ' ' + commonStyles.window}>
-                <InputBlocks inputBlockArr={inputBlockArr}/>
-                <ToggleButton checkedToggleButton={checkedToggleButton}
-                              setCheckedToggleButton={setCheckedToggleButton}/>
+        <div>
+            <div className={commonStyles.window}>
 
-                {/*Кнопка завершения регистрации*/}
-                <ButtonInForm title={'Continue'}
-                              linkTo={'/registration/login'}
-                              activeIf={inputIsFilled}
-                              onClickProps={onClickContinue}
-                />
+                <form>
+                    <InputBlocks inputBlockArr={inputBlockArr}/>
+                    <ToggleButton checkedToggleButton={checkedToggleButton}
+                                  setCheckedToggleButton={setCheckedToggleButton}/>
+
+                    {/*Кнопка завершения регистрации*/}
+                    <ButtonInForm title={'Continue'}
+                                  activeIf={inputIsFilled}
+                                  onClickProps={onClickContinue}
+                    />
+                </form>
             </div>
 
             {/*Кнопка назад*/}

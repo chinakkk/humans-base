@@ -14,13 +14,17 @@ const inputBlock: FC<inputBlockProps> = ({showPassword = true, title, inputValue
     const isPasswordMode = (stringIncludesPassword && !showPassword)
     return (
         <div className={styles.container}>
-            <div className={styles.titleFromBlocks}>{title}</div>
-            <input
-                type={isPasswordMode ? 'password' : 'text'}
-                className={`${styles.regInput} ${isPasswordMode && styles.passwordMode}`}
-                onChange={event => inputOnChange(event.target.value)}
-                value={inputValue}
-            />
+            <label className={styles.titleFromBlocks}>
+                {title}
+                <input
+                    type={isPasswordMode ? 'password' : 'text'}
+                    className={`${styles.regInput} ${isPasswordMode && styles.passwordMode}`}
+                    onChange={event => inputOnChange(event.target.value)}
+                    value={inputValue}
+                />
+            </label>
+
+
         </div>
     )
 }

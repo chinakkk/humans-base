@@ -21,13 +21,10 @@
     position: relative;
     padding: 23px;
     &:hover{
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
     }
-    &:active{
-      transform: translateY(-2px);
 
-    }
     .photo{
       padding-top: 45px;//выравнивание по центру надписи(удалить)
       text-align: center;

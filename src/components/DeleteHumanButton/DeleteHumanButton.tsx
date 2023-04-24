@@ -3,19 +3,20 @@ import {FC} from "react"
 import axios from "axios";
 import {userInfoType} from "../../types/types";
 import React from "react";
-import {deleteAxiosUser} from "../../functions/axiosFunction";
+import {deleteAxiosUser} from "../../functions/usersAxios";
+import {userType} from "../../redux/slices/userSlice";
 
 type DeleteButtonProps = {
-    userInfo: userInfoType;
-    setUsersCardArr: React.Dispatch<React.SetStateAction<userInfoType[]>>;
+    userInfo: userType;
+    setUsersCardArr: React.Dispatch<React.SetStateAction<userType[]>>;
 
 }
 
 const DeleteHumanButton: FC<DeleteButtonProps> = ({userInfo, setUsersCardArr}) => {
     const onClickDeleteButton = async () => {
         try {
-            setUsersCardArr((prevState: userInfoType[]) =>
-                    prevState.filter((user: userInfoType) => user.id !== userInfo.id)
+            setUsersCardArr((prevState: userType[]) =>
+                    prevState.filter((user: userType) => user.id !== userInfo.id)
             )
             await deleteAxiosUser(userInfo.id)
         } catch (error) {

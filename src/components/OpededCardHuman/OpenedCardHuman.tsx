@@ -5,12 +5,14 @@ import {toUpperHeadString} from "../../functions/toUpperHeadString";
 import DeleteHumanButton from "../DeleteHumanButton/DeleteHumanButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
+import AddNewTaskButton from "../AddNewTaskButton/AddNewTaskButton";
+import {userType} from "../../redux/slices/userSlice";
 
 type OpenedCardHuman = {
     cardIsOpen: boolean;
     setCardIsOpen: (value: boolean) => void;
-    setUsersCardArr: React.Dispatch<React.SetStateAction<userInfoType[]>>;
-    userInfo: userInfoType;
+    setUsersCardArr: React.Dispatch<React.SetStateAction<userType[]>>;
+    userInfo: userType;
 }
 
 const OpenedCardHuman: FC<OpenedCardHuman> = ({
@@ -19,7 +21,7 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                                                   userInfo,
                                                   setUsersCardArr,
                                               }) => {
-    const {user} = useSelector((state:RootState) => state.userSlice)
+    const {user} = useSelector((state: RootState) => state.userSlice)
     return (
         <div className={styles.container}>
             <div onClick={() => setCardIsOpen(!cardIsOpen)} className={styles.overlay}>
@@ -28,8 +30,14 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
             <div className={styles.window}>
                 <div className={styles.topWindow}>
                     {
-                        user.login==='a' &&
-                        <DeleteHumanButton userInfo={userInfo} setUsersCardArr={setUsersCardArr}/>
+                        //если юзер это админ
+                        user.login === 'a' && (
+                            <>
+                                <DeleteHumanButton userInfo={userInfo}
+                                                 setUsersCardArr={setUsersCardArr}/>
+                                <AddNewTaskButton user={userInfo}/>
+                            </>
+                        )
                     }
                     <div className={styles.photo}> Photo</div>
                     <div className={styles.about}>
@@ -41,7 +49,7 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                 </div>
                 <div className={styles.botWindow}>
                     <div className={styles.note}>Заметка</div>
-                    <button className={styles.editButton}>Редактировать</button>
+                    {/*<button className={styles.editButton}>Редактировать</button>*/}
                 </div>
             </div>
         </div>

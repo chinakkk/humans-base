@@ -2,9 +2,9 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 export type userType = {
-    id?:string,
+    id?: string,
     login: string | null,
-    password: string | null,
+    password?: string | null,
     name: string | null,
     surname: string | null,
     level: string | null,
@@ -13,6 +13,7 @@ export type userType = {
 
 interface userSliceType {
     user: userType;
+    adminUser: { login: string };
 }
 
 
@@ -24,8 +25,10 @@ const initialState: userSliceType = {
         surname: '',
         level: '',
         birthday: '',
+    },
+    adminUser: {
+        login: 'a'
     }
-
 }
 
 const userSlice = createSlice({
@@ -51,7 +54,7 @@ const userSlice = createSlice({
     }
 })
 
-export const {setUser,removeUser} = userSlice.actions
+export const {setUser, removeUser} = userSlice.actions
 export default userSlice.reducer
 
 

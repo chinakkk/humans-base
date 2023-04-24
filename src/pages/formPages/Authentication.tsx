@@ -1,17 +1,15 @@
-import styles from './Authentication.module.scss'
-import commonStyles from '../commonForm.module.scss'
-import {FC, useEffect, useRef, useState} from "react"
-import InputBlocks from "../Components/InputBlocks/InputBlocks";
-import ButtonInForm from "../Components/ButtonInForm/ButtonInForm";
-import ButtonOutsideForm from "../Components/ButtonOutsideForm/ButtonOutsideForm";
-import ShowPasswordSVG from "../Components/ShowPasswordSVG/ShowPasswordSVG";
-import axios from "axios";
+import commonStyles from './commonForm.module.scss'
+import {FC, useEffect, useState} from "react"
+import InputBlocks from "./Components/InputBlocks/InputBlocks";
+import ButtonInForm from "./Components/ButtonInForm/ButtonInForm";
+import ButtonOutsideForm from "./Components/ButtonOutsideForm/ButtonOutsideForm";
+import ShowPasswordSVG from "./Components/ShowPasswordSVG/ShowPasswordSVG";
 
-import {useAppDispatch} from "../../../redux/store";
-import {setUser, userType} from "../../../redux/slices/userSlice";
-import {Link, useNavigate} from "react-router-dom";
-import {getAxiosUsers} from "../../../functions/axiosFunction";
-import ErrorMessage from "../Components/ErrorMessage/ErrorMessage";
+import {useAppDispatch} from "../../redux/store";
+import {setUser, userType} from "../../redux/slices/userSlice";
+import { useNavigate} from "react-router-dom";
+import {getAxiosUsers} from "../../functions/usersAxios";
+import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
 
 
 const Authentication: FC = () => {
@@ -57,7 +55,6 @@ const Authentication: FC = () => {
                 await dispatch(setUser(currentUser))
                 await navigate('/menu/profile')
             } else {//не подошел
-                // await setPasswordInputValue('')
                 await setErrorMessage('Invalid username or password.')
 
             }
@@ -74,40 +71,30 @@ const Authentication: FC = () => {
     }, [loginInputValue, passwordInputValue])
 
 
-    useEffect(() => {
-        const onKeypress = (event: KeyboardEvent) => {
-            if (event.key === 'Enter' && loginIsActive) {
-                onClickLogin().then((error) => console.log(error))
-            }
-        }
-        document.addEventListener('keypress', onKeypress);
-
-        return () => {
-            document.removeEventListener('keypress', onKeypress);
-        };
-    });
-
-
     return (
-        <div className={styles.container}>
+        <div>
             <div className={commonStyles.window}>
 
-                {<InputBlocks showPassword={showPassword} inputBlockArr={inputBlockArr}/>}
+                <form>
+                    {<InputBlocks showPassword={showPassword} inputBlockArr={inputBlockArr}/>}
 
-                <ShowPasswordSVG showIf={passwordInputValue.length > 0}
-                                 showPassword={showPassword}
-                                 setShowPassword={setShowPassword}/>
-                <ErrorMessage errorMessage={errorMessage}/>
+                    <ShowPasswordSVG showIf={passwordInputValue.length > 0}
+                                     showPassword={showPassword}
+                                     setShowPassword={setShowPassword}/>
+                    <ErrorMessage errorMessage={errorMessage}/>
 
-                <ButtonInForm title={'Log in'}
-                              activeIf={loginIsActive}
-                              onClickProps={onClickLogin}
-                              buttonIsLoading={buttonIsLoading}
-                />
+                    <ButtonInForm title={'Log in'}
+                                  activeIf={loginIsActive}
+                                  onClickProps={onClickLogin}
+                                  buttonIsLoading={buttonIsLoading}
+                    />
+                </form>
+
             </div>
 
             <ButtonOutsideForm title={'Sigh up'}
                                linkTo={'/registration/about'}/>
+
 
         </div>
     )
