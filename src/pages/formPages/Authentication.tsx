@@ -76,7 +76,11 @@ const Authentication: FC = () => {
             <div className={commonStyles.window}>
 
                 <form>
-                    {<InputBlocks showPassword={showPassword} inputBlockArr={inputBlockArr}/>}
+                    {<InputBlocks
+                        showPassword={showPassword}
+                        inputBlockArr={inputBlockArr}
+                        buttonIsLoading={buttonIsLoading}
+                    />}
 
                     <ShowPasswordSVG showIf={passwordInputValue.length > 0}
                                      showPassword={showPassword}

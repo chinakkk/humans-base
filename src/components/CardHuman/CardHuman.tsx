@@ -22,7 +22,6 @@ const CardHuman: FC<CardHumanProps> = ({
         <div className={styles.container}>
             {
                 (cardIsOpen && openOnClick) && <OpenedCardHuman
-                    cardIsOpen={cardIsOpen}
                     setCardIsOpen={setCardIsOpen}
                     userInfo={userInfo}
                     setUsersCardArr={setUsersCardArr}

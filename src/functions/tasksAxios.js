@@ -29,17 +29,22 @@ export const deleteAxiosTask = async (id) => {
   }
 }
 
-export const updateTask = async (id, task) => {
+export const updateAxiosTask = async (id, task) => {
   await axios.put(`https://64303a35b289b1dec4c4281e.mockapi.io/tasks/${id}`, task)
 }
 
 export const addAxiosTaskAboutLogin = async (login,title,text,date) => {
+  const today = new Date()
+  const options = { day: 'numeric', month: 'numeric' }
+  const formattedDate = today.toLocaleDateString('en-GB', options).replace('/','.')
+
   const newTask={
     title:  title,
     text:  text,
-    date: date||'',
+    date: date||formattedDate,
     login: login,
     state: false,
   }
-  await axios.post('https://64303a35b289b1dec4c4281e.mockapi.io/tasks/',newTask)
+  if(title.length) await axios.post('https://64303a35b289b1dec4c4281e.mockapi.io/tasks/',newTask)
 }
+

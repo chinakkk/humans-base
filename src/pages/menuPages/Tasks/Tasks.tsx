@@ -5,22 +5,28 @@ import {taskType} from "../../../types/types";
 import {getAllAxiosTasks, getAxiosTasksAboutLogin} from "../../../functions/tasksAxios";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import axios from "axios";
+import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman/SkeletonCardHuman";
+import CardHuman from "../../../components/CardHuman/CardHuman";
+import SkeletonTask from "../../../components/Task/SkeletonTask/SkeletonTask";
 
 const Tasks: FC = () => {
-    const [tasksItem, setTasksItem] = useState<taskType[]>([])
-    // const [doneTasksItems, setDoneTasksItems] = useState<taskType[]>([])
-    // const
+    const [filteredTasks, setFilteredTasks] = useState<taskType[]>([])
+    const [pageIsLoading, setPageIsLoading] = useState(true)
 
-    const {user,adminUser}=useSelector((state:RootState) => state.userSlice)
+
+    const {user, adminUser} = useSelector((state: RootState) => state.userSlice)
 
     useEffect(() => {
         (async () => {
-
-            const data=(user.login===adminUser.login)?
-                await getAllAxiosTasks():
+            await setPageIsLoading(true)
+            const data = (user.login === adminUser.login) ?
+                await getAllAxiosTasks() :
                 await getAxiosTasksAboutLogin(user.login)
-            setTasksItem(data)
+            const trueTasksItems = data.filter((taskItem: taskType) => taskItem.state)
+            const falseTasksItems = data.filter((taskItem: taskType) => !taskItem.state)
+            setFilteredTasks([...falseTasksItems, ...trueTasksItems])
+            await setPageIsLoading(false)
+
         })()
 
     }, [])
@@ -29,12 +35,19 @@ const Tasks: FC = () => {
     return (
         <div className={styles.container}>
             {
-                tasksItem.map((task) => {
-                    return (
-                        <Task key={task.id} task={task}/>
+                pageIsLoading ?
+                    [...new Array(18)].map((value, index) => <SkeletonTask key={index}/>)
+                    :
+                    filteredTasks.map((task) =>
+                        <Task key={task.id}
+                              task={task}
+                              filteredTasks={filteredTasks}
+                              setFilteredTasks={setFilteredTasks}
+                        />
                     )
-                })
+
             }
+
         </div>
     )
 }

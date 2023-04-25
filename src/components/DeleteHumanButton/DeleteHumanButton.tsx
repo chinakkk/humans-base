@@ -14,15 +14,20 @@ type DeleteButtonProps = {
 
 const DeleteHumanButton: FC<DeleteButtonProps> = ({userInfo, setUsersCardArr}) => {
     const onClickDeleteButton = async () => {
-        try {
-            setUsersCardArr((prevState: userType[]) =>
+        // eslint-disable-next-line no-restricted-globals
+        const deleteUserBool:boolean = confirm('Удалить пользователя?')
+        if (deleteUserBool) {
+            try {
+                setUsersCardArr((prevState: userType[]) =>
                     prevState.filter((user: userType) => user.id !== userInfo.id)
-            )
-            await deleteAxiosUser(userInfo.id)
-        } catch (error) {
-            console.log('Ошибка при удалении с сервера', error)
-            alert('Ошибка при удалении с сервера')
+                )
+                await deleteAxiosUser(userInfo.id)
+            } catch (error) {
+                console.log('Ошибка при удалении с сервера', error)
+                alert('Ошибка при удалении с сервера')
+            }
         }
+
     }
     return (
         <div

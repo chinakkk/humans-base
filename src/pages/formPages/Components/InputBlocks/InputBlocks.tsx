@@ -8,12 +8,13 @@ type inputBlockType = {
     inputOnChange: (value: string) => void;
 }
 
-type inputBlockNames = {
+type inputBlocksProps = {
     inputBlockArr: inputBlockType[];
     showPassword?: boolean;
+    buttonIsLoading?:boolean;
 }
 
-const InputBlocks: FC<inputBlockNames> = ({inputBlockArr, showPassword = true}) => {
+const InputBlocks: FC<inputBlocksProps> = ({inputBlockArr, showPassword = true,buttonIsLoading=false}) => {
 
     return (
         <div className={styles.container}>
@@ -23,6 +24,7 @@ const InputBlocks: FC<inputBlockNames> = ({inputBlockArr, showPassword = true}) 
                         <div className={styles.block} key={inputBlock.title}
                         >
                             <InputBlock showPassword={showPassword}
+                                        buttonIsLoading={buttonIsLoading}
                                         {...inputBlock}
                             />
                         </div>

@@ -9,32 +9,28 @@ import AddNewTaskButton from "../AddNewTaskButton/AddNewTaskButton";
 import {userType} from "../../redux/slices/userSlice";
 
 type OpenedCardHuman = {
-    cardIsOpen: boolean;
     setCardIsOpen: (value: boolean) => void;
     setUsersCardArr: React.Dispatch<React.SetStateAction<userType[]>>;
     userInfo: userType;
 }
 
 const OpenedCardHuman: FC<OpenedCardHuman> = ({
-                                                  cardIsOpen,
                                                   setCardIsOpen,
                                                   userInfo,
                                                   setUsersCardArr,
                                               }) => {
-    const {user} = useSelector((state: RootState) => state.userSlice)
+    const {user,adminUser} = useSelector((state: RootState) => state.userSlice)
     return (
         <div className={styles.container}>
-            <div onClick={() => setCardIsOpen(!cardIsOpen)} className={styles.overlay}>
-
-            </div>
+            <div onClick={() => setCardIsOpen(false)} className={styles.overlay}></div>
             <div className={styles.window}>
                 <div className={styles.topWindow}>
                     {
                         //если юзер это админ
-                        user.login === 'a' && (
+                        user.login === adminUser.login && (
                             <>
                                 <DeleteHumanButton userInfo={userInfo}
-                                                 setUsersCardArr={setUsersCardArr}/>
+                                                   setUsersCardArr={setUsersCardArr}/>
                                 <AddNewTaskButton user={userInfo}/>
                             </>
                         )

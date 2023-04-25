@@ -1,4 +1,7 @@
 .container {
+  input[disabled] {
+    background-color: #FFFFFF;
+  }
   .block{
     margin-bottom: 7px;
   }
@@ -19,5 +22,8 @@
     font-size: 15px;
     //margin-bottom: 3px;
     margin-left: 1px;
+  }
+  .disableInput{
+    background-color: red;
   }
 }

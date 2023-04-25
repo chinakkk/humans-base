@@ -6,10 +6,11 @@ type inputBlockProps = {
     title: string;
     inputValue: string;
     inputOnChange: (value: string) => void;
+    buttonIsLoading?:boolean;
 
 }
 
-const inputBlock: FC<inputBlockProps> = ({showPassword = true, title, inputValue, inputOnChange}) => {
+const inputBlock: FC<inputBlockProps> = ({buttonIsLoading=false,showPassword = true, title, inputValue, inputOnChange}) => {
     const stringIncludesPassword = title.toLowerCase().includes('password')
     const isPasswordMode = (stringIncludesPassword && !showPassword)
     return (
@@ -17,6 +18,7 @@ const inputBlock: FC<inputBlockProps> = ({showPassword = true, title, inputValue
             <label className={styles.titleFromBlocks}>
                 {title}
                 <input
+                    disabled={buttonIsLoading}
                     type={isPasswordMode ? 'password' : 'text'}
                     className={`${styles.regInput} ${isPasswordMode && styles.passwordMode}`}
                     onChange={event => inputOnChange(event.target.value)}
