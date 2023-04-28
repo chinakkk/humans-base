@@ -1,8 +1,17 @@
+.container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .container {
-  padding: 40px 40px 40px 40px;
+  padding: 30px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(9, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+
+
+  height: 650px;
+  overflow: auto;
+
 }
+

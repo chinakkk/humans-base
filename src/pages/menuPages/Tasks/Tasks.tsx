@@ -5,9 +5,9 @@ import {taskType} from "../../../types/types";
 import {getAllAxiosTasks, getAxiosTasksAboutLogin} from "../../../functions/tasksAxios";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman/SkeletonCardHuman";
+import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman";
 import CardHuman from "../../../components/CardHuman/CardHuman";
-import SkeletonTask from "../../../components/Task/SkeletonTask/SkeletonTask";
+import SkeletonTask from "../../../components/Task/SkeletonTask";
 
 const Tasks: FC = () => {
     const [filteredTasks, setFilteredTasks] = useState<taskType[]>([])

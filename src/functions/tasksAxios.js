@@ -21,7 +21,7 @@ export const getAxiosTasksAboutLogin = async (login) => {
 
 }
 
-export const deleteAxiosTask = async (id) => {
+export const deleteAxiosTaskById = async (id) => {
   try {
     await axios.delete(`https://64303a35b289b1dec4c4281e.mockapi.io/tasks/${id}`)
   } catch (error) {
@@ -35,8 +35,8 @@ export const updateAxiosTask = async (id, task) => {
 
 export const addAxiosTaskAboutLogin = async (login,title,text,date) => {
   const today = new Date()
-  const options = { day: 'numeric', month: 'numeric' }
-  const formattedDate = today.toLocaleDateString('en-GB', options).replace('/','.')
+  const options = { day: 'numeric', month: 'numeric',year:'numeric'}
+  const formattedDate = today.toLocaleDateString('en-GB', options).replaceAll('/','.')
 
   const newTask={
     title:  title,

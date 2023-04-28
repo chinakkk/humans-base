@@ -1,9 +1,9 @@
 import React from "react";
 import ContentLoader from "react-content-loader"
-import styles from './SkeletonCardHuman.module.scss'
+import styles from './BorderCardHuman.module.scss'
 
 const SkeletonCardHuman = () => (
-    <div className={styles.container}>
+    <div className={styles.border}>
         <ContentLoader
             speed={2}
             width={370}

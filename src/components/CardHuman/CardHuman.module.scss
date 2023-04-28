@@ -1,14 +1,8 @@
 .container {
   .wrapper{
     user-select: none;
-
-    //position: relative;
-    height: 170px;
-    width: 370px;
-    border: 1px solid #DFDFDF;
-    border-radius: 14px;
     box-sizing: border-box;
-    margin: 17px auto 17px;
+    margin: 0 auto;
     display: flex;
 
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.05);

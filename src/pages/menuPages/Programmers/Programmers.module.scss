@@ -8,12 +8,14 @@
   max-width: 1280px;
   height: 650px;
   padding: 20px 40px 20px 40px;
+  padding: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   margin: 0 auto;
   overflow: auto;
   position: relative;
+  gap: 20px;
 
 
 }

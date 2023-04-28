@@ -1,9 +1,9 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
-import styles from './SkeletonTask.module.scss'
+import commonStyles from './commonStyles.module.scss'
 
 const SkeletonTask = () => (
-    <div className={styles.container}>
+    <div className={commonStyles.border}>
         <ContentLoader
             speed={2}
             width={570}

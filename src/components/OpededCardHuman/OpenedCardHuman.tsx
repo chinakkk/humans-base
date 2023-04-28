@@ -2,7 +2,7 @@ import styles from './OpenedCardHuman.module.scss'
 import React, {FC} from "react"
 import {userInfoType} from "../../types/types";
 import {toUpperHeadString} from "../../functions/toUpperHeadString";
-import DeleteHumanButton from "../DeleteHumanButton/DeleteHumanButton";
+import DeleteHumanButton from "./DeleteHumanButton/DeleteHumanButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import AddNewTaskButton from "../AddNewTaskButton/AddNewTaskButton";

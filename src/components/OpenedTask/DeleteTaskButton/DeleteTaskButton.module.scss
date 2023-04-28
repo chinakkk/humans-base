@@ -1,0 +1,17 @@
+.container {
+  position: absolute;
+  bottom: 13px;
+  right: 13px;
+  .deleteButton{
+    cursor: pointer;
+    background-color: #FFFFFF;
+    border: 1px #DFDFDF solid;
+    border-radius: 6px;
+    width: 110px;
+
+    &:active{
+      transform: translateY(1px);
+    }
+
+  }
+}

@@ -1,4 +1,5 @@
 import styles from './CardHuman.module.scss'
+import borderStyles from './BorderCardHuman.module.scss'
 import React, {FC, useState} from "react"
 import {toUpperHeadString} from "../../functions/toUpperHeadString";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
@@ -7,14 +8,14 @@ import {userType} from "../../redux/slices/userSlice";
 type CardHumanProps = {
     userInfo: userType;
     setUsersCardArr?: React.Dispatch<React.SetStateAction<userType[]>>;
-    openOnClick?: boolean
+    openOnClick?: boolean;
 }
 
 const CardHuman: FC<CardHumanProps> = ({
                                            userInfo,
                                            setUsersCardArr = () => {
                                            },
-                                           openOnClick = true
+                                           openOnClick = true,
                                        }) => {
     const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
     return (
@@ -23,13 +24,15 @@ const CardHuman: FC<CardHumanProps> = ({
             {
                 (cardIsOpen && openOnClick) && <OpenedCardHuman
                     setCardIsOpen={setCardIsOpen}
-                    userInfo={userInfo}
                     setUsersCardArr={setUsersCardArr}
+                    userInfo={userInfo}
+
+
                 />
             }
             <div
                 onClick={() => setCardIsOpen(true)}
-                className={styles.wrapper}>
+                className={`${styles.wrapper} ${borderStyles.border}`}>
 
                 <div className={styles.photo}>Photo</div>
                 <div className={styles.about}>

@@ -1,9 +1,7 @@
 import styles from './Programmers.module.scss'
 import {FC, useEffect, useState} from "react"
 import CardHuman from "../../../components/CardHuman/CardHuman";
-import axios from "axios";
-import {userInfoType} from "../../../types/types";
-import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman/SkeletonCardHuman";
+import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {userType} from "../../../redux/slices/userSlice";
