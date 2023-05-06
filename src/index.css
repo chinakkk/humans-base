@@ -17,6 +17,9 @@ body{
   /*height: 0;*/
 }
 
+textarea{
+  resize: none;
+}
 
 
 

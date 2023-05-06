@@ -5,9 +5,12 @@
   .deleteButton{
     cursor: pointer;
     background-color: #FFFFFF;
-    border: 1px #DFDFDF solid;
+    //border: 1px #DFDFDF solid;
+    border: 0;
     border-radius: 6px;
     width: 110px;
+    height: 29px;
+
 
     &:active{
       transform: translateY(1px);

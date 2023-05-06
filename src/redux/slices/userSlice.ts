@@ -16,15 +16,15 @@ interface userSliceType {
     adminUser: { login: string };
 }
 
-
+const localStorageUser = JSON.parse(localStorage.getItem('user') || '{}')
 const initialState: userSliceType = {
     user: {
-        login: '',
-        password: '',
-        name: '',
-        surname: '',
-        level: '',
-        birthday: '',
+        login: localStorageUser.login || '',
+        password: localStorageUser.password || '',
+        name: localStorageUser.name || '',
+        surname: localStorageUser.surname || '',
+        level: localStorageUser.level || '',
+        birthday: localStorageUser.birthday || '',
     },
     adminUser: {
         login: 'a'
@@ -42,6 +42,9 @@ const userSlice = createSlice({
             state.user.surname = action.payload.surname
             state.user.level = action.payload.level
             state.user.birthday = action.payload.birthday
+            localStorage.setItem('user',JSON.stringify(state.user))
+
+
         },
         removeUser(state) {
             state.user.login = null
@@ -50,6 +53,8 @@ const userSlice = createSlice({
             state.user.surname = null
             state.user.level = null
             state.user.birthday = null
+            localStorage.removeItem('user')
+
         }
     }
 })

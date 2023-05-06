@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './App.module.scss'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import MenuLayout from "./layouts/MenuLayout/MenuLayout";
 import Profile from "./pages/menuPages/Profile/Profile";
 import Programmers from "./pages/menuPages/Programmers/Programmers";
-import Authentication from "./pages/formPages/Authentication";
+import Authentication from "./pages/formPages/Authentication/Authentication";
 import RegistrationAbout from "./pages/formPages/RegistrationAbout";
 import Home from "./pages/Home/Home";
 import Tasks from "./pages/menuPages/Tasks/Tasks";
@@ -12,7 +12,6 @@ import Chat from "./pages/menuPages/Chat/Chat";
 import RegistrationLogin from "./pages/formPages/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import OceanMIN from "./animationSVG/OceanMIN";
 
 
 function App() {
@@ -25,6 +24,7 @@ function App() {
                 <Route path={'/*'} element={<Navigate to={'/'}/>}/>
 
                 {
+                    //Если пользователь не авторизован, рендер окна авторизации.
                     !user.login &&
                     <>
                       <Route path={'/authentication'} element={<Authentication/>}/>
@@ -34,6 +34,7 @@ function App() {
                 }
 
                 {
+                    //Не заполнена форма с именем, тогда навигация к ней.
                     !registrationUser.name &&
                     <Route path={'/registration/login'} element={<Navigate to={'/registration/about'}/>}/>
                 }
@@ -42,6 +43,7 @@ function App() {
                 <Route path={'*'} element={<Navigate to={'/authentication'}/>}/>
 
                 {
+                    //Пользователь авторизован, тогда рендер меню.
                     !!user.login &&
                     <Route path={'/menu'} element={<MenuLayout/>}>
                       <Route path={'/menu'} element={<Navigate to={'/menu/profile'}/>}/>

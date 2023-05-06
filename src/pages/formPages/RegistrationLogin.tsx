@@ -11,7 +11,7 @@ import {setUser} from "../../redux/slices/userSlice";
 import {useNavigate} from "react-router-dom";
 import ShowPasswordSVG from "./Components/ShowPasswordSVG/ShowPasswordSVG";
 import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
-import {userIsExistsAxios} from "../../functions/usersAxios";
+import {userIsExistsAxios} from "../../axios/usersAxios";
 
 const RegistrationLogin: FC = () => {
     const dispatch = useAppDispatch()
@@ -33,12 +33,6 @@ const RegistrationLogin: FC = () => {
         !errorMessage
 
     )
-
-    useEffect(() => {
-        //очищение сообщения об ошибке, если пользователь отредактировал пароль
-        setErrorMessage('')
-    }, [repeatPasswordInputValue, passwordInputValue, loginInputValue])
-
     const inputBlockArr = [
         {
             title: 'Enter a new login',
@@ -57,7 +51,8 @@ const RegistrationLogin: FC = () => {
         },
 
     ]
-    const saveRegistrationData = () => {
+
+    const onClickBack = () => {
         dispatch(setRegistrationLogPass({
             login: loginInputValue,
             password: passwordInputValue,
@@ -91,6 +86,11 @@ const RegistrationLogin: FC = () => {
 
     }
 
+    useEffect(() => {
+        //очищение сообщения об ошибке, если пользователь отредактировал пароль
+        setErrorMessage('')
+    }, [repeatPasswordInputValue, passwordInputValue, loginInputValue])
+
     return (
         <div>
             <div className={commonStyles.window}>
@@ -113,7 +113,7 @@ const RegistrationLogin: FC = () => {
 
             </div>
             {/*Кнопка назад*/}
-            <ButtonOutsideForm title={'Go back'} linkTo={'/registration/about'} onClickProps={saveRegistrationData}/>
+            <ButtonOutsideForm title={'Go back'} linkTo={'/registration/about'} onClickProps={onClickBack}/>
 
         </div>
     )

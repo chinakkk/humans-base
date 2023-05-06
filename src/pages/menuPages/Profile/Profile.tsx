@@ -6,8 +6,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import PersonInfo from "./PersonInfo/PersonInfo";
 import Note from "./Note/Note";
-import {userInfoType} from "../../../types/types";
-import {toUpperHeadString} from "../../../functions/toUpperHeadString";
+import {toUpperHeadFunc} from "../../../utils/toUpperHeadFunc";
 import {userType} from "../../../redux/slices/userSlice";
 
 
@@ -18,9 +17,9 @@ const Profile: FC = () => {
     //форматированные данные
     const userInfo: userType = {
         id: user.id || '',
-        name: toUpperHeadString(user.name),
-        surname: toUpperHeadString(user.surname),
-        level: toUpperHeadString(user.level),
+        name: toUpperHeadFunc(user.name),
+        surname: toUpperHeadFunc(user.surname),
+        level: toUpperHeadFunc(user.level),
         birthday: user.birthday || '',
         login:'',
 

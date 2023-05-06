@@ -13,7 +13,8 @@ type openedTaskProps = {
 }
 
 const openedTask: FC<openedTaskProps> = ({
-                                             setTaskIsOpen, task,
+                                             setTaskIsOpen,
+                                             task,
                                              filteredTasks,
                                              setFilteredTasks,
                                              time

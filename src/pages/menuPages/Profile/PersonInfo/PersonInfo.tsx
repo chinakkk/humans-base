@@ -1,6 +1,5 @@
 import styles from './PersonInfo.module.scss'
 import {FC} from "react"
-import {userInfoType} from "../../../../types/types";
 import {userType} from "../../../../redux/slices/userSlice";
 
 type PersonInfo = {

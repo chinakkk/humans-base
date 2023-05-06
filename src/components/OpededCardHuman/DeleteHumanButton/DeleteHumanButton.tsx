@@ -1,9 +1,7 @@
 import styles from './DeleteHumanButton.module.scss'
 import {FC} from "react"
-import axios from "axios";
-import {userInfoType} from "../../../types/types";
 import React from "react";
-import {deleteAxiosUser} from "../../../functions/usersAxios";
+import {deleteAxiosUser} from "../../../axios/usersAxios";
 import {userType} from "../../../redux/slices/userSlice";
 
 type DeleteButtonProps = {

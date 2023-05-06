@@ -1,12 +1,13 @@
 import styles from './OpenedCardHuman.module.scss'
-import React, {FC} from "react"
-import {userInfoType} from "../../types/types";
-import {toUpperHeadString} from "../../functions/toUpperHeadString";
+import React, {FC, useState} from "react"
+import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
 import DeleteHumanButton from "./DeleteHumanButton/DeleteHumanButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import AddNewTaskButton from "../AddNewTaskButton/AddNewTaskButton";
+import ToggleTaskModeButton from "./ToggleTaskModeButton/ToggleTaskModeButton";
 import {userType} from "../../redux/slices/userSlice";
+import {useAdminAuth} from "../../hooks/useAdminAuth";
+import OpenedCardHumanBot from "./OpenedCardHumanBot/OpenedCardHumanBot";
 
 type OpenedCardHuman = {
     setCardIsOpen: (value: boolean) => void;
@@ -19,7 +20,8 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                                                   userInfo,
                                                   setUsersCardArr,
                                               }) => {
-    const {user,adminUser} = useSelector((state: RootState) => state.userSlice)
+    const [addTaskMode,setAddTaskMode]=useState<boolean>(false)
+    const isAdmin=useAdminAuth()
     return (
         <div className={styles.container}>
             <div onClick={() => setCardIsOpen(false)} className={styles.overlay}></div>
@@ -27,26 +29,30 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                 <div className={styles.topWindow}>
                     {
                         //если юзер это админ
-                        user.login === adminUser.login && (
+                        isAdmin && (
                             <>
                                 <DeleteHumanButton userInfo={userInfo}
                                                    setUsersCardArr={setUsersCardArr}/>
-                                <AddNewTaskButton user={userInfo}/>
+                                <ToggleTaskModeButton user={userInfo}
+                                                      setAddTaskMode={setAddTaskMode}
+                                                      addTaskMode={addTaskMode}
+                                />
                             </>
                         )
                     }
                     <div className={styles.photo}> Photo</div>
                     <div className={styles.about}>
-                        <div className={styles.level}>{toUpperHeadString(userInfo.level)}</div>
+                        <div className={styles.level}>{toUpperHeadFunc(userInfo.level)}</div>
                         <div
-                            className={styles.name}>{toUpperHeadString(userInfo.name)} {toUpperHeadString(userInfo.surname)}</div>
+                            className={styles.name}>{toUpperHeadFunc(userInfo.name)} {toUpperHeadFunc(userInfo.surname)}</div>
                         <div className={styles.birthday}>{userInfo.birthday}</div>
                     </div>
                 </div>
-                <div className={styles.botWindow}>
-                    <div className={styles.note}>Заметка</div>
-                    {/*<button className={styles.editButton}>Редактировать</button>*/}
-                </div>
+                <OpenedCardHumanBot
+                    userInfo={userInfo}
+                    addTaskMode={addTaskMode}
+                />
+
             </div>
         </div>
     )

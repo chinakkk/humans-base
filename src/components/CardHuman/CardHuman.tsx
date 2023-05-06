@@ -1,7 +1,7 @@
 import styles from './CardHuman.module.scss'
 import borderStyles from './BorderCardHuman.module.scss'
 import React, {FC, useState} from "react"
-import {toUpperHeadString} from "../../functions/toUpperHeadString";
+import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 import {userType} from "../../redux/slices/userSlice";
 
@@ -20,7 +20,7 @@ const CardHuman: FC<CardHumanProps> = ({
     const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
     return (
 
-        <div className={styles.container}>
+        <div>
             {
                 (cardIsOpen && openOnClick) && <OpenedCardHuman
                     setCardIsOpen={setCardIsOpen}
@@ -32,13 +32,13 @@ const CardHuman: FC<CardHumanProps> = ({
             }
             <div
                 onClick={() => setCardIsOpen(true)}
-                className={`${styles.wrapper} ${borderStyles.border}`}>
+                className={`${styles.container} ${borderStyles.border}`}>
 
                 <div className={styles.photo}>Photo</div>
                 <div className={styles.about}>
-                    <div className={styles.level}>{toUpperHeadString(userInfo.level)}</div>
+                    <div className={styles.level}>{toUpperHeadFunc(userInfo.level)}</div>
                     <div
-                        className={styles.name}>{toUpperHeadString(userInfo.name)} {toUpperHeadString(userInfo.surname)}</div>
+                        className={styles.name}>{toUpperHeadFunc(userInfo.name)} {toUpperHeadFunc(userInfo.surname)}</div>
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 import styles from './DeleteTaskButton.module.scss'
 import {FC} from "react"
-import {deleteAxiosTaskById} from "../../../functions/tasksAxios";
+import {deleteAxiosTaskById} from "../../../axios/tasksAxios";
 import {taskType} from "../../../types/types";
 
 type DeleteTaskButtonProps = {

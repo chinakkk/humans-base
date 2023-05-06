@@ -2,11 +2,9 @@ import styles from './Tasks.module.scss'
 import {FC, useEffect, useState} from "react"
 import Task from "../../../components/Task/Task";
 import {taskType} from "../../../types/types";
-import {getAllAxiosTasks, getAxiosTasksAboutLogin} from "../../../functions/tasksAxios";
+import {getAllAxiosTasks, getAxiosTasksAboutLogin} from "../../../axios/tasksAxios";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman";
-import CardHuman from "../../../components/CardHuman/CardHuman";
 import SkeletonTask from "../../../components/Task/SkeletonTask";
 
 const Tasks: FC = () => {

@@ -5,7 +5,7 @@ import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import {userType} from "../../../redux/slices/userSlice";
-import {getAxiosUsers} from "../../../functions/usersAxios";
+import {getAxiosUsers} from "../../../axios/usersAxios";
 
 
 const Programmers: FC = () => {

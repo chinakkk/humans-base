@@ -25,7 +25,7 @@ export const userIsExistsAxios = async (login) => {
 
     return !!existsUser.length
   } catch (error) {
-    alert('Ошибка при проверке, существует ли пользователь.')
+    alert('Ошибка при проверке на существование пользователя.')
   }
 
 }

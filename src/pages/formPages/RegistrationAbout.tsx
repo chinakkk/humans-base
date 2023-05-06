@@ -52,21 +52,9 @@ const RegistrationAbout: FC = memo(() => {
             birthday: birthDaInputValue,
             level:checkedToggleButton
         }))
+
         navigate('/registration/login')
     }
-    useEffect(() => {
-        const onKeypress = (event: KeyboardEvent) => {
-            if (event.key === 'Enter' && inputIsFilled) {
-                onClickContinue()
-            }
-
-        }
-        document.addEventListener('keypress', onKeypress);
-
-        return () => {
-            document.removeEventListener('keypress', onKeypress);
-        };
-    });
 
     return (
         <div>

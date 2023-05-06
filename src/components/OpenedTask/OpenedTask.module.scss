@@ -47,16 +47,17 @@
       border-radius: 10px;
       margin: 0 auto;
       padding: 15px 20px 20px 20px ;
+      white-space: pre-wrap;
 
     }
     .date {
       position: absolute;
       display: flex;
-      height: 27px;
+      height: 29px;
       left: 13px;
       bottom: 13px;
       background-color: #D9D9D9;
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 0 10px 0 10px;
       text-align: center;
       align-items: center;

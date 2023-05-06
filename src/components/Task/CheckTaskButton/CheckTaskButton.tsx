@@ -1,8 +1,8 @@
 import styles from './CheckTaskButton.module.scss'
 import React, {FC, useCallback} from "react"
 import {taskType} from "../../../types/types";
-import debounce from "lodash.debounce";
-import {updateAxiosTask} from "../../../functions/tasksAxios";
+import {updateAxiosTask} from "../../../axios/tasksAxios";
+import {debounce} from "../../../utils/debounce";
 
 type CheckTaskButtonProps = {
     task: taskType;
@@ -28,23 +28,25 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
         setFilteredTasks([...falseTasksItems, ...trueTasksItems])
     }
 
-    const debounceTaskState = useCallback(
-        debounce(() => {
+
+    const debounceTask = useCallback(
+        debounce((check:boolean) => {
             const newTask = {
                 title: task.title,
                 text: task.text,
                 date: task.date,
                 login: task.login,
                 id: task.id,
-                state: !isChecked,
+                state: check,
             }
-            updateAxiosTask(task.id, newTask).then()
-        }, 500), []
-    )
+            updateAxiosTask(task.id, newTask).then().catch()
+
+        }, 500)
+        , [])
 
     const onClickCheck = () => {
 
-        debounceTaskState()
+        debounceTask(!isChecked)
         setIsChecked(!isChecked)
         filterTask()
     }
