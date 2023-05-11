@@ -1,3 +1,5 @@
+import {currentDate} from "../utils/currentDate";
+
 export type userInfoType = {
     id: string;
     name: string;
@@ -12,4 +14,11 @@ export type taskType = {
     date: string;
     state:boolean;
     login:string;
+}
+export type messageObjType ={
+    inputMessage:string;
+    uuid:string;
+    login:string;
+    date:string,
+
 }

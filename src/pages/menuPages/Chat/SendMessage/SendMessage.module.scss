@@ -7,28 +7,43 @@
   align-items: center;
   padding: 0 30px 0 30px;
   border-radius: 0 0 10px 10px;
-  .sendInput{
+
+  .sendInput {
     width: 100%;
     border-radius: 5px;
     border: 0;
     padding-left: 15px;
 
   }
-  .sendButton{
+
+  .sendButton {
+    position: relative;
     height: 25px;
     width: 25px;
     background-color: transparent;
     border: 1px solid #FFFFFF;
     border-radius: 20px;
     margin-left: 10px;
-    transition: background-color 0.1s linear;
+    transition: background-color 0.1s linear, transform 0.05s linear;
 
-    &:hover{
+    .buttonSVG {
+      position: absolute;
+      right: 3.5px;
+      top: 5px;
+      transition: transform 0.05s linear;
+    }
+
+    &:hover {
       background-color: white;
 
     }
-    &:active{
-      background-color: transparent;
+
+    &:active {
+      transform: translateX(3px);
+
+      //.buttonSVG{
+      //  transform: translateX(1px);
     }
   }
 }
+

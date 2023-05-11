@@ -3,11 +3,15 @@ import {FC} from "react"
 import Messages from "./Messages/Messages";
 import SendMessage from "./SendMessage/SendMessage";
 
+
 const Chat: FC = () => {
+
+    console.log('chat is')
     return (
         <div className={styles.container}>
             <Messages/>
             <SendMessage/>
+
         </div>
     )
 }

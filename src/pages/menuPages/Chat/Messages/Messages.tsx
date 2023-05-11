@@ -1,16 +1,45 @@
 import styles from './Messages.module.scss'
-import {FC} from "react"
+import {FC, useEffect, useState} from "react"
 import Message from "./Message/Message";
+import {ref, onValue} from 'firebase/database'
+import {db} from '../../../../firebase'
+import {messageObjType} from "../../../../types/types";
 
 type MessagesProps = {}
 
+
+
 const Messages: FC = () => {
-    const messageArr=['1','2','3','4','5','6']
-    // const socket=new WebSocket('f')
+    const [messages, setMessages] = useState<messageObjType[]>([])
+
+
+    useEffect(() => {
+        onValue(ref(db), (snapshot) => {
+            setMessages([])
+            const data = snapshot.val()
+            if (data !== null) {
+                const masData:messageObjType[]=Object.values(data)
+
+                const filteredMessage :messageObjType[]= masData.sort(function(a:any, b:any){
+                    return a.date-b.date
+                })
+                setMessages(filteredMessage)
+                console.log(filteredMessage)
+
+
+            }
+        })
+    }, [])
     return (
         <div className={styles.container}>
             {
-                messageArr.map((message) => <Message textMessage={message}/>)
+                !!messages.length&&
+                messages.map((messageObj, index) =>
+                    <Message
+                        key={index}//переделать
+                        messageObj={messageObj}
+                    />
+                )
             }
         </div>
     )
