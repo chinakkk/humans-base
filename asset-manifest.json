@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/humans-base/static/css/main.5ae993da.css",
-    "main.js": "/humans-base/static/js/main.9036f923.js",
+    "main.js": "/humans-base/static/js/main.9770144c.js",
     "static/media/loading.gif": "/humans-base/static/media/loading.2b5f132381dfa9eff97f.gif",
     "static/media/oceanAnimate.svg": "/humans-base/static/media/oceanAnimate.a0578ba54ab5c8342565.svg",
     "index.html": "/humans-base/index.html",
     "main.5ae993da.css.map": "/humans-base/static/css/main.5ae993da.css.map",
-    "main.9036f923.js.map": "/humans-base/static/js/main.9036f923.js.map"
+    "main.9770144c.js.map": "/humans-base/static/js/main.9770144c.js.map"
   },
   "entrypoints": [
     "static/css/main.5ae993da.css",
-    "static/js/main.9036f923.js"
+    "static/js/main.9770144c.js"
   ]
 }
