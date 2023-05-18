@@ -56,7 +56,7 @@ const Task: FC<TaskProps> = ({
                         {
                             isAdmin &&
                             <span className={styles.loginInTask}>
-                                {task.login}
+                                {task.username}
                             </span>
                         }
 

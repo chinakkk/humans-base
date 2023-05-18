@@ -7,11 +7,16 @@ import axios from "axios";
 import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../redux/store";
 import {clearRegistrationData, setRegistrationLogPass} from "../../redux/slices/registrationSlice";
-import {setUser} from "../../redux/slices/userSlice";
+import {setUser, userType} from "../../redux/slices/authUserSlice";
 import {useNavigate} from "react-router-dom";
 import ShowPasswordSVG from "./Components/ShowPasswordSVG/ShowPasswordSVG";
 import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
-import {userIsExistsAxios} from "../../axios/usersAxios";
+import {
+    getCurrentUserFirestore,
+    getUsersFirestore,
+    postUserFirestore,
+    userIsExistsFirestore
+} from "../../dataBaseResponse/usersFirestore";
 
 const RegistrationLogin: FC = () => {
     const dispatch = useAppDispatch()
@@ -62,21 +67,40 @@ const RegistrationLogin: FC = () => {
 
     const onClickSignUp = async () => {
         setButtonIsLoading(true)
-        const userIsExists = await userIsExistsAxios(loginInputValue)
+
+        await dispatch(setRegistrationLogPass({
+            login: loginInputValue,
+            password: passwordInputValue,
+            repeatPassword: repeatPasswordInputValue
+        }))
+        const userIsExists = await userIsExistsFirestore(loginInputValue)
 
         if (passwordInputValue === repeatPasswordInputValue && !userIsExists) {
             const newCurrentUser = {
-                login: loginInputValue,
-                password: passwordInputValue,
+                login: loginInputValue || '',
+                password: passwordInputValue || '',
                 name: registrationUser.name || '',
                 surname: registrationUser.surname || '',
                 level: registrationUser.level || '',
                 birthday: registrationUser.birthday || '',
             }
-            await axios.post(`https://64303a35b289b1dec4c4281e.mockapi.io/users`, newCurrentUser)
+            const uid = await postUserFirestore(newCurrentUser)
             await dispatch(setUser(newCurrentUser))
             await navigate('/menu/profile')
-            await setTimeout(() => dispatch(clearRegistrationData()), 3000)//удаление регистрационных данных после регистрации
+            const currentUser=JSON.parse(localStorage.getItem('user')||'{}')
+            localStorage.setItem('user',JSON.stringify({uid,...currentUser}))
+            setTimeout(() => dispatch(clearRegistrationData()), 1000)//удаление регистрационных данных после регистрации
+
+            //
+            // const data = await getUsersFirestore()
+            // const currentUser: userType | undefined = data ?
+            //     (data.filter((user: userType) => {
+            //         return user.login === loginInputValue && user.password === passwordInputValue
+            //     }))[0] : null
+            //
+            // if (currentUser) {//логин и пароль подошли
+            //     await dispatch(setUser(currentUser))
+            // }
         } else {
             // clearTimeout() сделать обнуление таймаута при повторном нажатии
             const errorMessage = userIsExists ? 'This username already exists.' : 'Passwords don\'t match, please try again.'

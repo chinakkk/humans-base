@@ -12,13 +12,20 @@ import Chat from "./pages/menuPages/Chat/Chat";
 import RegistrationLogin from "./pages/formPages/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
+import {getAllTasksFirestore} from "./dataBaseResponse/tasksFirestore";
 
 
 function App() {
     const {user} = useSelector((state: RootState) => state.userSlice)
     const {registrationUser} = useSelector((state: RootState) => state.registrationSlice)
+    const onClickTestButton=() => {
+        console.log('------testButton------')
+
+        console.log('------testButton------')
+    }
     return (
         <div className={styles.container}>
+            <button onClick={onClickTestButton} className={styles.testButton}>click</button>
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/*'} element={<Navigate to={'/'}/>}/>

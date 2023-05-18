@@ -7,7 +7,7 @@ import {RootState} from "../../../redux/store";
 import PersonInfo from "./PersonInfo/PersonInfo";
 import Note from "./Note/Note";
 import {toUpperHeadFunc} from "../../../utils/toUpperHeadFunc";
-import {userType} from "../../../redux/slices/userSlice";
+import {userType} from "../../../redux/slices/authUserSlice";
 
 
 
@@ -16,7 +16,7 @@ const Profile: FC = () => {
 
     //форматированные данные
     const userInfo: userType = {
-        id: user.id || '',
+        uid: user.uid || '',
         name: toUpperHeadFunc(user.name),
         surname: toUpperHeadFunc(user.surname),
         level: toUpperHeadFunc(user.level),

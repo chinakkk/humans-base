@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 export type userType = {
-    id?: string,
+    uid?: string|null,
     login: string | null,
     password?: string | null,
     name: string | null,
@@ -25,24 +25,26 @@ const initialState: userSliceType = {
         surname: localStorageUser.surname || '',
         level: localStorageUser.level || '',
         birthday: localStorageUser.birthday || '',
+        uid: localStorageUser.uid || ''
     },
     adminUser: {
         login: 'a'
     }
 }
 
-const userSlice = createSlice({
+const authUserSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         setUser(state, action: PayloadAction<userType>) {
             state.user.login = action.payload.login
-            state.user.password = action.payload.password
             state.user.name = action.payload.name
             state.user.surname = action.payload.surname
             state.user.level = action.payload.level
             state.user.birthday = action.payload.birthday
-            localStorage.setItem('user',JSON.stringify(state.user))
+            state.user.uid = action.payload.uid
+
+            localStorage.setItem('user', JSON.stringify(state.user))
 
 
         },
@@ -53,14 +55,16 @@ const userSlice = createSlice({
             state.user.surname = null
             state.user.level = null
             state.user.birthday = null
+            state.user.uid = null
+
             localStorage.removeItem('user')
 
         }
     }
 })
 
-export const {setUser, removeUser} = userSlice.actions
-export default userSlice.reducer
+export const {setUser, removeUser} = authUserSlice.actions
+export default authUserSlice.reducer
 
 
 

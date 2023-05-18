@@ -1,15 +1,14 @@
 import styles from './CreateTaskForm.module.scss'
-import React, {FC, useRef} from "react"
+import React, {FC} from "react"
 import {useForm} from "react-hook-form";
-import {addAxiosTaskAboutLogin} from "../../../../axios/tasksAxios";
-import {userType} from "../../../../redux/slices/userSlice";
+import {userType} from "../../../../redux/slices/authUserSlice";
+import {postTaskByLoginFirestore} from "../../../../dataBaseResponse/tasksFirestore";
 
 type CreateTaskFormProps = {
     userInfo: userType;
 }
 
 const CreateTaskForm: FC<CreateTaskFormProps> = ({userInfo}) => {
-    const textAreaRef=useRef()
     const {
         register,
         formState: {errors},
@@ -18,7 +17,7 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({userInfo}) => {
     } = useForm()
 
     const onClickSendTask = (data: any) => {
-        addAxiosTaskAboutLogin(userInfo.name, data.title, data.text).then().catch()
+        postTaskByLoginFirestore(userInfo.name, data.title, data.text,userInfo.uid).then().catch()
         reset()
     }
    

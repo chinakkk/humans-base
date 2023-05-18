@@ -1,4 +1,5 @@
-.container{
+.container {
+
   background-color: #264E58;
   margin: 0 auto;
   min-width: 1280px;
@@ -14,4 +15,18 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
 
+  .testButton {
+    background-color: white;
+    border: 0;
+    height: 30px;
+    width: 60px;
+    border-radius: 5px;
+    position: absolute;
+    top: 15px;
+    right: 80px;
+    &:active{
+      transform: translateY(1px);
+    }
+
+  }
 }

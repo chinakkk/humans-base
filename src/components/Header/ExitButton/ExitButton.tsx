@@ -1,6 +1,6 @@
 import styles from './ExitButton.module.scss'
 import {FC} from "react"
-import {removeUser} from "../../../redux/slices/userSlice";
+import {removeUser} from "../../../redux/slices/authUserSlice";
 import {Link} from "react-router-dom";
 import {useAppDispatch} from "../../../redux/store";
 import {clearRegistrationData} from "../../../redux/slices/registrationSlice";

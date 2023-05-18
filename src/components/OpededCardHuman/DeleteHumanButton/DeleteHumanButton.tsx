@@ -1,8 +1,8 @@
 import styles from './DeleteHumanButton.module.scss'
 import {FC} from "react"
 import React from "react";
-import {deleteAxiosUser} from "../../../axios/usersAxios";
-import {userType} from "../../../redux/slices/userSlice";
+import {userType} from "../../../redux/slices/authUserSlice";
+import {deleteUserFirestore} from "../../../dataBaseResponse/usersFirestore";
 
 type DeleteButtonProps = {
     userInfo: userType;
@@ -17,9 +17,9 @@ const DeleteHumanButton: FC<DeleteButtonProps> = ({userInfo, setUsersCardArr}) =
         if (deleteUserBool) {
             try {
                 setUsersCardArr((prevState: userType[]) =>
-                    prevState.filter((user: userType) => user.id !== userInfo.id)
+                    prevState.filter((user: userType) => user.uid !== userInfo.uid)
                 )
-                await deleteAxiosUser(userInfo.id)
+                await deleteUserFirestore(userInfo.uid)
             } catch (error) {
                 console.log('Ошибка при удалении с сервера', error)
                 alert('Ошибка при удалении с сервера')

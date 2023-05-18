@@ -4,7 +4,7 @@ import PagesButton from "./PagesButton/PagesButton";
 import Search from "./Search/Search";
 import {Link} from "react-router-dom";
 import {useAppDispatch} from "../../redux/store";
-import {removeUser} from "../../redux/slices/userSlice";
+import {removeUser} from "../../redux/slices/authUserSlice";
 import ExitButton from "./ExitButton/ExitButton";
 
 const Header: FC = () => {

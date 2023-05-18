@@ -1,7 +1,7 @@
 import styles from './DeleteTaskButton.module.scss'
 import {FC} from "react"
-import {deleteAxiosTaskById} from "../../../axios/tasksAxios";
 import {taskType} from "../../../types/types";
+import {deleteTaskByUIDFirestore} from "../../../dataBaseResponse/tasksFirestore";
 
 type DeleteTaskButtonProps = {
     task: taskType;
@@ -17,8 +17,9 @@ const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({
 
 
     const onClickDeleteTask = async () => {
-        deleteAxiosTaskById(task.id).then().catch()
-        setFilteredTasks(filteredTasks.filter((taskItem) => taskItem.id!==task.id))
+        deleteTaskByUIDFirestore(task.uid).then().catch()
+        console.log(task)
+        setFilteredTasks(filteredTasks.filter((taskItem) => taskItem.uid!==task.uid))
     }
 
     return (

@@ -2,7 +2,7 @@ import styles from './OpenedCardHumanBot.module.scss'
 import React, {FC} from "react"
 import {useForm} from "react-hook-form";
 import CreateTaskForm from "./CreateTaskForm/CreateTaskForm";
-import {userType} from "../../../redux/slices/userSlice";
+import {userType} from "../../../redux/slices/authUserSlice";
 
 type OpenedCardHumanBotProps = {
     addTaskMode: boolean;

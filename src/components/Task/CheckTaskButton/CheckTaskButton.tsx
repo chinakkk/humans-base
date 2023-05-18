@@ -1,8 +1,8 @@
 import styles from './CheckTaskButton.module.scss'
 import React, {FC, useCallback} from "react"
 import {taskType} from "../../../types/types";
-import {updateAxiosTask} from "../../../axios/tasksAxios";
 import {debounce} from "../../../utils/debounce";
+import {setStateTaskByUIDFirestore} from "../../../dataBaseResponse/tasksFirestore";
 
 type CheckTaskButtonProps = {
     task: taskType;
@@ -20,7 +20,7 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
                                                        setIsChecked
                                                    }) => {
 
-    const currentTask = filteredTasks.find((taskItem) => taskItem.id === task.id)
+    const currentTask = filteredTasks.find((taskItem) => taskItem.uid === task.uid)
     const filterTask = () => {
         if (currentTask) currentTask.state = !isChecked
         const trueTasksItems = filteredTasks.filter((taskItem: taskType) => taskItem.state)
@@ -30,19 +30,11 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
 
 
     const debounceTask = useCallback(
-        debounce((check:boolean) => {
-            const newTask = {
-                title: task.title,
-                text: task.text,
-                date: task.date,
-                login: task.login,
-                id: task.id,
-                state: check,
-            }
-            updateAxiosTask(task.id, newTask).then().catch()
-
+        debounce((check: boolean) => {
+            setStateTaskByUIDFirestore(task.uid,check).then().catch()
         }, 500)
-        , [])
+        , []
+    )
 
     const onClickCheck = () => {
 

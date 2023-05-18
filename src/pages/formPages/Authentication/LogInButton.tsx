@@ -1,10 +1,10 @@
 import styles from './LogInButton.module.scss'
 import {FC} from "react"
 import ButtonInForm from "../Components/ButtonInForm/ButtonInForm";
-import {getAxiosUsers} from "../../../axios/usersAxios";
-import {setUser, userType} from "../../../redux/slices/userSlice";
+import {setUser, userType} from "../../../redux/slices/authUserSlice";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {getUsersFirestore} from "../../../dataBaseResponse/usersFirestore";
 
 type LogInButtonProps = {
     setButtonIsLoading: (value: boolean) => void;
@@ -31,10 +31,11 @@ const LogInButton: FC<LogInButtonProps> = ({
         await setButtonIsLoading(true)
 
         try {
-            const data = await getAxiosUsers()
-            const currentUser: userType | undefined = (data.filter((user: userType) => {
-                return user.login === loginInputValue && user.password === passwordInputValue
-            }))[0]
+            const data = await getUsersFirestore()
+            const currentUser: userType | undefined = data ?
+                (data.filter((user: userType) => {
+                    return user.login === loginInputValue && user.password === passwordInputValue
+                }))[0] : null
 
             if (currentUser) {//логин и пароль подошли
                 await dispatch(setUser(currentUser))

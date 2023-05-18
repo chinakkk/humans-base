@@ -5,7 +5,7 @@ import DeleteHumanButton from "./DeleteHumanButton/DeleteHumanButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import ToggleTaskModeButton from "./ToggleTaskModeButton/ToggleTaskModeButton";
-import {userType} from "../../redux/slices/userSlice";
+import {userType} from "../../redux/slices/authUserSlice";
 import {useAdminAuth} from "../../hooks/useAdminAuth";
 import OpenedCardHumanBot from "./OpenedCardHumanBot/OpenedCardHumanBot";
 

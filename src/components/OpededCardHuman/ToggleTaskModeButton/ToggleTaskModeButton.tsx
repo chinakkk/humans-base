@@ -1,7 +1,6 @@
 import styles from './ToggleTaskModeButton.module.scss'
 import React, {FC} from "react"
-import {userType} from "../../../redux/slices/userSlice";
-import {addAxiosTaskAboutLogin} from "../../../axios/tasksAxios";
+import {userType} from "../../../redux/slices/authUserSlice";
 
 type AddNewTaskButtonProps = {
     user: userType;

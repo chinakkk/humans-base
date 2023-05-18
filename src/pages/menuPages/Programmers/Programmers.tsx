@@ -4,8 +4,8 @@ import CardHuman from "../../../components/CardHuman/CardHuman";
 import SkeletonCardHuman from "../../../components/CardHuman/SkeletonCardHuman";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {userType} from "../../../redux/slices/userSlice";
-import {getAxiosUsers} from "../../../axios/usersAxios";
+import {userType} from "../../../redux/slices/authUserSlice";
+import {getUsersFirestore} from "../../../dataBaseResponse/usersFirestore";
 
 
 const Programmers: FC = () => {
@@ -18,10 +18,12 @@ const Programmers: FC = () => {
             try {
                 setPageIsLoading(true)
 
-                const data = await getAxiosUsers()
-                const filteredData = data.filter((dataUser: userType) => dataUser.login !== user.login)
+                const data = await getUsersFirestore()
+
+                const filteredData = data ? data.filter((dataUser: userType) => dataUser.login !== user.login):[]
                 setUsersCardItems(filteredData)
                 setPageIsLoading(false)//спросить у Адиля когда надо использовать await
+
             } catch (error) {
                 console.log('Ошибка при запросе программистов', error)
             }
@@ -38,7 +40,7 @@ const Programmers: FC = () => {
                     :
                     usersCardItems.map((user) =>
                         <CardHuman userInfo={user}
-                                   key={user.id}
+                                   key={user.uid}
                                    setUsersCardArr={setUsersCardItems}
                         />
                     )

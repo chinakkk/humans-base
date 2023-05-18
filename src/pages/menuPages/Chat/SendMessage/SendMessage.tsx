@@ -1,6 +1,6 @@
 import styles from './SendMessage.module.scss'
 import {FC, useState} from "react"
-import {db} from '../../../../firebase'
+import {realTimeDB} from '../../../../firebase'
 import {uid} from "uid";
 import {set, ref} from 'firebase/database'
 import React from "react";
@@ -27,9 +27,8 @@ const SendMessage: FC = () => {
                     login: user.login,
                     date: currentDate(),
                 }
-            console.log(newMessageObj)
 
-            set(ref(db, `/${uuid}`), newMessageObj).then().catch()
+            set(ref(realTimeDB, `/${uuid}`), newMessageObj).then().catch()
         }
 
         setInputMessage('')
