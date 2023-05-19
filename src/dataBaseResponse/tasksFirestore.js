@@ -1,4 +1,4 @@
-import {collection, deleteDoc, doc, getDocs, setDoc,query,where,updateDoc} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDocs, setDoc, query, where, updateDoc} from "firebase/firestore";
 import {fireStoreDB} from "../firebase";
 import {uid} from "uid";
 
@@ -28,7 +28,6 @@ export const getTasksByUserUIDFirestore = async (userUID) => {
     tasksDoc.forEach((taskDoc) => tasksArr.push(taskDoc.data()))
 
 
-
     return tasksArr
 
 
@@ -43,7 +42,7 @@ export const getTasksByUserUIDFirestore = async (userUID) => {
 export const deleteTaskByUIDFirestore = async (uid) => {
   try {
 
-    await deleteDoc(doc(fireStoreDB,'tasks',uid))
+    await deleteDoc(doc(fireStoreDB, 'tasks', uid))
 
   } catch (error) {
     console.log(error)
@@ -53,10 +52,10 @@ export const deleteTaskByUIDFirestore = async (uid) => {
   }
 }
 
-export const setStateTaskByUIDFirestore = async (uid,newState) => {
+export const setStateTaskByUIDFirestore = async (uid, newState) => {
   try {
-    await updateDoc(doc(fireStoreDB,'tasks',uid),{
-      state:newState
+    await updateDoc(doc(fireStoreDB, 'tasks', uid), {
+      state: newState
     })
   } catch (error) {
     console.log('Ошибка при изменении состояния таска.')
@@ -64,6 +63,16 @@ export const setStateTaskByUIDFirestore = async (uid,newState) => {
     alert('Ошибка при изменении состояния таска.')
   }
 }
+export const updateTaskByUIDFirestore = async (uid, updatedTask) => {
+  try {
+    await updateDoc(doc(fireStoreDB, 'tasks', uid), updatedTask)
+  } catch (error) {
+    console.log('Ошибка при изменении таска.')
+    console.log(error)
+    alert('Ошибка при изменении таска.')
+  }
+}
+
 
 export const postTaskByLoginFirestore = async (username, title, text, userUID) => {
   try {

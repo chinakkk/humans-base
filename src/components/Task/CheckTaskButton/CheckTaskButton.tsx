@@ -37,11 +37,12 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
     )
 
     const onClickCheck = () => {
-
         debounceTask(!isChecked)
         setIsChecked(!isChecked)
         filterTask()
+
     }
+
 
 
     return (

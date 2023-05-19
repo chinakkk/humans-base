@@ -31,7 +31,7 @@
 
     .titleBlock{
       display: flex;
-      width: 598px;
+      width: 596px;
       height: 50px;
       border-bottom: 2px #DFDFDF solid;
       font-size: 22px;
@@ -39,6 +39,13 @@
       color: #FFFFFF;
       justify-content: center;
       align-items: center;
+      .titleInput{
+        background-color: transparent;
+        color: white;
+        border: 0;
+        width: 100%;
+        text-align: center;
+      }
     }
     .textBlock{
       width: 570px;
@@ -49,6 +56,14 @@
       padding: 15px 20px 20px 20px ;
       white-space: pre-wrap;
 
+      .textInput{
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+        outline: none;
+      }
     }
     .date {
       position: absolute;
@@ -69,8 +84,31 @@
     .redDate {
       background-color: #ff8b90;
     }
+    .editButton{
+      position: absolute;
+      bottom: 13px;
+      right: 130px;
+
+      cursor: pointer;
+      background-color: #FFFFFF;
+      //border: 1px #DFDFDF solid;
+      border: 0;
+      border-radius: 6px;
+      width: 110px;
+      height: 29px;
+
+
+      &:active{
+        transform: translateY(1px);
+      }
+
+    }
+    }
+  .borderEdit{
+    border: 2px solid #4e4e4e;
+  }
 
   }
 
 
-}
+

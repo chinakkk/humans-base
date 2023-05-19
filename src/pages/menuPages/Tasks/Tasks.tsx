@@ -20,9 +20,13 @@ const Tasks: FC = () => {
             const data = (user.login === adminUser.login) ?
                 await getAllTasksFirestore() :
                 await getTasksByUserUIDFirestore(user.uid)
-            const trueTasksItems = data ? data.filter((taskItem: taskType) => taskItem.state) : []
-            const falseTasksItems = data ? data.filter((taskItem: taskType) => !taskItem.state) : []
-            setFilteredTasks([...falseTasksItems, ...trueTasksItems])
+            if (data&&data.length>0){
+                const trueTasksItems = data ? data.filter((taskItem: taskType) => taskItem.state) : []
+                const falseTasksItems = data ? data.filter((taskItem: taskType) => !taskItem.state) : []
+                setFilteredTasks([...falseTasksItems, ...trueTasksItems])
+            }
+            else setFilteredTasks([])
+
             await setPageIsLoading(false)
 
         })()

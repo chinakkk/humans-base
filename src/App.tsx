@@ -12,7 +12,6 @@ import Chat from "./pages/menuPages/Chat/Chat";
 import RegistrationLogin from "./pages/formPages/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import {getAllTasksFirestore} from "./dataBaseResponse/tasksFirestore";
 
 
 function App() {
