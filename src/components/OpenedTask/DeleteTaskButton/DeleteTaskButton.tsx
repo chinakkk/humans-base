@@ -5,21 +5,21 @@ import {deleteTaskByUIDFirestore} from "../../../dataBaseResponse/tasksFirestore
 
 type DeleteTaskButtonProps = {
     task: taskType;
-    filteredTasks: taskType[]
-    setFilteredTasks: (value: taskType[]) => void
+    taskItems: taskType[]
+    setTaskItems: (value: taskType[]) => void
 }
 
 const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({
                                                          task,
-                                                         filteredTasks,
-                                                         setFilteredTasks
+                                                         taskItems,
+                                                         setTaskItems
                                                      }) => {
 
 
     const onClickDeleteTask = async () => {
         deleteTaskByUIDFirestore(task.uid).then().catch()
         console.log(task)
-        setFilteredTasks(filteredTasks.filter((taskItem) => taskItem.uid!==task.uid))
+        setTaskItems(taskItems.filter((taskItem) => taskItem.uid!==task.uid))
     }
 
     return (

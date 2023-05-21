@@ -65,12 +65,21 @@
         outline: none;
       }
     }
-    .date {
+    .time{
       position: absolute;
-      display: flex;
-      height: 29px;
       left: 13px;
       bottom: 13px;
+
+    }
+    .yearMonthDay{
+      position: absolute;
+      left: 90px;
+      bottom: 13px;
+
+    }
+    .date {
+      display: flex;
+      height: 29px;
       background-color: #D9D9D9;
       border-radius: 6px;
       padding: 0 10px 0 10px;

@@ -1,5 +1,5 @@
 import styles from './OpenedTask.module.scss'
-import React, {FC, useRef, useState} from "react"
+import React, {FC, useState} from "react"
 import {taskType} from "../../types/types";
 import DeleteTaskButton from "./DeleteTaskButton/DeleteTaskButton";
 import {updateTaskByUIDFirestore} from "../../dataBaseResponse/tasksFirestore";
@@ -7,49 +7,50 @@ import {updateTaskByUIDFirestore} from "../../dataBaseResponse/tasksFirestore";
 type OpenedTaskProps = {
     setTaskIsOpen: (value: boolean) => void;
     task: taskType;
-    filteredTasks: taskType[]
-    setFilteredTasks: (value: taskType[]) => void
-    time:boolean
+    taskItems: taskType[]
+    setTaskItems: (value: taskType[]) => void
+    time: boolean
 
 }
 
 const OpenedTask: FC<OpenedTaskProps> = ({
                                              setTaskIsOpen,
                                              task,
-                                             filteredTasks,
-                                             setFilteredTasks,
+                                             taskItems,
+                                             setTaskItems,
                                              time
                                          }) => {
-    const [editMode,setEditMode]=useState<boolean>(false)
-    const [titleInput,setTitleInput]=useState<string>(task.title)
-    const [textInput,setTextInput]=useState<string>(task.text)
-    const onClickEditTask=() => {
-        if (editMode&&(titleInput!==task.title||textInput!==task.text)){
-            updateTaskByUIDFirestore(task.uid,{title:titleInput,text:textInput}).then().catch()
-            task.title=titleInput
-            task.text=textInput
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [titleInput, setTitleInput] = useState<string>(task.title)
+    const [textInput, setTextInput] = useState<string>(task.text)
+    const onClickEditTask = () => {
+        if (editMode && (titleInput !== task.title || textInput !== task.text)) {
+            updateTaskByUIDFirestore(task.uid, {title: titleInput, text: textInput}).then().catch()
+            task.title = titleInput
+            task.text = textInput
         }
         setEditMode(!editMode)
     }
+
     return (
         <div className={styles.container}>
             <div onClick={() => setTaskIsOpen(false)} className={styles.overlay}></div>
 
-            <div className={styles.window + ' ' + (editMode?styles.borderEdit:'x')}>
+            <div className={styles.window + ' ' + (editMode ? styles.borderEdit : '')}>
 
                 <div className={styles.titleBlock}>
                     {
-                        editMode?<input className={styles.titleInput}
-                                        onChange={(event) => setTitleInput(event.target.value)}
-                                        value={titleInput}
-                                        autoFocus={true}
+                        editMode ? <input className={styles.titleInput}
+                                          onChange={(event) => setTitleInput(event.target.value)}
+                                          value={titleInput}
+                                          autoFocus={true}
                             />
                             :
                             task.title
                     }
                 </div>
                 <div className={styles.textBlock}>
-                    {editMode?
+                    {editMode ?
                         <textarea
                             className={styles.textInput}
                             onChange={(event) => setTextInput(event.target.value)}
@@ -59,14 +60,24 @@ const OpenedTask: FC<OpenedTaskProps> = ({
                         task.text}
                 </div>
                 {
-                    !!task.date.length && <div className={`${styles.date} ${time&&styles.greenDate}`}>{task.date}</div>
+                    !!task.date.length &&
+                    <>
+                      <div className={`${styles.time} ${styles.date} ${!task.state && styles.greenDate}`}>
+                          {task.date.slice(8, 10) + ':' + task.date.slice(10, 12)}
+                      </div>
+                      <div className={`${styles.yearMonthDay} ${styles.date} ${!task.state && styles.greenDate}`}>
+                          {task.date.slice(6, 8) + '.' + task.date.slice(4, 6) + '.' + task.date.slice(0, 4)}
+                      </div>
+                    </>
+
 
                 }
-                <button onClick={onClickEditTask} className={styles.editButton}>{editMode?'Save':'Edit mode'}</button>
+                <button onClick={onClickEditTask}
+                        className={styles.editButton}>{editMode ? 'Save' : 'Edit mode'}</button>
                 <DeleteTaskButton
                     task={task}
-                    filteredTasks={filteredTasks}
-                    setFilteredTasks={setFilteredTasks}
+                    taskItems={taskItems}
+                    setTaskItems={setTaskItems}
                 />
 
             </div>

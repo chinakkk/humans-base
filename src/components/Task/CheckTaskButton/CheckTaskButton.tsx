@@ -6,32 +6,43 @@ import {setStateTaskByUIDFirestore} from "../../../dataBaseResponse/tasksFiresto
 
 type CheckTaskButtonProps = {
     task: taskType;
-    filteredTasks: taskType[];
-    setFilteredTasks: (value: taskType[]) => void;
+    taskItems: taskType[];
+    setTaskItems: (value: taskType[]) => void;
     isChecked: boolean
     setIsChecked: (value: boolean) => void;
+    setSortTaskFunc:(arr:taskType[]) => void;
+
 }
 
 const CheckTaskButton: FC<CheckTaskButtonProps> = ({
                                                        task,
-                                                       filteredTasks,
-                                                       setFilteredTasks,
+                                                       taskItems,
+                                                       setTaskItems,
                                                        isChecked,
-                                                       setIsChecked
+                                                       setIsChecked,
+                                                       setSortTaskFunc
                                                    }) => {
 
-    const currentTask = filteredTasks.find((taskItem) => taskItem.uid === task.uid)
+    const currentTask = taskItems.find((taskItem) => taskItem.uid === task.uid)
     const filterTask = () => {
         if (currentTask) currentTask.state = !isChecked
-        const trueTasksItems = filteredTasks.filter((taskItem: taskType) => taskItem.state)
-        const falseTasksItems = filteredTasks.filter((taskItem: taskType) => !taskItem.state)
-        setFilteredTasks([...falseTasksItems, ...trueTasksItems])
+        const trueTasksItems = taskItems.filter((taskItem: taskType) => taskItem.state)
+        const falseTasksItems = taskItems.filter((taskItem: taskType) => !taskItem.state)
+        setTaskItems([...falseTasksItems, ...trueTasksItems])
+        setSortTaskFunc(taskItems)
+
     }
 
 
     const debounceTask = useCallback(
         debounce((check: boolean) => {
-            setStateTaskByUIDFirestore(task.uid,check).then().catch()
+            if (task.state!==check) {
+                task.state=check
+                setStateTaskByUIDFirestore(task.uid, check).then().catch()
+                setSortTaskFunc(taskItems)
+            }
+
+
         }, 500)
         , []
     )
@@ -39,7 +50,7 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
     const onClickCheck = () => {
         debounceTask(!isChecked)
         setIsChecked(!isChecked)
-        filterTask()
+
 
     }
 

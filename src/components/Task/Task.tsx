@@ -9,18 +9,26 @@ import {useAdminAuth} from "../../hooks/useAdminAuth";
 
 type TaskProps = {
     task: taskType;
-    filteredTasks: taskType[];
-    setFilteredTasks: (mas: taskType[]) => void;
+    taskItems: taskType[];
+    setTaskItems: (mas: taskType[]) => void;
+    setSortTaskFunc:(arr:taskType[]) => void;
 }
 
 const Task: FC<TaskProps> = ({
-                                 task, filteredTasks, setFilteredTasks
+                                 task,
+                                 taskItems,
+                                 setTaskItems,
+                                 setSortTaskFunc
 
                              }) => {
     const [isChecked, setIsChecked] = useState<boolean>(task.state)
     const [taskIsOpen, setTaskIsOpen] = useState<boolean>(false)
     const time: boolean = true
     const isAdmin = useAdminAuth()
+
+    const dateToMonthDay=(date:string) => {
+        return date.slice(6,8)+'.'+date.slice(4,6)
+    }
 
 
     return (
@@ -29,8 +37,8 @@ const Task: FC<TaskProps> = ({
                 taskIsOpen && <OpenedTask
                     setTaskIsOpen={setTaskIsOpen}
                     task={task}
-                    filteredTasks={filteredTasks}
-                    setFilteredTasks={setFilteredTasks}
+                    taskItems={taskItems}
+                    setTaskItems={setTaskItems}
                     time={time}
                 />
             }
@@ -39,10 +47,11 @@ const Task: FC<TaskProps> = ({
 
                 <CheckTaskButton
                     task={task}
-                    filteredTasks={filteredTasks}
-                    setFilteredTasks={setFilteredTasks}
+                    taskItems={taskItems}
+                    setTaskItems={setTaskItems}
                     isChecked={isChecked}
                     setIsChecked={setIsChecked}
+                    setSortTaskFunc={setSortTaskFunc}
                 />
 
                 <div className={`${styles.textBlock}`}
@@ -63,7 +72,7 @@ const Task: FC<TaskProps> = ({
                         {
                             task.date &&
                             <span className={styles.date + ' ' + (time ? styles.greenDate : styles.redDate)}>
-                                {task.date.slice(0,5)}
+                                {dateToMonthDay(task.date)}
                             </span>
                         }
 
