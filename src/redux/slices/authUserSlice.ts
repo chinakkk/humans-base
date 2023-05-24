@@ -2,13 +2,14 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 export type userType = {
-    uid?: string|null,
-    login: string | null,
-    password?: string | null,
-    name: string | null,
-    surname: string | null,
-    level: string | null,
-    birthday: string | null,
+    uid?: string,
+    login: string,
+    password?: string,
+    name: string,
+    surname: string,
+    level: string,
+    birthday: string,
+    imageURL?: string,
 }
 
 interface userSliceType {
@@ -25,7 +26,9 @@ const initialState: userSliceType = {
         surname: localStorageUser.surname || '',
         level: localStorageUser.level || '',
         birthday: localStorageUser.birthday || '',
-        uid: localStorageUser.uid || ''
+        uid: localStorageUser.uid || '',
+        imageURL: localStorageUser.imageURL || '',
+
     },
     adminUser: {
         login: 'a'
@@ -49,13 +52,13 @@ const authUserSlice = createSlice({
 
         },
         removeUser(state) {
-            state.user.login = null
-            state.user.password = null
-            state.user.name = null
-            state.user.surname = null
-            state.user.level = null
-            state.user.birthday = null
-            state.user.uid = null
+            state.user.login = ''
+            state.user.password = ''
+            state.user.name = ''
+            state.user.surname = ''
+            state.user.level = ''
+            state.user.birthday = ''
+            state.user.uid = ''
 
             localStorage.removeItem('user')
 

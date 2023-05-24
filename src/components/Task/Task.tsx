@@ -71,7 +71,7 @@ const Task: FC<TaskProps> = ({
 
                         {
                             task.date &&
-                            <span className={styles.date + ' ' + (time ? styles.greenDate : styles.redDate)}>
+                            <span className={styles.date + ' ' + (!isChecked ? styles.greenDate : '')}>
                                 {dateToMonthDay(task.date)}
                             </span>
                         }

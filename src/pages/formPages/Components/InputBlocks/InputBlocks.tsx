@@ -2,14 +2,15 @@ import {FC} from "react"
 import styles from './InputBlocks.module.scss'
 import InputBlock from "./InputBlock/InputBlock";
 
-type inputBlockType = {
+type inputBlockArrType = {
     title: string;
     inputValue: string,
     inputOnChange: (value: string) => void;
+    inputType?:string;
 }
 
 type inputBlocksProps = {
-    inputBlockArr: inputBlockType[];
+    inputBlockArr: inputBlockArrType[];
     showPassword?: boolean;
     buttonIsLoading?:boolean;
 }

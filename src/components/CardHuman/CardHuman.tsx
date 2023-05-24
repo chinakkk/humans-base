@@ -4,11 +4,9 @@ import React, {FC, useState} from "react"
 import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 import {userType} from "../../redux/slices/authUserSlice";
-import {doc, getDoc} from "firebase/firestore";
-import {fireStoreDB} from "../../firebase";
-import {useAdminAuth} from "../../hooks/useAdminAuth";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
+import noPhoto from '../../assets/noPhoto.png'
 
 type CardHumanProps = {
     userInfo: userType;
@@ -23,7 +21,7 @@ const CardHuman: FC<CardHumanProps> = ({
                                            openOnClick = true,
                                        }) => {
     const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
-    const {adminUser}=useSelector((state:RootState) => state.userSlice)
+    const {adminUser} = useSelector((state: RootState) => state.userSlice)
     const onClickCard = async () => {
         setCardIsOpen(true)
     }
@@ -42,10 +40,13 @@ const CardHuman: FC<CardHumanProps> = ({
             <div
                 onClick={onClickCard}
                 className={`${styles.container} ${borderStyles.border}`}>
-
-                <div className={styles.photo}>Photo</div>
+                <img
+                    className={styles.photo + ' ' + (!userInfo.imageURL && styles.noPhoto)}
+                    src={userInfo.imageURL || noPhoto}
+                    alt="Human"/>
                 <div className={styles.about}>
-                    <div className={styles.level}>{userInfo.login===adminUser.login?'Admin': toUpperHeadFunc(userInfo.level)}</div>
+                    <div
+                        className={styles.level}>{userInfo.login === adminUser.login ? 'Admin' : toUpperHeadFunc(userInfo.level)}</div>
                     <div
                         className={styles.name}>{toUpperHeadFunc(userInfo.name)} {toUpperHeadFunc(userInfo.surname)}</div>
                 </div>

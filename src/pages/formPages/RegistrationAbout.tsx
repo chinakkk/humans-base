@@ -42,6 +42,7 @@ const RegistrationAbout: FC = memo(() => {
             title: 'Birth Day',
             inputValue: birthDaInputValue,
             inputOnChange: setBirthDayInputValue,
+            inputType:'date',
         },
 
     ]

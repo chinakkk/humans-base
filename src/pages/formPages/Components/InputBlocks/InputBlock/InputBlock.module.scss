@@ -2,6 +2,7 @@
   input[disabled] {
     background-color: #FFFFFF;
   }
+
   .block{
     margin-bottom: 7px;
   }
@@ -10,10 +11,14 @@
     border-radius: 5px;
     border: 0;
     padding-left: 7px;
+    padding-right: 7px;
     width: 100%;
     font-size: 15px;
     margin-top: 3px;
+  }
+  .regInputPaddingBottom{
     padding-bottom: 2px;
+
   }
   .passwordMode{
     padding-bottom: 3px;

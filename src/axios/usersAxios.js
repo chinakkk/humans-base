@@ -8,14 +8,7 @@ const axiosURL = 'https://64303a35b289b1dec4c4281e.mockapi.io'
 export const getAxiosUsers = async () => {
   try {
     const {data} = await axios.get(axiosURL + '/users')
-
-    const usersArr = []
-    const querySnapshot = await getDocs(collection(fireStoreDB, "users"));
-    querySnapshot.forEach((doc) => {
-      usersArr.push(doc.data())
-    });
-
-    return usersArr
+    return data
 
   } catch (error) {
     alert('Ошибка при получении пользователей.')

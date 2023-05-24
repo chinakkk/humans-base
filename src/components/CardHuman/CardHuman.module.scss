@@ -17,13 +17,16 @@
   }
 
   .photo {
-    padding-top: 45px; //выравнивание по центру надписи(удалить)
     text-align: center;
     height: 124px;
     width: 124px;
     border: 1px #DFDFDF solid;
     border-radius: 14px;
     margin-right: 23px;
+  }
+  .noPhoto{
+    padding: 15px;
+
   }
 
   .about {

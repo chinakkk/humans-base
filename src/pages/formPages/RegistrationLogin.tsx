@@ -83,26 +83,17 @@ const RegistrationLogin: FC = () => {
                 surname: registrationUser.surname || '',
                 level: registrationUser.level || '',
                 birthday: registrationUser.birthday || '',
+                uid:'',
             }
             const uid = await postUserFirestore(newCurrentUser)
+            newCurrentUser.uid=uid||''
             await dispatch(setUser(newCurrentUser))
             await navigate('/menu/profile')
             const currentUser=JSON.parse(localStorage.getItem('user')||'{}')
             localStorage.setItem('user',JSON.stringify({uid,...currentUser}))
             setTimeout(() => dispatch(clearRegistrationData()), 1000)//удаление регистрационных данных после регистрации
 
-            //
-            // const data = await getUsersFirestore()
-            // const currentUser: userType | undefined = data ?
-            //     (data.filter((user: userType) => {
-            //         return user.login === loginInputValue && user.password === passwordInputValue
-            //     }))[0] : null
-            //
-            // if (currentUser) {//логин и пароль подошли
-            //     await dispatch(setUser(currentUser))
-            // }
         } else {
-            // clearTimeout() сделать обнуление таймаута при повторном нажатии
             const errorMessage = userIsExists ? 'This username already exists.' : 'Passwords don\'t match, please try again.'
             setErrorMessage(errorMessage)
         }

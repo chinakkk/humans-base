@@ -28,7 +28,6 @@ export const getTasksByUserUIDFirestore = async (userUID) => {
     const tasksDoc = await getDocs(queryDoc)
     tasksDoc.forEach((taskDoc) => tasksArr.push(taskDoc.data()))
 
-
     return tasksArr
 
 

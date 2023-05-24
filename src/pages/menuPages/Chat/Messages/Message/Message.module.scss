@@ -1,74 +1,101 @@
 .container {
-  width: 100%;
-  margin-top: 2px;
-  display: flex;
-  align-items: center;
-  height: 26px;
-  .message {
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    padding: 0 10px 0 0;
+
+
+  .wrapper{
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    position: relative;
-
-    width: 1105px;
-
-    .login {
-
-      width: 67px;
-      padding-left: 10px;
-      margin-right: 8px;
-      border-right: 2px solid #9BD0D0;
-      display: inline-flex;
-      border-radius: 5px 0 0 5px;
-    }
-    .isUserLogin{
-      background-color: #638892;
-      color: white;
-    }
-
-    .textMessage {
-
-    }
-
-    .time {
-      position: absolute;
-      font-size: 12px;
-      right: 5px;
-      bottom: 3px;
-    }
-  }
-
-  .removeButton {
-    position: relative;
-    background-color: transparent;
-    border-radius: 15px;
-    border: 1px solid #FFFFFF;
-    height: 19px;
-    width: 19px;
-    transition: background-color 0.1s linear;
-    margin-left: 13px;
-
-    .buttonSVG {
-      opacity: 0;
-      position: absolute;
-      left: -4px;
-      top: -4px;
-      transition: opacity 0.2s linear;
-    }
+    align-items: center;
+    height: 30px;
 
 
-    &:hover {
-      background-color: white;
-      .buttonSVG{
-        opacity: 1;
+    .message {
+      height: 28px;
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      padding: 0 7px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+
+      width: 1061px;
+
+      .login {
+        height: 28px;
+
+        align-items: center;
+
+        width: 67px;
+        padding-left: 10px;
+        margin-right: 8px;
+        border-right: 2.5px solid #9BD0D0;
+        display: inline-flex;
+        border-radius: 5px 0 0 5px;
+      }
+      .isUserLogin{
+        background-color: #638892;
+        color: white;
       }
 
+      .textMessage {
+
+      }
+
+      .time {
+
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+
+      }
     }
 
-    &:active {
+    .date{
+      font-size: 12px;
+      background-color: #ffffff;
+      height: 28px;
+
+      margin-left: 2.5px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 5px 0 5px;
+
+
+    }
+    .removeButton {
+      position: relative;
       background-color: transparent;
+      border-radius: 15px;
+      border: 1px solid #FFFFFF;
+      height: 20px;
+      width: 19px;
+      transition: background-color 0.1s linear;
+      margin-left: 13px;
+
+      .buttonSVG {
+        opacity: 0;
+        position: absolute;
+        left: -4px;
+        top: -4px;
+        transition: opacity 0.2s linear;
+      }
+
+
+      &:hover {
+        background-color: white;
+        .buttonSVG{
+          opacity: 1;
+        }
+
+      }
+
+      &:active {
+        background-color: transparent;
+      }
     }
   }
+
 }
