@@ -46,9 +46,9 @@ const authUserSlice = createSlice({
             state.user.level = action.payload.level
             state.user.birthday = action.payload.birthday
             state.user.uid = action.payload.uid
+            state.user.imageURL = action.payload.imageURL
 
             localStorage.setItem('user', JSON.stringify(state.user))
-
 
         },
         removeUser(state) {
@@ -59,6 +59,7 @@ const authUserSlice = createSlice({
             state.user.level = ''
             state.user.birthday = ''
             state.user.uid = ''
+            state.user.imageURL = ''
 
             localStorage.removeItem('user')
 

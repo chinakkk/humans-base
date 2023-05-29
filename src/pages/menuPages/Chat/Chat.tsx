@@ -6,7 +6,6 @@ import SendMessage from "./SendMessage/SendMessage";
 
 const Chat: FC = () => {
 
-    console.log('chat is')
     return (
         <div className={styles.container}>
             <Messages/>

@@ -46,11 +46,14 @@ const RegistrationAbout: FC = memo(() => {
         },
 
     ]
+
     const onClickContinue = () => {
+        const birthDayArr=birthDaInputValue.split('-')
+        const birthDay = `${birthDayArr[2]}.${birthDayArr[1]}.${birthDayArr[0]}`
         dispatch(setRegistrationAbout({
             name: nameInputValue,
             surname: surnameInputValue,
-            birthday: birthDaInputValue,
+            birthday: birthDay,
             level:checkedToggleButton
         }))
 

@@ -8,6 +8,7 @@ import ToggleTaskModeButton from "./ToggleTaskModeButton/ToggleTaskModeButton";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useAdminAuth} from "../../hooks/useAdminAuth";
 import OpenedCardHumanBot from "./OpenedCardHumanBot/OpenedCardHumanBot";
+import noPhotoSrc from "../../assets/noPhoto.png";
 
 type OpenedCardHuman = {
     setCardIsOpen: (value: boolean) => void;
@@ -40,7 +41,10 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                             </>
                         )
                     }
-                    <div className={styles.photo}> Photo</div>
+                    <img
+                        className={styles.photo + ' ' + (!userInfo.imageURL && styles.noPhoto)}
+                        src={userInfo.imageURL || noPhotoSrc}
+                        alt="Human"/>
                     <div className={styles.about}>
                         <div className={styles.level}>{toUpperHeadFunc(userInfo.level)}</div>
                         <div

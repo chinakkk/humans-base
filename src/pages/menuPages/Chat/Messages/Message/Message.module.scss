@@ -99,3 +99,11 @@
   }
 
 }
+.skeletonWrapper{
+  display: flex;
+  align-items: center;
+  height: 30px;
+  .skeleton{
+    height: 28px;
+  }
+}

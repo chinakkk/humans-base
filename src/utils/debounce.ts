@@ -6,7 +6,6 @@ export function debounce(func: Function, ms: number) {
 
     timeoutId = setTimeout(() => {
       func.apply(this, args);
-      console.log('1')
     }, ms);
   };
 }

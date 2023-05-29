@@ -23,7 +23,6 @@ const Programmers: FC = () => {
                 const filteredData = data ? data.filter((dataUser: userType) => dataUser.login !== user.login):[]
                 setUsersCardItems(filteredData)
                 setPageIsLoading(false)//спросить у Адиля когда надо использовать await
-
             } catch (error) {
                 console.log('Ошибка при запросе программистов', error)
             }
@@ -38,9 +37,9 @@ const Programmers: FC = () => {
                 pageIsLoading ?
                     [...new Array(9)].map((value, index) => <SkeletonCardHuman key={index}/>)
                     :
-                    usersCardItems.map((user) =>
-                        <CardHuman userInfo={user}
-                                   key={user.uid}
+                    usersCardItems.map((userCard) =>
+                        <CardHuman userInfo={userCard}
+                                   key={userCard.uid}
                                    setUsersCardArr={setUsersCardItems}
                         />
                     )

@@ -6,7 +6,7 @@ import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import noPhoto from '../../assets/noPhoto.png'
+import noPhotoSrc from '../../assets/noPhoto.png'
 
 type CardHumanProps = {
     userInfo: userType;
@@ -42,7 +42,7 @@ const CardHuman: FC<CardHumanProps> = ({
                 className={`${styles.container} ${borderStyles.border}`}>
                 <img
                     className={styles.photo + ' ' + (!userInfo.imageURL && styles.noPhoto)}
-                    src={userInfo.imageURL || noPhoto}
+                    src={userInfo.imageURL || noPhotoSrc}
                     alt="Human"/>
                 <div className={styles.about}>
                     <div

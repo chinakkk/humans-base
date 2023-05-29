@@ -12,10 +12,8 @@ import {useNavigate} from "react-router-dom";
 import ShowPasswordSVG from "./Components/ShowPasswordSVG/ShowPasswordSVG";
 import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
 import {
-    getCurrentUserFirestore,
-    getUsersFirestore,
     postUserFirestore,
-    userIsExistsFirestore
+    usernameIsExistsFirestore
 } from "../../dataBaseResponse/usersFirestore";
 
 const RegistrationLogin: FC = () => {
@@ -73,7 +71,7 @@ const RegistrationLogin: FC = () => {
             password: passwordInputValue,
             repeatPassword: repeatPasswordInputValue
         }))
-        const userIsExists = await userIsExistsFirestore(loginInputValue)
+        const userIsExists = await usernameIsExistsFirestore(loginInputValue)
 
         if (passwordInputValue === repeatPasswordInputValue && !userIsExists) {
             const newCurrentUser = {
@@ -84,6 +82,7 @@ const RegistrationLogin: FC = () => {
                 level: registrationUser.level || '',
                 birthday: registrationUser.birthday || '',
                 uid:'',
+                imageURL:''
             }
             const uid = await postUserFirestore(newCurrentUser)
             newCurrentUser.uid=uid||''

@@ -1,6 +1,6 @@
 import styles from './Profile.module.scss'
 
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import CardHuman from "../../../components/CardHuman/CardHuman";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
@@ -8,6 +8,7 @@ import PersonInfo from "./PersonInfo/PersonInfo";
 import Note from "./Note/Note";
 import {toUpperHeadFunc} from "../../../utils/toUpperHeadFunc";
 import {userType} from "../../../redux/slices/authUserSlice";
+import noPhotoSrc from '../../../assets/noPhoto.png'
 
 
 
@@ -21,8 +22,8 @@ const Profile: FC = () => {
         surname: toUpperHeadFunc(user.surname),
         level: toUpperHeadFunc(user.level),
         birthday: user.birthday || '',
-        login:'',
-        imageURL:'https://firebasestorage.googleapis.com/v0/b/programmers-chat.appspot.com/o/chin.jpeg?alt=media&token=611d9aeb-dbb3-4920-a01f-9ee0caa7341f'
+        login: '',
+        imageURL: user.imageURL
 
     }
     //
@@ -32,7 +33,7 @@ const Profile: FC = () => {
             <div className={styles.contentTop}>
                 <img
                     className={styles.photo}
-                    src={userInfo.imageURL}
+                    src={userInfo.imageURL||noPhotoSrc}
                     alt="Human"/>
                 <PersonInfo userInfo={userInfo}/>
 

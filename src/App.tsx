@@ -12,42 +12,13 @@ import Chat from "./pages/menuPages/Chat/Chat";
 import RegistrationLogin from "./pages/formPages/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
-import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
-import {storage} from './firebase'
 
 
 function App() {
-    console.log('UPD')
     const {user} = useSelector((state: RootState) => state.userSlice)
     const {registrationUser} = useSelector((state: RootState) => state.registrationSlice)
-    const onClickTestButton = () => {
-
-        // try{
-        //     const storageRef = ref(storage, user.login);
-        //
-        //     const uploadTask = uploadBytesResumable(storageRef, file);
-        //
-        //     uploadTask.on(
-        //         (error) => {
-        //             alert('Ошибка при загрузке фотографии.')
-        //             console.log(error)
-        //
-        //         },
-        //         () => {
-        //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        //                 console.log('File available at', downloadURL);
-        //             });
-        //         }
-        //     );
-        // }
-        // catch(error){
-        //
-        // }
-
-    }
     return (
         <div className={styles.container}>
-            <input type={'file'} className={styles.testButton}  alt={'upload img'} ></input>
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/*'} element={<Navigate to={'/'}/>}/>

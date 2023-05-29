@@ -4,6 +4,7 @@ import Message from "./Message/Message";
 import {ref, onValue} from 'firebase/database'
 import {realTimeDB} from "../../../../firebase";
 import {messageObjType} from "../../../../types/types";
+import SkeletonMessage from "./Message/SkeletonMessage";
 
 type MessagesProps = {}
 
@@ -14,7 +15,7 @@ const Messages: FC = () => {
 
     const scrollToBottom = () => {
         if (messagesRef.current) {
-            const { scrollHeight, clientHeight } = messagesRef.current;
+            const {scrollHeight, clientHeight} = messagesRef.current;
             messagesRef.current.scrollTop = scrollHeight - clientHeight;
         }
     };
@@ -30,24 +31,29 @@ const Messages: FC = () => {
                 })
                 setMessages(filteredMessage)
             }
-            setTimeout(() => scrollToBottom(),0)
+            setTimeout(() => scrollToBottom(), 0)
 
         })
+
+
     }, [])
     return (
         <div className={styles.container}>
             <div className={styles.messages}
                  ref={messagesRef}
             >
+
+
                 {
-                    !!messages.length &&
-                    messages.map((messageObj, index) =>
-                        <Message
-                            key={index}//переделать
-                            messageObj={messageObj}
-                        />
-                    )
+                    !messages.length ? [...new Array(15)].map((value, index) => <SkeletonMessage key={index}/>) :
+                        messages.map((messageObj, index) =>
+                            <Message
+                                key={index}//переделать
+                                messageObj={messageObj}
+                            />
+                        )
                 }
+
             </div>
         </div>
     )
