@@ -1,8 +1,11 @@
 import styles from './DeleteHumanButton.module.scss'
 import {FC} from "react"
 import React from "react";
-import {userType} from "../../../redux/slices/authUserSlice";
-import {deleteUserFirestore} from "../../../dataBaseResponse/usersFirestore";
+import {setUser, userType} from "../../../redux/slices/authUserSlice";
+import {deleteUserFirestore, updateImgByUidFirestore} from "../../../dataBaseResponse/usersFirestore";
+import {deleteObject, ref} from "firebase/storage";
+import {storage} from "../../../firebase";
+
 
 type DeleteButtonProps = {
     userInfo: userType;
@@ -13,13 +16,14 @@ type DeleteButtonProps = {
 const DeleteHumanButton: FC<DeleteButtonProps> = ({userInfo, setUsersCardArr}) => {
     const onClickDeleteButton = async () => {
         // eslint-disable-next-line no-restricted-globals
-        const deleteUserBool:boolean = confirm('Удалить пользователя?')
+        const deleteUserBool: boolean = confirm('Удалить пользователя?')
         if (deleteUserBool) {
             try {
                 setUsersCardArr((prevState: userType[]) =>
                     prevState.filter((user: userType) => user.uid !== userInfo.uid)
                 )
                 await deleteUserFirestore(userInfo.uid)
+
             } catch (error) {
                 console.log('Ошибка при удалении с сервера', error)
                 alert('Ошибка при удалении с сервера')
@@ -27,6 +31,7 @@ const DeleteHumanButton: FC<DeleteButtonProps> = ({userInfo, setUsersCardArr}) =
         }
 
     }
+
     return (
         <div
             title={'Delete'}

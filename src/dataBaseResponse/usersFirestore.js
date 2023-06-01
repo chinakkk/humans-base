@@ -1,15 +1,23 @@
 import {setDoc, doc, collection, getDocs, deleteDoc, getDoc, updateDoc} from "firebase/firestore";
-import {fireStoreDB} from "../firebase";
+import {fireStoreDB, storage} from "../firebase";
 import {uid} from "uid";
+import {deleteObject, ref} from "firebase/storage";
+import {setUser} from "../redux/slices/authUserSlice";
 
 
 export const updateImgByUidFirestore = async (uid, imageURL) => {
+  try {
+    const userRef = doc(fireStoreDB, "users", uid);
 
-  const userRef = doc(fireStoreDB, "users", uid);
+    await updateDoc(userRef, {
+      imageURL: imageURL
+    });
+  } catch (error) {
+    alert('Ошибка при добавлении фотографии в FS.')
+    console.log(error)
+  }
 
-  await updateDoc(userRef, {
-    imageURL: imageURL
-  });
+
 }
 
 export const getUsersFirestore = async () => {
@@ -32,6 +40,16 @@ export const getUsersFirestore = async () => {
 export const deleteUserFirestore = async (uid) => {
   try {
     await deleteDoc(doc(fireStoreDB, 'users', uid))
+
+    //удаление фото пользователя
+    const deleteRef = ref(storage, `programmersImg/${uid}`);
+    console.log(deleteRef)
+    deleteObject(deleteRef).then().catch((error) => {
+      console.log('Ошибка при удалении фотографии пользователя.')
+      console.log(error)
+    });
+
+
   } catch (error) {
     console.log(error)
     alert('Ошибка при удалении пользователя.')

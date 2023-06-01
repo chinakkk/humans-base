@@ -1,54 +1,73 @@
-import styles from './Note.module.scss'
+import styles from './BottomProfile.module.scss'
 import React, {FC, useRef, useState} from "react"
 import {storage} from "../../../../firebase";
-import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
+import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from "firebase/storage";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
 import {updateImgByUidFirestore} from "../../../../dataBaseResponse/usersFirestore";
 import {setUser} from "../../../../redux/slices/authUserSlice";
 
-const Note: FC = () => {
+
+type BottomProfileType = {
+}
+
+const BottomProfile: FC<BottomProfileType> = ({}) => {
     const dispatch = useDispatch()
     const {user} = useSelector((state: RootState) => state.userSlice)
     const [imageFile, setImageFile] = useState<File | null>(null)
     const inputFileRef = useRef<HTMLInputElement | null>(null)
 
-    const onClickPickImg = () => {
-        if (inputFileRef.current) {
-            inputFileRef.current.click();
-        }
-    }
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files
         if (files && files.length > 0) setImageFile(files[0])
     }
-    const onClickUploadImg = () => {
+    const onClickPickImg = () => {
+        inputFileRef.current?.click();
+    }
+
+    const onClickUploadImg = async () => {
         try {
 
-            const formData = new FormData()
             if (imageFile) {
-
-                formData.append('file', imageFile)
-
                 const metadata = {
                     contentType: 'image/jpeg'
                 };
+                const imageRef = ref(storage, 'programmersImg/' + user.uid);
+                await uploadBytesResumable(imageRef, imageFile, metadata);
 
-                const storageRef = ref(storage, 'programmersImg/' + user.uid);
-                const uploadTask = uploadBytesResumable(storageRef, imageFile, metadata);
-                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                    await updateImgByUidFirestore(user.uid, downloadURL)
-                    dispatch(setUser({...user, imageURL: downloadURL}))
-                    console.log('img is uploaded')
-                });
+                await getDownloadURL(imageRef)
+                    .then((url) => {
+                        updateImgByUidFirestore(user.uid, url)
+                        dispatch(setUser({...user, imageURL: url}))
+                        console.log('img is uploaded')
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        console.log('new err')
+                    });
             }
-        }
-        catch (error){
+
+        } catch (error) {
             alert('Ошибка при загрузке изображения')
             console.log(error)
         }
     }
 
+    const onClickDelete = () => {
+
+        const deleteRef = ref(storage, `programmersImg/${user.uid}`);
+        deleteObject(deleteRef).then(() => {
+            updateImgByUidFirestore(user.uid, '').then()
+            dispatch(setUser({...user,imageURL:''}))
+            console.log('img is deleted')
+
+        }).catch((error) => {
+            alert('Ошибка при удалении картинки.')
+            console.log('Ошибка при удалении картинки.')
+            console.log(error)
+        });
+
+    }
 
     return (
         <div className={styles.container}>
@@ -65,12 +84,16 @@ const Note: FC = () => {
             <button onClick={onClickPickImg} className={styles.uploadButton}>
                 Pick img
             </button>
-
             <button onClick={onClickUploadImg} className={styles.editButton}>
                 Upload img
             </button>
 
+            <button onClick={onClickDelete} className={styles.deleteButton}>
+                Delete Img
+            </button>
+
+
         </div>
     )
 }
-export default Note;
+export default BottomProfile;

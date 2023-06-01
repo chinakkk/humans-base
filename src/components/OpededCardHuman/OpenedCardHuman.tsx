@@ -2,13 +2,12 @@ import styles from './OpenedCardHuman.module.scss'
 import React, {FC, useState} from "react"
 import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
 import DeleteHumanButton from "./DeleteHumanButton/DeleteHumanButton";
-import {useSelector} from "react-redux";
-import {RootState} from "../../redux/store";
 import ToggleTaskModeButton from "./ToggleTaskModeButton/ToggleTaskModeButton";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useAdminAuth} from "../../hooks/useAdminAuth";
 import OpenedCardHumanBot from "./OpenedCardHumanBot/OpenedCardHumanBot";
 import noPhotoSrc from "../../assets/noPhoto.png";
+import {isImage} from "../../utils/isImage";
 
 type OpenedCardHuman = {
     setCardIsOpen: (value: boolean) => void;
@@ -21,8 +20,9 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                                                   userInfo,
                                                   setUsersCardArr,
                                               }) => {
-    const [addTaskMode,setAddTaskMode]=useState<boolean>(false)
-    const isAdmin=useAdminAuth()
+    const [addTaskMode, setAddTaskMode] = useState<boolean>(false)
+    const isAdmin = useAdminAuth()
+
     return (
         <div className={styles.container}>
             <div onClick={() => setCardIsOpen(false)} className={styles.overlay}></div>
@@ -43,7 +43,7 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                     }
                     <img
                         className={styles.photo + ' ' + (!userInfo.imageURL && styles.noPhoto)}
-                        src={userInfo.imageURL || noPhotoSrc}
+                        src={userInfo.imageURL||noPhotoSrc}
                         alt="Human"/>
                     <div className={styles.about}>
                         <div className={styles.level}>{toUpperHeadFunc(userInfo.level)}</div>

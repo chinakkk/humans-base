@@ -1,11 +1,11 @@
 import styles from './Profile.module.scss'
 
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import CardHuman from "../../../components/CardHuman/CardHuman";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import PersonInfo from "./PersonInfo/PersonInfo";
-import Note from "./Note/Note";
+import BottomProfile from "./BottomProfile/BottomProfile";
 import {toUpperHeadFunc} from "../../../utils/toUpperHeadFunc";
 import {userType} from "../../../redux/slices/authUserSlice";
 import noPhotoSrc from '../../../assets/noPhoto.png'
@@ -14,6 +14,7 @@ import noPhotoSrc from '../../../assets/noPhoto.png'
 
 const Profile: FC = () => {
     const {user} = useSelector((state: RootState) => state.userSlice)
+
 
     //форматированные данные
     const userInfo: userType = {
@@ -26,14 +27,13 @@ const Profile: FC = () => {
         imageURL: user.imageURL
 
     }
-    //
 
     return (
         <div className={styles.container}>
             <div className={styles.contentTop}>
                 <img
                     className={styles.photo}
-                    src={userInfo.imageURL||noPhotoSrc}
+                    src={user.imageURL||noPhotoSrc}
                     alt="Human"/>
                 <PersonInfo userInfo={userInfo}/>
 
@@ -42,7 +42,8 @@ const Profile: FC = () => {
                 </div>
 
             </div>
-            <Note/>
+            <BottomProfile
+            />
 
 
         </div>

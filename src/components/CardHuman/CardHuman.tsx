@@ -1,12 +1,13 @@
 import styles from './CardHuman.module.scss'
 import borderStyles from './BorderCardHuman.module.scss'
-import React, {FC, useState} from "react"
+import React, {FC, useEffect, useState} from "react"
 import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import noPhotoSrc from '../../assets/noPhoto.png'
+import {isImage} from "../../utils/isImage";
 
 type CardHumanProps = {
     userInfo: userType;
@@ -21,10 +22,14 @@ const CardHuman: FC<CardHumanProps> = ({
                                            openOnClick = true,
                                        }) => {
     const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
+    const [image,setImage]=useState<string>(noPhotoSrc)
     const {adminUser} = useSelector((state: RootState) => state.userSlice)
     const onClickCard = async () => {
         setCardIsOpen(true)
     }
+
+
+
     return (
 
         <div>
@@ -42,7 +47,7 @@ const CardHuman: FC<CardHumanProps> = ({
                 className={`${styles.container} ${borderStyles.border}`}>
                 <img
                     className={styles.photo + ' ' + (!userInfo.imageURL && styles.noPhoto)}
-                    src={userInfo.imageURL || noPhotoSrc}
+                    src={userInfo.imageURL||noPhotoSrc}
                     alt="Human"/>
                 <div className={styles.about}>
                     <div

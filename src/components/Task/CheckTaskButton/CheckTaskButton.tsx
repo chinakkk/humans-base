@@ -23,17 +23,6 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
                                                        setSortTaskFunc
                                                    }) => {
 
-    const currentTask = taskItems.find((taskItem) => taskItem.uid === task.uid)
-    const filterTask = () => {
-        if (currentTask) currentTask.state = !isChecked
-        const trueTasksItems = taskItems.filter((taskItem: taskType) => taskItem.state)
-        const falseTasksItems = taskItems.filter((taskItem: taskType) => !taskItem.state)
-        setTaskItems([...falseTasksItems, ...trueTasksItems])
-        setSortTaskFunc(taskItems)
-
-    }
-
-
     const debounceTask = useCallback(
         debounce((check: boolean) => {
             if (task.state!==check) {

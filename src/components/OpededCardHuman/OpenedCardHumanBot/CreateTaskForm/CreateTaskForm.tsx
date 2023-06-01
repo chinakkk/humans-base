@@ -31,6 +31,7 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({userInfo}) => {
                            required={true}
                            autoFocus={true}
                            autoComplete={'off'}
+                           maxLength={40}
                     />
                     <textarea
                         className={`${styles.taskInput} ${styles.taskTextArea}`}
