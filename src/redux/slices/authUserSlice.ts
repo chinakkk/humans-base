@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
+const localStorageUser = JSON.parse(localStorage.getItem('user') || '{}')
 
 export type userType = {
     uid?: string,
@@ -16,8 +17,6 @@ interface userSliceType {
     user: userType;
     adminUser: { login: string };
 }
-
-const localStorageUser = JSON.parse(localStorage.getItem('user') || '{}')
 const initialState: userSliceType = {
     user: {
         login: localStorageUser.login || '',

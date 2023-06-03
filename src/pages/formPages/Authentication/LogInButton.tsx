@@ -5,6 +5,7 @@ import {setUser, userType} from "../../../redux/slices/authUserSlice";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {getUsersFirestore} from "../../../dataBaseResponse/usersFirestore";
+import {useAppDispatch} from "../../../redux/store";
 
 type LogInButtonProps = {
     setButtonIsLoading: (value: boolean) => void;
@@ -23,7 +24,8 @@ const LogInButton: FC<LogInButtonProps> = ({
                                                loginIsActive,
                                                buttonIsLoading
                                            }) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+
     const navigate = useNavigate()
 
 

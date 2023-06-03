@@ -11,39 +11,54 @@ import {getUsersFirestore} from "../../../dataBaseResponse/usersFirestore";
 const Programmers: FC = () => {
     const [pageIsLoading, setPageIsLoading] = useState<boolean>(true)
     const [usersCardItems, setUsersCardItems] = useState<userType[]>([])
+
     const {user} = useSelector((state: RootState) => state.userSlice)
+    const {search} = useSelector((state: RootState) => state.searchSlice)
 
     useEffect(() => {
+        //получение пользователей по загрузке страницы
         (async () => {
-            try {
-                setPageIsLoading(true)
+            setPageIsLoading(true)
+            const usersData = await getUsersFirestore()
+            const usersWithoutLoginUser = usersData ? usersData.filter((dataUser: userType) => dataUser.login !== user.login) : []
 
-                const data = await getUsersFirestore()
+            setUsersCardItems(usersWithoutLoginUser)
+            setPageIsLoading(false)
 
-                const filteredData = data ? data.filter((dataUser: userType) => dataUser.login !== user.login):[]
-                setUsersCardItems(filteredData)
-                setPageIsLoading(false)//спросить у Адиля когда надо использовать await
-            } catch (error) {
-                console.log('Ошибка при запросе программистов', error)
-            }
 
         })()
 
     }, [])
 
+    useEffect(() => {
+
+
+    }, [search])
+    const renderProgrammersItems = () => {
+        //фильтрация по поиску
+        const searchFilterProgrammersItems = search.programmers.length > 0 ? usersCardItems.filter((user) => {
+            //условие сортировки
+            return user.name.includes(search.programmers) ||
+                user.surname.includes(search.programmers) ||
+                user.level.includes(search.programmers)
+        }) : usersCardItems
+
+        //вывод пользователей
+        return pageIsLoading ?
+            [...new Array(9)].map((value, index) => <SkeletonCardHuman key={index}/>)
+            :
+            searchFilterProgrammersItems.map((userCard) =>
+                <CardHuman userInfo={userCard}
+                           key={userCard.uid}
+                           setUsersCardArr={setUsersCardItems}
+                />
+            )
+    }
+
     return (
         <div className={styles.container}>
             {
-                pageIsLoading ?
-                    [...new Array(9)].map((value, index) => <SkeletonCardHuman key={index}/>)
-                    :
-                    usersCardItems.map((userCard) =>
-                        <CardHuman userInfo={userCard}
-                                   key={userCard.uid}
-                                   setUsersCardArr={setUsersCardItems}
-                        />
-                    )
-
+                renderProgrammersItems()
             }
         </div>
     )

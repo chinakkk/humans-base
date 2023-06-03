@@ -1,20 +1,39 @@
 import styles from './Search.module.scss'
-import React, {FC, useRef, useState} from "react"
+import React, {FC, useEffect, useRef, useState} from "react"
 import {useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setChatSearch, setProgrammersSearch, setTasksSearch} from "../../../redux/slices/searchSlice";
+import {RootState, useAppDispatch} from "../../../redux/store";
+import programmers from "../../../pages/menuPages/Programmers/Programmers";
 
-type SearchProps = {
-    searchInput: string;
-    setSearchInput: (value:string) => void
-}
+type SearchProps = {}
 
-const Search: FC <SearchProps>= ({searchInput, setSearchInput}) => {
+const Search: FC<SearchProps> = () => {
+    const [currentPath,setCurrentPath]=useState<'programmers'|'tasks'|'chat'>('tasks')
+    const dispatch = useAppDispatch()
+    const {search} = useSelector((state: RootState) => state.searchSlice)
     const location = useLocation()
     const inputRef = useRef<HTMLInputElement>(null)
     const pageIsProfile = location.pathname === '/menu/profile'
 
+    useEffect(() => {
+        if(location.pathname==='/menu/programmers')setCurrentPath('programmers')
+        else if(location.pathname==='/menu/tasks')setCurrentPath('tasks')
+        else if(location.pathname==='/menu/chat')setCurrentPath('chat')
+
+    }, [location])
+
+
     const onClickClearSearch = () => {
-        setSearchInput('')
+        if (currentPath==='programmers')dispatch(setProgrammersSearch(''))
+        else if (currentPath==='tasks')dispatch(setTasksSearch(''))
+        else if (currentPath==='chat')dispatch(setChatSearch(''))
     }
+    const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (currentPath==='programmers')dispatch(setProgrammersSearch(event.target.value))
+        else if (currentPath==='tasks')dispatch(setTasksSearch(event.target.value))
+        else if (currentPath==='chat')dispatch(setChatSearch(event.target.value))
+      }
     return (
         <div className={styles.container + ' ' + (pageIsProfile ? styles.hidden : '')}>
             <div className={styles.searchWrapper}>
@@ -23,14 +42,14 @@ const Search: FC <SearchProps>= ({searchInput, setSearchInput}) => {
                     className={styles.search}
                     type="text"
                     placeholder={'Search...'}
-                    value={searchInput}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchInput(event.target.value)}
+                    value={search[currentPath]}
+                    onChange={(event) => onChangeSearch(event)}
 
                 />
             </div>
 
             {
-                searchInput.length && <svg
+                search[currentPath].length && <svg
                     onClick={onClickClearSearch}
                     fill="#000000" width="16px" height="16px" viewBox="-3.5 0 19 19" xmlns="http://www.w3.org/2000/svg"
                     className={styles.clearButton}>

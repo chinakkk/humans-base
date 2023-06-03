@@ -38,42 +38,48 @@ const OpenedTask: FC<OpenedTaskProps> = ({
 
             <div className={styles.window + ' ' + (editMode ? styles.borderEdit : '')}>
 
-                <div className={styles.titleBlock}>
-                    {
-                        editMode ? <input className={styles.titleInput}
-                                          onChange={(event) => setTitleInput(event.target.value)}
-                                          value={titleInput}
-                                          autoFocus={true}
-                            />
-                            :
-                            task.title
-                    }
-                </div>
-                <div className={styles.textBlock}>
-                    {editMode ?
-                        <textarea
-                            className={styles.textInput}
-                            onChange={(event) => setTextInput(event.target.value)}
-                            value={textInput}
-                        >
+                <form>
+                    <div className={styles.titleBlock}>
+                        {
+                            editMode ? <input className={styles.titleInput}
+                                              onChange={(event) => setTitleInput(event.target.value)}
+                                              value={titleInput}
+                                              autoFocus={true}
+                                              maxLength={40}
+                                />
+                                :
+                                task.title
+                        }
+                    </div>
+                    <div className={styles.textBlock}>
+                        {editMode ?
+                            <textarea
+                                className={styles.textInput}
+                                onChange={(event) => setTextInput(event.target.value)}
+                                value={textInput}
+                            >
                         </textarea> :
-                        task.text}
-                </div>
-                {
-                    !!task.date.length &&
-                    <>
-                      <div className={`${styles.time} ${styles.date} ${!task.state && styles.greenDate}`}>
-                          {task.date.slice(8, 10) + ':' + task.date.slice(10, 12)}
-                      </div>
-                      <div className={`${styles.yearMonthDay} ${styles.date} ${!task.state && styles.greenDate}`}>
-                          {task.date.slice(6, 8) + '.' + task.date.slice(4, 6) + '.' + task.date.slice(0, 4)}
-                      </div>
-                    </>
+                            task.text}
+                    </div>
+
+                    {
+                        !!task.date.length &&
+                        <>
+                          <div className={`${styles.time} ${styles.date} ${!task.state && styles.greenDate}`}>
+                              {task.date.slice(8, 10) + ':' + task.date.slice(10, 12)}
+                          </div>
+                          <div className={`${styles.yearMonthDay} ${styles.date} ${!task.state && styles.greenDate}`}>
+                              {task.date.slice(6, 8) + '.' + task.date.slice(4, 6) + '.' + task.date.slice(0, 4)}
+                          </div>
+                        </>
 
 
-                }
-                <button onClick={onClickEditTask}
-                        className={styles.editButton}>{editMode ? 'Save' : 'Edit mode'}</button>
+                    }
+                    <button onClick={onClickEditTask}
+                            className={styles.editButton}>{editMode ? 'Save' : 'Edit mode'}
+                    </button>
+                </form>
+
                 <DeleteTaskButton
                     task={task}
                     taskItems={taskItems}

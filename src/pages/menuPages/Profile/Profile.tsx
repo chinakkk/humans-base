@@ -1,15 +1,14 @@
 import styles from './Profile.module.scss'
 
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import CardHuman from "../../../components/CardHuman/CardHuman";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import PersonInfo from "./PersonInfo/PersonInfo";
-import BottomProfile from "./BottomProfile/BottomProfile";
+import ButtonsProfile from "./ButtonsProfile/ButtonsProfile";
 import {toUpperHeadFunc} from "../../../utils/toUpperHeadFunc";
 import {userType} from "../../../redux/slices/authUserSlice";
 import noPhotoSrc from '../../../assets/noPhoto.png'
-
 
 
 const Profile: FC = () => {
@@ -33,7 +32,7 @@ const Profile: FC = () => {
             <div className={styles.contentTop}>
                 <img
                     className={styles.photo}
-                    src={user.imageURL||noPhotoSrc}
+                    src={user.imageURL || noPhotoSrc}
                     alt="Human"/>
                 <PersonInfo userInfo={userInfo}/>
 
@@ -42,8 +41,13 @@ const Profile: FC = () => {
                 </div>
 
             </div>
-            <BottomProfile
-            />
+            <div className={styles.contentBot}>
+                <div className={styles.aboutMeInput}></div>
+
+                <ButtonsProfile
+                />
+
+            </div>
 
 
         </div>

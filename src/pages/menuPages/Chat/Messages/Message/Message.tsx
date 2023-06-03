@@ -17,7 +17,7 @@ const Message: FC<MessageProps> = ({messageObj}) => {
     const onClickRemoveMessage = () => {
         remove(ref(realTimeDB, `/${messageObj.uuid}`)).then().catch()
     }
-    const date = `${messageObj.date.slice(6, 8)}/${messageObj.date.slice(4, 6)}`
+    const date = `${messageObj.date.slice(6, 8)}.${messageObj.date.slice(4, 6)}`
     const time = `${messageObj.date.slice(8, 10)}:${messageObj.date.slice(10, 12)}`
 
     return (

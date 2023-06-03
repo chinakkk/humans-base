@@ -4,16 +4,14 @@ import {Link, useLocation} from "react-router-dom";
 
 type ButtonPagesProps = {
     pagesArr: string[];
-    clearInput: () => void;
 }
 
-const PagesButton: FC<ButtonPagesProps> = ({pagesArr, clearInput}) => {
+const PagesButton: FC<ButtonPagesProps> = ({pagesArr}) => {
     const location = useLocation()
     const [openedPage, setOpenedPage] = useState<string>()
 
     const onClickPage = (page: string) => {
         setOpenedPage(page)
-        clearInput()
     }
 
     useEffect(() => {//нужно позже реализовать сохранение открытой вкладки через local storage
@@ -22,6 +20,7 @@ const PagesButton: FC<ButtonPagesProps> = ({pagesArr, clearInput}) => {
         const pageNameCapitalLetter = pageName[0].toUpperCase() + pageName.slice(1)//добавление заглавной буквы
         setOpenedPage(pageNameCapitalLetter)//ставим текущую страницу исходя из пути
     }, [location])
+
 
 
     return (

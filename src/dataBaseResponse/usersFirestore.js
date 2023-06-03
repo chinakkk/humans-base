@@ -43,7 +43,6 @@ export const deleteUserFirestore = async (uid) => {
 
     //удаление фото пользователя
     const deleteRef = ref(storage, `programmersImg/${uid}`);
-    console.log(deleteRef)
     deleteObject(deleteRef).then().catch((error) => {
       console.log('Ошибка при удалении фотографии пользователя.')
       console.log(error)
