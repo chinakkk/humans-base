@@ -7,12 +7,12 @@ import {userType} from "../../redux/slices/authUserSlice";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import noPhotoSrc from '../../assets/noPhoto.png'
-import {isImage} from "../../utils/isImage";
 
 type CardHumanProps = {
     userInfo: userType;
     setUsersCardArr?: React.Dispatch<React.SetStateAction<userType[]>>;
     openOnClick?: boolean;
+    userImageUrl?:string;
 }
 
 const CardHuman: FC<CardHumanProps> = ({
@@ -20,14 +20,13 @@ const CardHuman: FC<CardHumanProps> = ({
                                            setUsersCardArr = () => {
                                            },
                                            openOnClick = true,
+                                           userImageUrl=undefined
                                        }) => {
     const [cardIsOpen, setCardIsOpen] = useState<boolean>(false)
-    const [image,setImage]=useState<string>(noPhotoSrc)
     const {adminUser} = useSelector((state: RootState) => state.userSlice)
     const onClickCard = async () => {
         setCardIsOpen(true)
     }
-
 
 
     return (
@@ -46,8 +45,8 @@ const CardHuman: FC<CardHumanProps> = ({
                 onClick={onClickCard}
                 className={`${styles.container} ${borderStyles.border}`}>
                 <img
-                    className={styles.photo + ' ' + (!userInfo.imageURL && styles.noPhoto)}
-                    src={userInfo.imageURL||noPhotoSrc}
+                    className={styles.photo + ' ' + (!userInfo.imageURL&& (userImageUrl===undefined || !userImageUrl) && styles.noPhoto)}
+                    src={userImageUrl || userInfo.imageURL || noPhotoSrc}
                     alt="Human"/>
                 <div className={styles.about}>
                     <div
