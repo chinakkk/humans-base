@@ -38,10 +38,6 @@ const ImageButtons: FC<BottomProfileType> = ({
                 setUserImage(files[0])
             }
         }
-
-
-        // if (files && files.length > 0) await uploadImg(files[0])
-
     }
 
 

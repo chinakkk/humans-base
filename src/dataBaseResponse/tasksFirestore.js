@@ -1,7 +1,7 @@
 import {collection, deleteDoc, doc, getDocs, setDoc, query, where, updateDoc} from "firebase/firestore";
 import {fireStoreDB} from "../firebase";
 import {uid} from "uid";
-import {currentDate} from "../utils/currentDate";
+import {currentDate} from "../utils/utilsFunction";
 
 export const getAllTasksFirestore = async () => {
   try {
@@ -76,9 +76,6 @@ export const updateTaskByUIDFirestore = async (uid, updatedTask) => {
 
 export const postTaskByLoginFirestore = async (username, title, text, userUID) => {
   try {
-    // const today = new Date()
-    // const options = {day: 'numeric', month: 'numeric', year: 'numeric'}
-    // const formattedTodayDate = today.toLocaleDateString('en-GB', options).replaceAll('/', '.')
 
     const uuid = uid()
 

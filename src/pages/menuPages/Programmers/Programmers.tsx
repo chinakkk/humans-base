@@ -19,8 +19,8 @@ const Programmers: FC = () => {
         //получение пользователей по загрузке страницы
         (async () => {
             setPageIsLoading(true)
-            const usersData = await getUsersFirestore()
-            const usersWithoutLoginUser = usersData ? usersData.filter((dataUser: userType) => dataUser.login !== user.login) : []
+            const usersItemsData = await getUsersFirestore()
+            const usersWithoutLoginUser = usersItemsData ? usersItemsData.filter((dataUser: userType) => dataUser.login !== user.login) : []
 
             setUsersCardItems(usersWithoutLoginUser)
             setPageIsLoading(false)

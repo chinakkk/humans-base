@@ -6,7 +6,7 @@ import {set, ref} from 'firebase/database'
 import React from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
-import {currentDate} from "../../../../utils/currentDate";
+import {currentDate} from "../../../../utils/utilsFunction";
 
 
 type SendMessageProps = {}

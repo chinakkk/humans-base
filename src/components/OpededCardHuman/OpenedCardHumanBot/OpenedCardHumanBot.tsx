@@ -19,7 +19,7 @@ const OpenedCardHumanBot: FC<OpenedCardHumanBotProps> = ({addTaskMode = false,us
                         userInfo={userInfo}
                     />
                     :
-                    <div className={styles.note}>Люблю котиков и не люблю утро.</div>
+                    <div className={styles.note}>{userInfo.about||''}</div>
             }
 
         </div>

@@ -11,6 +11,7 @@ export type userType = {
     level: string,
     birthday: string,
     imageURL?: string,
+    about?:string,
 }
 
 interface userSliceType {
@@ -27,6 +28,8 @@ const initialState: userSliceType = {
         birthday: localStorageUser.birthday || '',
         uid: localStorageUser.uid || '',
         imageURL: localStorageUser.imageURL || '',
+        about: localStorageUser.about || '',
+
 
     },
     adminUser: {
@@ -46,6 +49,7 @@ const authUserSlice = createSlice({
             state.user.birthday = action.payload.birthday
             state.user.uid = action.payload.uid
             state.user.imageURL = action.payload.imageURL
+            state.user.about = action.payload.about
 
             localStorage.setItem('user', JSON.stringify(state.user))
 
@@ -59,6 +63,7 @@ const authUserSlice = createSlice({
             state.user.birthday = ''
             state.user.uid = ''
             state.user.imageURL = ''
+            state.user.about = ''
 
             localStorage.removeItem('user')
 

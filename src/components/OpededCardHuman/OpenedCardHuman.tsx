@@ -1,13 +1,12 @@
 import styles from './OpenedCardHuman.module.scss'
 import React, {FC, useState} from "react"
-import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
+import {utilsFunction} from "../../utils/utilsFunction";
 import DeleteHumanButton from "./DeleteHumanButton/DeleteHumanButton";
 import ToggleTaskModeButton from "./ToggleTaskModeButton/ToggleTaskModeButton";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useAdminAuth} from "../../hooks/useAdminAuth";
 import OpenedCardHumanBot from "./OpenedCardHumanBot/OpenedCardHumanBot";
 import noPhotoSrc from "../../assets/noPhoto.png";
-import {isImage} from "../../utils/isImage";
 
 type OpenedCardHuman = {
     setCardIsOpen: (value: boolean) => void;
@@ -46,9 +45,9 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                         src={userInfo.imageURL||noPhotoSrc}
                         alt="Human"/>
                     <div className={styles.about}>
-                        <div className={styles.level}>{toUpperHeadFunc(userInfo.level)}</div>
+                        <div className={styles.level}>{utilsFunction(userInfo.level)}</div>
                         <div
-                            className={styles.name}>{toUpperHeadFunc(userInfo.name)} {toUpperHeadFunc(userInfo.surname)}</div>
+                            className={styles.name}>{utilsFunction(userInfo.name)} {utilsFunction(userInfo.surname)}</div>
                         <div className={styles.birthday}>{userInfo.birthday}</div>
                     </div>
                 </div>

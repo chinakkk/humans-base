@@ -1,13 +1,29 @@
 import styles from './PersonInfo.module.scss'
-import {FC} from "react"
+import {FC, useState} from "react"
 import {userType} from "../../../../redux/slices/authUserSlice";
 
 type PersonInfo = {
-    userInfo:userType,
-    editMode:boolean,
+    userInfo:userType;
+    editMode:boolean;
+    editNameInput:string;
+    editSurnameInput:string;
+    setEditNameInput:(value:string) => void;
+    setEditSurnameInput:(value:string) => void;
+    editDateInput:string;
+    setEditDateInput:(value:string) => void;
+
 }
 
-const PersonInfo: FC<PersonInfo> = ({userInfo,editMode}) => {
+const PersonInfo: FC<PersonInfo> = ({userInfo,
+                                        editMode,
+                                        editNameInput,
+                                        editSurnameInput,
+                                        setEditNameInput,
+                                        setEditSurnameInput,
+                                        editDateInput,
+                                        setEditDateInput,
+
+                                    }) => {
 
     return (
         <div className={styles.container}>
@@ -16,9 +32,21 @@ const PersonInfo: FC<PersonInfo> = ({userInfo,editMode}) => {
             {
                 editMode?
                     <div className={styles.inputs}>
-                        <input className={styles.input} type="text"/>
-                        <input className={styles.input} type="text"/>
-                        <input className={styles.input} type="date"/>
+                        <input value={editNameInput}
+                               onChange={(event) => setEditNameInput(event.target.value)}
+                               className={styles.input+ ' '+ styles.nameInput}
+                               type="text"
+                        />
+                        <input value={editSurnameInput}
+                               onChange={(event) => setEditSurnameInput(event.target.value)}
+                               className={styles.input+ ' '+ styles.surnameInput}
+                               type="text"
+                        />
+                        <input className={styles.input+ ' '+ styles.dateInput}
+                               type="date"
+                               onChange={(event) => setEditDateInput(event.target.value)}
+                               value={editDateInput}
+                        />
                     </div>
                     :
                     <>

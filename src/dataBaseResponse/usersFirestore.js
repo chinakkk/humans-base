@@ -16,8 +16,16 @@ export const updateImgByUidFirestore = async (uid, imageURL) => {
     alert('Ошибка при добавлении фотографии в FS.')
     console.log(error)
   }
+}
+export const updateUserInfoByUidFirestore = async (uid, userObj) => {
+  try {
+    const userRef = doc(fireStoreDB, "users", uid);
 
-
+    await updateDoc(userRef, userObj);
+  } catch (error) {
+    alert('Ошибка при изменении данных пользователя в FS.')
+    console.log(error)
+  }
 }
 
 export const getUsersFirestore = async () => {
@@ -64,7 +72,6 @@ export const postUserFirestore = async (newUser) => {
       ...newUser,
       uid: uuid
     });
-    console.log(uuid)
     return uuid
 
   } catch (error) {
@@ -95,34 +102,14 @@ export const usernameIsExistsFirestore = async (login) => {
 
 }
 
-export const getUserByUid = async (uid) => {
+export const getUserByUidFirestore = async (uid) => {
   try {
     const user = await getDoc(doc(fireStoreDB, 'users', uid))
     return user.data()
 
   } catch (error) {
     console.log(error)
-    alert('Ошибка при поиске по uid.')
-  }
-
-}
-
-export const getCurrentUserFirestore = async (login, password) => {
-  try {
-    const usersArr = []
-    const userDocs = await getDocs(collection(fireStoreDB, "users"));
-    userDocs.forEach((doc) => usersArr.push(doc.data()));
-
-    const currentUser = (usersArr.filter((user) => {
-      return user.login === login && user.password === password
-    }))[0]
-
-    return currentUser
-
-  } catch (error) {
-    console.log(error)
-    console.log('Ошибка при получении пользователя')
-    alert('Ошибка при получении пользователя')
+    alert('Ошибка при получении пользователя по id.')
   }
 
 }

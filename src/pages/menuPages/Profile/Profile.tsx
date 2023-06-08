@@ -1,97 +1,59 @@
 import styles from './Profile.module.scss'
 
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import CardHuman from "../../../components/CardHuman/CardHuman";
 import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../../redux/store";
 import PersonInfo from "./PersonInfo/PersonInfo";
-import {toUpperHeadFunc} from "../../../utils/toUpperHeadFunc";
+import {resetConvertDate, utilsFunction} from "../../../utils/utilsFunction";
 import {setUser, userType} from "../../../redux/slices/authUserSlice";
 import noPhotoSrc from '../../../assets/noPhoto.png'
 import ImageButtons from "./ImageButtons/ImageButtons";
-import {deleteObject, getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import {storage} from "../../../firebase";
-import {updateImgByUidFirestore} from "../../../dataBaseResponse/usersFirestore";
+import EditButtons from "./EditButtons/EditButtons";
+import {getUserByUidFirestore} from "../../../dataBaseResponse/usersFirestore";
 
 
 const Profile: FC = () => {
+    const dispatch = useAppDispatch()
+
     const {user} = useSelector((state: RootState) => state.userSlice)
     const [editMode, setEditMode] = useState<boolean>(false)
+
     const [userImageUrl, setUserImageUrl] = useState<string>('')
     const [userImageFile, setUserImageFile] = useState<File | null>(null)
     const [userImageLastImageUrl, setUserImageLastImageUrl] = useState<string>(user.imageURL || '')
-    const dispatch = useAppDispatch()
 
+    const [editNameInput, setEditNameInput] = useState<string>(user.name || '')
+    const [editSurnameInput, setEditSurnameInput] = useState<string>(user.surname || '')
+    const [editAboutTextarea, setEditAboutTextarea] = useState<string>(user.about || '')
+    const [editDateInput, setEditDateInput] = useState<string>(resetConvertDate(user.birthday) || '')
+
+    useEffect(() => {
+        (async () => {
+            const documentSnapshot = await getUserByUidFirestore(user.uid) || undefined;
+            if (documentSnapshot) {
+                const currentUser: userType = documentSnapshot as userType;
+                dispatch(setUser(currentUser))
+            } else {
+                // Обработка, если документ не существует
+            }
+        })()
+
+    }, [])
 
     //форматированные данные
     const userInfo: userType = {
-        uid: user.uid || '',
-        name: toUpperHeadFunc(user.name),
-        surname: toUpperHeadFunc(user.surname),
-        level: toUpperHeadFunc(user.level),
-        birthday: user.birthday || '',
+        uid: user.uid,
+        name: utilsFunction(user.name),
+        surname: utilsFunction(user.surname),
+        level: utilsFunction(user.level),
+        birthday: user.birthday,
         login: '',
-        imageURL: user.imageURL
+        imageURL: user.imageURL,
+        about: user.about,
 
     }
-    const uploadImgOnFirebase = async (file: File | null) => {
-        try {
-            if (file) {
-                const metadata = {
-                    contentType: 'image/jpeg'
-                };
-                const imageRef = ref(storage, 'programmersImg/' + user.uid);
-                await uploadBytesResumable(imageRef, file, metadata);
-                await getDownloadURL(imageRef)
-                    .then((url) => {
-                        updateImgByUidFirestore(user.uid, url)
-                        dispatch(setUser({...user, imageURL: url}))
-                        console.log('Img is uploaded!')
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                        console.log('Ошибка при получении ссылки на фотографию пользователя.')
-                    });
-            }
 
-        } catch (error) {
-            alert('Ошибка при загрузке изображения')
-            console.log(error)
-        }
-    }
-    const deleteImageFromFirebase = () => {
-        if (!!userImageLastImageUrl) {
-            const deleteRef = ref(storage, `programmersImg/${user.uid}`);
-            deleteObject(deleteRef).then(() => {
-                updateImgByUidFirestore(user.uid, '').then()
-                dispatch(setUser({...user, imageURL: ''}))
-                console.log('img is deleted')
-                setUserImageLastImageUrl('')
-
-            }).catch((error) => {
-                alert('Ошибка при удалении картинки.')
-                console.log('Ошибка при удалении картинки.')
-                console.log(error)
-            });
-        }
-    }
-    const onClickSave = () => {
-        setEditMode(!editMode)
-        uploadImgOnFirebase(userImageFile).then(
-            () => {
-                setUserImageUrl('')
-
-            }
-        )
-        if (!!userImageLastImageUrl && !user.imageURL) deleteImageFromFirebase()
-
-    }
-    const onClickCancel = () => {
-        setEditMode(false)
-        setUserImageUrl('')
-        dispatch(setUser({...user, imageURL: userImageLastImageUrl}))
-
-    }
 
     return (
         <div className={styles.container}>
@@ -101,7 +63,8 @@ const Profile: FC = () => {
                     src={userImageUrl || user.imageURL || noPhotoSrc}
                     alt="Human"/>
                 {
-                    editMode && <ImageButtons
+                    editMode &&
+                    <ImageButtons
                         setUserImage={setUserImageFile}
                         setUserImageUrl={setUserImageUrl}
                         setUserImageLastImageUrl={setUserImageLastImageUrl}
@@ -109,31 +72,56 @@ const Profile: FC = () => {
                 }
 
 
-                <PersonInfo userInfo={userInfo} editMode={editMode}/>
+                <PersonInfo userInfo={userInfo}
+                            editMode={editMode}
+                            editNameInput={editNameInput}
+                            setEditNameInput={setEditNameInput}
+                            editSurnameInput={editSurnameInput}
+                            setEditSurnameInput={setEditSurnameInput}
+                            editDateInput={editDateInput}
+                            setEditDateInput={setEditDateInput}
+                />
 
                 <div className={styles.cardProfile}>
                     <CardHuman
                         userInfo={userInfo}
                         openOnClick={false}
-                        userImageUrl ={userImageUrl}
+                        userImageUrl={userImageUrl}
                     />
                 </div>
 
             </div>
             <div className={styles.contentBot}>
-                <div className={styles.aboutMeInput}></div>
-                {
-                    editMode ?
-                        <>
-                            <button onClick={onClickSave} className={styles.editButton}>Save</button>
-                            <button onClick={onClickCancel} className={styles.cancelButton}>Cancel</button>
+                <div className={styles.aboutMeInput + ' ' + (editMode && styles.aboutMeInputEditMode)}>
+                    {
+                        editMode ?
+                            <textarea
+                                className={styles.area}
+                                onChange={(event) => setEditAboutTextarea(event.target.value)}
+                                value={editAboutTextarea}
+                            >
+                            </textarea>
+                            :
+                            user.about
 
-                        </>
-                        :
-                        <button onClick={() => setEditMode(true)} className={styles.editButton}>
-                            Edit
-                        </button>
-                }
+                    }
+                </div>
+                <EditButtons
+                    editMode={editMode}
+                    setEditMode={setEditMode}
+                    userImageFile={userImageFile}
+                    userImageLastImageUrl={userImageLastImageUrl}
+                    setUserImageLastImageUrl={setUserImageLastImageUrl}
+                    setUserImageUrl={setUserImageUrl}
+                    editNameInput={editNameInput}
+                    editSurnameInput={editSurnameInput}
+                    setEditNameInput={setEditNameInput}
+                    setEditSurnameInput={setEditSurnameInput}
+                    editAboutTextarea={editAboutTextarea}
+                    editDateInput={editDateInput}
+                    setEditDateInput={setEditDateInput}
+
+                />
             </div>
         </div>
     )

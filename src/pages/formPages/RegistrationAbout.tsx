@@ -1,5 +1,5 @@
 import commonStyles from './commonForm.module.scss'
-import {FC, memo, useEffect, useState} from "react"
+import {FC, memo, useState} from "react"
 import ToggleButton from "./Components/ToggleButton/ToggleButton";
 import InputBlocks from "./Components/InputBlocks/InputBlocks";
 import ButtonInForm from "./Components/ButtonInForm/ButtonInForm";
@@ -8,6 +8,7 @@ import {RootState, useAppDispatch} from "../../redux/store";
 import {clearRegistrationData, setRegistrationAbout} from "../../redux/slices/registrationSlice";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {convertDate} from "../../utils/utilsFunction";
 
 const RegistrationAbout: FC = memo(() => {
     const dispatch = useAppDispatch()
@@ -48,8 +49,7 @@ const RegistrationAbout: FC = memo(() => {
     ]
 
     const onClickContinue = () => {
-        const birthDayArr=birthDaInputValue.split('-')
-        const birthDay = `${birthDayArr[2]}.${birthDayArr[1]}.${birthDayArr[0]}`
+        const birthDay = convertDate(birthDaInputValue)
         dispatch(setRegistrationAbout({
             name: nameInputValue,
             surname: surnameInputValue,

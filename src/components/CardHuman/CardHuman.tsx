@@ -1,7 +1,7 @@
 import styles from './CardHuman.module.scss'
 import borderStyles from './BorderCardHuman.module.scss'
 import React, {FC, useEffect, useState} from "react"
-import {toUpperHeadFunc} from "../../utils/toUpperHeadFunc";
+import {utilsFunction} from "../../utils/utilsFunction";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useSelector} from "react-redux";
@@ -50,9 +50,9 @@ const CardHuman: FC<CardHumanProps> = ({
                     alt="Human"/>
                 <div className={styles.about}>
                     <div
-                        className={styles.level}>{userInfo.login === adminUser.login ? 'Admin' : toUpperHeadFunc(userInfo.level)}</div>
+                        className={styles.level}>{userInfo.login === adminUser.login ? 'Admin' : utilsFunction(userInfo.level)}</div>
                     <div
-                        className={styles.name}>{toUpperHeadFunc(userInfo.name)} {toUpperHeadFunc(userInfo.surname)}</div>
+                        className={styles.name}>{utilsFunction(userInfo.name)} {utilsFunction(userInfo.surname)}</div>
                 </div>
             </div>
 
