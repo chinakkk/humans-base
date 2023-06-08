@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/humans-base/static/css/main.0b8c5220.css",
-    "main.js": "/humans-base/static/js/main.a01cecf1.js",
+    "main.css": "/humans-base/static/css/main.4e781494.css",
+    "main.js": "/humans-base/static/js/main.8b53fd9d.js",
     "static/media/loading.gif": "/humans-base/static/media/loading.2b5f132381dfa9eff97f.gif",
     "static/media/oceanAnimate.svg": "/humans-base/static/media/oceanAnimate.a0578ba54ab5c8342565.svg",
     "static/media/noPhoto.png": "/humans-base/static/media/noPhoto.7aa616a33b2a429c4a88.png",
     "index.html": "/humans-base/index.html",
-    "main.0b8c5220.css.map": "/humans-base/static/css/main.0b8c5220.css.map",
-    "main.a01cecf1.js.map": "/humans-base/static/js/main.a01cecf1.js.map"
+    "main.4e781494.css.map": "/humans-base/static/css/main.4e781494.css.map",
+    "main.8b53fd9d.js.map": "/humans-base/static/js/main.8b53fd9d.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b8c5220.css",
-    "static/js/main.a01cecf1.js"
+    "static/css/main.4e781494.css",
+    "static/js/main.8b53fd9d.js"
   ]
 }
