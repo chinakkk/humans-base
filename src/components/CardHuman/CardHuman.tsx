@@ -1,7 +1,7 @@
 import styles from './CardHuman.module.scss'
 import borderStyles from './BorderCardHuman.module.scss'
 import React, {FC, useEffect, useState} from "react"
-import {utilsFunction} from "../../utils/utilsFunction";
+import {toUpperCaseHead} from "../../utils/toUpperCaseHead";
 import OpenedCardHuman from "../OpededCardHuman/OpenedCardHuman";
 import {userType} from "../../redux/slices/authUserSlice";
 import {useSelector} from "react-redux";
@@ -44,15 +44,19 @@ const CardHuman: FC<CardHumanProps> = ({
             <div
                 onClick={onClickCard}
                 className={`${styles.container} ${borderStyles.border}`}>
+                <div className={styles.photoContainer}>
                 <img
                     className={styles.photo + ' ' + (!userInfo.imageURL&& (userImageUrl===undefined || !userImageUrl) && styles.noPhoto)}
                     src={userImageUrl || userInfo.imageURL || noPhotoSrc}
-                    alt="Human"/>
+                    alt="Human"
+                />
+
+                </div>
                 <div className={styles.about}>
                     <div
-                        className={styles.level}>{userInfo.login === adminUser.login ? 'Admin' : utilsFunction(userInfo.level)}</div>
+                        className={styles.level}>{userInfo.login === adminUser.login ? 'Admin' : toUpperCaseHead(userInfo.level)}</div>
                     <div
-                        className={styles.name}>{utilsFunction(userInfo.name)} {utilsFunction(userInfo.surname)}</div>
+                        className={styles.name}>{toUpperCaseHead(userInfo.name)} {toUpperCaseHead(userInfo.surname)}</div>
                 </div>
             </div>
 

@@ -14,10 +14,10 @@ type MessagesProps = {}
 const Messages: FC = () => {
     const [messagesItems, setMessagesItems] = useState<messageObjType[]>([])
     const messagesRef = useRef<HTMLDivElement>(null)
-    const {search} = useSelector((state:RootState) => state.searchSlice)
+    const {search} = useSelector((state: RootState) => state.searchSlice)
 
 
-    const formatDate = (date:string) => {
+    const formatDate = (date: string) => {
         const day = `${date.slice(6, 8)}.${date.slice(4, 6)}`
         const time = `${date.slice(8, 10)}:${date.slice(10, 12)}`
         return `${day} ${time}`
@@ -52,24 +52,46 @@ const Messages: FC = () => {
     }, [search.chat])
 
 
-
     const renderMessageItems = () => {
         //фильтрация по поиску
         const searchFilterMessageItems = search.chat.length > 0 ? messagesItems.filter((message) => {
             //условие сортировки
-            return message.inputMessage.includes(search.chat)||
-                message.login.includes((search.chat))||
+            return message.inputMessage.includes(search.chat) ||
+                message.login.includes((search.chat)) ||
                 formatDate(message.date).includes(search.chat)
 
         }) : messagesItems
 
+        let day: number = 99
+        let month: number = 99
+        let createSpace: boolean = false
         //вывод пользователей
-        return  !messagesItems.length ? [...new Array(15)].map((value, index) => <SkeletonMessage key={index}/>) :
-            searchFilterMessageItems.map((messageObj, index) =>
-                <Message
-                    key={index}//переделать
-                    messageObj={messageObj}
-                />
+        return !messagesItems.length ? [...new Array(15)].map((value, index) => <SkeletonMessage key={index}/>) :
+            searchFilterMessageItems.map((messageObj, index) => {
+
+                    createSpace = false
+                    if (Number(messageObj.date.slice(4, 6)) > month ||
+                        Number(messageObj.date.slice(6, 8)) > day) createSpace = true
+                    day = Number(messageObj.date.slice(6, 8))
+                    month = Number(messageObj.date.slice(4, 6))
+                    const stringDay = day<10?('0'+day):day
+                    const stringMonth = month<10?('0'+month):day
+                    return (
+                        <>
+                            {
+                                createSpace &&
+                                <div className={styles.space}>
+                                    {`${stringDay}.${stringMonth}.2023`}
+                                </div>
+                            }
+                            <Message
+                                key={index}//переделать
+                                messageObj={messageObj}
+                            />
+                        </>
+
+                    )
+                }
             )
 
     }

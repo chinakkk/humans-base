@@ -15,6 +15,8 @@ import {RootState} from "./redux/store";
 
 
 function App() {
+
+
     const {user} = useSelector((state: RootState) => state.userSlice)
     const {registrationUser} = useSelector((state: RootState) => state.registrationSlice)
     return (

@@ -7,15 +7,27 @@
 
     display: flex;
 
-    .photo {
-      text-align: center;
-
+    .photoContainer{
       width: 245px;
       height: 245px;
+      overflow: hidden;
+
+      text-align: center;
       border: 2px #DFDFDF solid;
       border-radius: 14px;
       margin: 0 40px 40px 0;
+
+
+      .photo {
+
+
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
     }
+
 
     .cardProfile {
       position: absolute;
@@ -25,6 +37,11 @@
   }
 
   .contentBot {
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
     .aboutMeInput {
       font-size: 18px;
       height: 270px;
@@ -34,6 +51,8 @@
       padding: 10px 15px 10px 15px;
       white-space: pre-wrap;
       border: 1px solid transparent;
+      overflow: auto;
+
 
 
       .area{
@@ -44,6 +63,9 @@
         height: 100%;
         width: 100%;
         outline: none;
+
+
+
       }
     }
     .aboutMeInputEditMode{

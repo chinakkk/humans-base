@@ -16,9 +16,10 @@ const DeleteTaskButton: FC<DeleteTaskButtonProps> = ({
                                                      }) => {
 
 
-    const onClickDeleteTask = async () => {
+    const onClickDeleteTask = () => {
+        setTaskItems([...taskItems.filter((taskItem) => taskItem.uid !== task.uid)])
         deleteTaskByUIDFirestore(task.uid).then().catch()
-        setTaskItems(taskItems.filter((taskItem) => taskItem.uid!==task.uid))
+
     }
 
     return (

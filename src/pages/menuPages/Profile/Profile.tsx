@@ -5,7 +5,7 @@ import CardHuman from "../../../components/CardHuman/CardHuman";
 import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../../redux/store";
 import PersonInfo from "./PersonInfo/PersonInfo";
-import {resetConvertDate, utilsFunction} from "../../../utils/utilsFunction";
+import {resetConvertDate, toUpperCaseHead} from "../../../utils/toUpperCaseHead";
 import {setUser, userType} from "../../../redux/slices/authUserSlice";
 import noPhotoSrc from '../../../assets/noPhoto.png'
 import ImageButtons from "./ImageButtons/ImageButtons";
@@ -44,9 +44,9 @@ const Profile: FC = () => {
     //форматированные данные
     const userInfo: userType = {
         uid: user.uid,
-        name: utilsFunction(user.name),
-        surname: utilsFunction(user.surname),
-        level: utilsFunction(user.level),
+        name: toUpperCaseHead(user.name),
+        surname: toUpperCaseHead(user.surname),
+        level: toUpperCaseHead(user.level),
         birthday: user.birthday,
         login: '',
         imageURL: user.imageURL,
@@ -58,10 +58,13 @@ const Profile: FC = () => {
     return (
         <div className={styles.container}>
             <div className={styles.contentTop}>
-                <img
-                    className={styles.photo}
-                    src={userImageUrl || user.imageURL || noPhotoSrc}
-                    alt="Human"/>
+                <div className={styles.photoContainer}>
+                    <img
+                        className={styles.photo}
+                        src={userImageUrl || user.imageURL || noPhotoSrc}
+                        alt="Human"/>
+                </div>
+
                 {
                     editMode &&
                     <ImageButtons

@@ -12,6 +12,7 @@ type CheckTaskButtonProps = {
     setIsChecked: (value: boolean) => void;
     setSortTaskFunc:(arr:taskType[]) => void;
 
+
 }
 
 const CheckTaskButton: FC<CheckTaskButtonProps> = ({
@@ -23,27 +24,22 @@ const CheckTaskButton: FC<CheckTaskButtonProps> = ({
                                                        setSortTaskFunc
                                                    }) => {
 
+
     const debounceTask = useCallback(
-        debounce((check: boolean) => {
-            if (task.state!==check) {
-                task.state=check
+        debounce( (check: boolean,taskItemsParams:taskType[]) => {
+            if (task.state !== check) {
+                task.state = check
                 setStateTaskByUIDFirestore(task.uid, check).then().catch()
-                setSortTaskFunc(taskItems)
+                setSortTaskFunc(taskItemsParams)
             }
-
-
         }, 500)
         , []
     )
 
     const onClickCheck = () => {
-        debounceTask(!isChecked)
+        debounceTask(!isChecked,taskItems)
         setIsChecked(!isChecked)
-
-
     }
-
-
 
     return (
         <div className={styles.container}>

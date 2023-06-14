@@ -1,14 +1,12 @@
-import styles from './ToggleTaskModeButton.module.scss'
+import styles from './ModeButtons.module.scss'
 import React, {FC} from "react"
-import {userType} from "../../../redux/slices/authUserSlice";
 
 type AddNewTaskButtonProps = {
-    user: userType;
     setAddTaskMode: (value: boolean) => void;
     addTaskMode: boolean;
 }
 
-const ToggleTaskModeButton: FC<AddNewTaskButtonProps> = ({user, setAddTaskMode, addTaskMode}) => {
+const ToggleTaskModeButton: FC<AddNewTaskButtonProps> = ({ setAddTaskMode, addTaskMode}) => {
 
     const onClickAddTask = () => {
         setAddTaskMode(!addTaskMode)
@@ -18,7 +16,7 @@ const ToggleTaskModeButton: FC<AddNewTaskButtonProps> = ({user, setAddTaskMode, 
 
             <button
                 onClick={onClickAddTask}
-                className={`${styles.addTaskButton} ${addTaskMode ? styles.goBackButton : ''}`}
+                className={`${styles.toggleModeButton} ${styles.taskButton} ${addTaskMode ? styles.goBackButton : ''}`}
             >
                 {addTaskMode ? 'Go back' : 'Task mode'}
             </button>

@@ -3,6 +3,7 @@ import {fireStoreDB, storage} from "../firebase";
 import {uid} from "uid";
 import {deleteObject, ref} from "firebase/storage";
 import {setUser} from "../redux/slices/authUserSlice";
+import {deleteAllTaskByUIDFirestore} from "./tasksFirestore";
 
 
 export const updateImgByUidFirestore = async (uid, imageURL) => {
@@ -45,17 +46,22 @@ export const getUsersFirestore = async () => {
 
 
 }
-export const deleteUserFirestore = async (uid) => {
+export const deleteUserFirestore = async (uid,image) => {
   try {
+    //удаление пользователя
     await deleteDoc(doc(fireStoreDB, 'users', uid))
 
     //удаление фото пользователя
-    const deleteRef = ref(storage, `programmersImg/${uid}`);
-    deleteObject(deleteRef).then().catch((error) => {
-      console.log('Ошибка при удалении фотографии пользователя.')
-      console.log(error)
-    });
+    if (!!image){
+      const deleteRef = ref(storage, `programmersImg/${uid}`);
+      deleteObject(deleteRef).then().catch((error) => {
+        console.log('Ошибка при удалении фотографии пользователя.')
+        console.log(error)
+      });
+    }
 
+    //удаление тасков пользователя
+    await deleteAllTaskByUIDFirestore(uid)
 
   } catch (error) {
     console.log(error)

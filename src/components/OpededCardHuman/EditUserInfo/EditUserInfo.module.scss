@@ -1,0 +1,58 @@
+.container {
+  .editButtons{
+
+    width: 100px;
+    height: 30px;
+    border: 0;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+
+
+    &:active {
+      transform: translateY(0.5px);
+    }
+  }
+  .saveButton{
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    background-color: #9BD0D0;
+    color: #FFFFFF;
+
+  }
+  .deleteImgButton{
+    position: absolute;
+    left: 21px;
+    top: 25px;
+    height: 0;
+    width: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+
+  .aboutInputs{
+    border: 0;
+    border-radius: 7px;
+    background-color: #FFFFFF;
+    outline: none;
+    padding-left: 7px;
+    margin-bottom: 10px;
+    width: 225px;
+  }
+  .aboutArea{
+    font-size: 16px;
+    position: absolute;
+    left: 25px;
+    bottom: 79px;
+    height: 220px;
+    width: 500px;
+    outline: none;
+    padding: 10px 13px 10px 15px;
+    border:0;
+    background-color: transparent;
+  }
+}

@@ -8,7 +8,7 @@ import {RootState, useAppDispatch} from "../../redux/store";
 import {clearRegistrationData, setRegistrationAbout} from "../../redux/slices/registrationSlice";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {convertDate} from "../../utils/utilsFunction";
+import {convertDate} from "../../utils/toUpperCaseHead";
 
 const RegistrationAbout: FC = memo(() => {
     const dispatch = useAppDispatch()

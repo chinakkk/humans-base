@@ -6,7 +6,7 @@ import {storage} from "../../../../firebase";
 import {updateImgByUidFirestore, updateUserInfoByUidFirestore} from "../../../../dataBaseResponse/usersFirestore";
 import {RootState, useAppDispatch} from "../../../../redux/store";
 import {useSelector} from "react-redux";
-import {convertDate, resetConvertDate} from "../../../../utils/utilsFunction";
+import {convertDate, resetConvertDate} from "../../../../utils/toUpperCaseHead";
 
 type EditButtonsProps = {
     editMode: boolean;

@@ -10,7 +10,7 @@ import {useAdminAuth} from "../../hooks/useAdminAuth";
 type TaskProps = {
     task: taskType;
     taskItems: taskType[];
-    setTaskItems: (mas: taskType[]) => void;
+    setTaskItems: (arr: taskType[]) => void;
     setSortTaskFunc:(arr:taskType[]) => void;
 }
 
@@ -23,7 +23,6 @@ const Task: FC<TaskProps> = ({
                              }) => {
     const [isChecked, setIsChecked] = useState<boolean>(task.state)
     const [taskIsOpen, setTaskIsOpen] = useState<boolean>(false)
-    const time: boolean = true
     const isAdmin = useAdminAuth()
 
     const dateToMonthDay=(date:string) => {
@@ -39,7 +38,6 @@ const Task: FC<TaskProps> = ({
                     task={task}
                     taskItems={taskItems}
                     setTaskItems={setTaskItems}
-                    time={time}
                 />
             }
             <div
@@ -68,22 +66,15 @@ const Task: FC<TaskProps> = ({
                                 {task.username.slice(0,7)}
                             </span>
                         }
-
                         {
                             task.date &&
                             <span className={styles.date + ' ' + (!isChecked ? styles.greenDate : '')}>
                                 {dateToMonthDay(task.date)}
                             </span>
                         }
-
                     </span>
-
-
                 </div>
-
-
             </div>
-
         </div>
     )
 }

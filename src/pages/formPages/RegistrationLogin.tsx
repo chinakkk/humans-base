@@ -15,6 +15,7 @@ import {
     postUserFirestore,
     usernameIsExistsFirestore
 } from "../../dataBaseResponse/usersFirestore";
+import {postTaskByLoginFirestore} from "../../dataBaseResponse/tasksFirestore";
 
 const RegistrationLogin: FC = () => {
     const dispatch = useAppDispatch()
@@ -81,16 +82,21 @@ const RegistrationLogin: FC = () => {
                 surname: registrationUser.surname || '',
                 level: registrationUser.level || '',
                 birthday: registrationUser.birthday || '',
-                uid:'',
-                imageURL:''
+                uid: '',
+                imageURL: ''
             }
             const uid = await postUserFirestore(newCurrentUser)
-            newCurrentUser.uid=uid||''
+            newCurrentUser.uid = uid || ''
             await dispatch(setUser(newCurrentUser))
             await navigate('/menu/profile')
-            const currentUser=JSON.parse(localStorage.getItem('user')||'{}')
-            localStorage.setItem('user',JSON.stringify({uid,...currentUser}))
+            const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+            localStorage.setItem('user', JSON.stringify({uid, ...currentUser}))
             setTimeout(() => dispatch(clearRegistrationData()), 1000)//удаление регистрационных данных после регистрации
+            await postTaskByLoginFirestore(newCurrentUser.name,
+                'Приветствие',
+                'В данном разделе адимн будет выдавать тебе задания, выполняй из вовремя, и будет тебе повышение!!!',
+                uid)
+            //создание приветственного сообщения в тасках
 
         } else {
             const errorMessage = userIsExists ? 'This username already exists.' : 'Passwords don\'t match, please try again.'

@@ -16,11 +16,28 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   }
 
-  .photo {
-    text-align: center;
+  .photoContainer{
+    min-height: 124px;
+    min-width: 124px;
     height: 124px;
     width: 124px;
+    overflow: hidden;
+
+    text-align: center;
     border: 1px #DFDFDF solid;
+    border-radius: 14px;
+    margin-right: 23px;
+
+    .photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+
+
+  .photo {
     border-radius: 14px;
     margin-right: 23px;
   }

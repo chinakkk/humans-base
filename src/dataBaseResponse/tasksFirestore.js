@@ -1,7 +1,7 @@
 import {collection, deleteDoc, doc, getDocs, setDoc, query, where, updateDoc} from "firebase/firestore";
 import {fireStoreDB} from "../firebase";
 import {uid} from "uid";
-import {currentDate} from "../utils/utilsFunction";
+import {currentDate} from "../utils/toUpperCaseHead";
 
 export const getAllTasksFirestore = async () => {
   try {
@@ -33,8 +33,8 @@ export const getTasksByUserUIDFirestore = async (userUID) => {
 
   } catch (error) {
     console.log(error)
-    console.log('Ошибка при получении закладок пользователя.')
-    alert('Ошибка при получении закладок пользователя.')
+    console.log('Ошибка при получении тасков пользователя.')
+    alert('Ошибка при получении тасков пользователя.')
 
   }
 }
@@ -46,8 +46,22 @@ export const deleteTaskByUIDFirestore = async (uid) => {
 
   } catch (error) {
     console.log(error)
-    alert('Ошибка при удалении закладки.')
-    console.log('Ошибка при удалении закладки.')
+    alert('Ошибка при удалении таска.')
+    console.log('Ошибка при удалении таска.')
+
+  }
+}
+export const deleteAllTaskByUIDFirestore = async (uid) => {
+  try{
+    const userTasks = await getTasksByUserUIDFirestore(uid)
+    userTasks.forEach((userTask) => {
+      deleteTaskByUIDFirestore(userTask.uid)
+    })
+  }
+  catch(error){
+    console.log('Ошибка при удалении всех тасков.')
+    console.log(error)
+    alert('Ошибка при удалении всех тасков.')
 
   }
 }

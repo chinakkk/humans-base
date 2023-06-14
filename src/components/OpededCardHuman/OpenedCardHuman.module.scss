@@ -28,15 +28,33 @@
     .topWindow {
       display: flex;
 
-      .photo {
+
+      .photoContainer {
         height: 200px;
         width: 200px;
+        min-height: 200px;
+        min-width: 200px;
+
+        overflow: hidden;
+
         text-align: center;
-        border: 1px solid #9F9F9F;
+        border: 1px #DFDFDF solid;
         border-radius: 14px;
         margin: 0 30px 30px 0;
+
+        .photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+        }
       }
-      .noPhoto{
+
+      .photo {
+
+      }
+
+      .noPhoto {
         padding: 15px;
 
       }
@@ -44,17 +62,13 @@
       .about {
         font-size: 17px;
 
-
         .level {
           font-size: 21px;
           font-weight: 600;
         }
 
-
       }
     }
-
-
 
 
   }

@@ -1,4 +1,4 @@
-export const utilsFunction = (string) => {
+export const toUpperCaseHead = (string) => {
   return string[0].toUpperCase() + string.slice(1).toLowerCase()
 }
 
@@ -13,17 +13,6 @@ export const currentDate = () => {
   const seconds = String(currentDate.getSeconds()).padStart(2, '0')
 
   return `${year}${month}${day}${hours}${minutes}${seconds}`
-}
-
-export const isImage = (url) => {
-  try{
-    const img = new Image();
-    img.src = url;
-    return img.complete && img.naturalWidth !== 0;
-  }
-  catch(error){
-    console.log('isIMG')
-  }
 }
 
 export const convertDate = (birthDaInputValue) => {

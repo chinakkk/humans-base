@@ -9,7 +9,6 @@ type OpenedTaskProps = {
     task: taskType;
     taskItems: taskType[]
     setTaskItems: (value: taskType[]) => void
-    time: boolean
 
 }
 
@@ -18,7 +17,6 @@ const OpenedTask: FC<OpenedTaskProps> = ({
                                              task,
                                              taskItems,
                                              setTaskItems,
-                                             time
                                          }) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [titleInput, setTitleInput] = useState<string>(task.title)

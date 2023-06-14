@@ -1,7 +1,7 @@
 import styles from './Tasks.module.scss'
 import {FC, useEffect, useState} from "react"
 import Task from "../../../components/Task/Task";
-import { taskType} from "../../../types/types";
+import {taskType} from "../../../types/types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
 import SkeletonTask from "../../../components/Task/SkeletonTask";
@@ -12,20 +12,20 @@ const Tasks: FC = () => {
     const [pageIsLoading, setPageIsLoading] = useState(true)
 
     const {user, adminUser} = useSelector((state: RootState) => state.userSlice)
-    const {search} = useSelector((state:RootState) => state.searchSlice)
+    const {search} = useSelector((state: RootState) => state.searchSlice)
 
 
-    const formatDate = (date:string) => {
+    const formatDate = (date: string) => {
         const day = `${date.slice(6, 8)}.${date.slice(4, 6)}`
         const time = `${date.slice(8, 10)}:${date.slice(10, 12)}`
         return `${day} ${time}`
     }
 
-    const setSortTaskFunc = (taskItems: taskType[]) => {
+    const setSortTaskFunc = (taskItemsParam:taskType[]) => {
         //функция для сортировки таксов. Сортировка отмеченных тасков, а так же сортировка по дате.
-        if (taskItems && taskItems.length > 0) {
-            const trueTaskItems: taskType[] = taskItems.filter((taskItem: taskType) => taskItem.state)
-            const falseTaskItems: taskType[] = taskItems.filter((taskItem: taskType) => !taskItem.state)
+        if (taskItemsParam && taskItemsParam.length > 0) {
+            const trueTaskItems: taskType[] = taskItemsParam.filter((taskItem: taskType) => taskItem.state)
+            const falseTaskItems: taskType[] = taskItemsParam.filter((taskItem: taskType) => !taskItem.state)
 
             const trueTaskItemsSort: taskType[] = trueTaskItems.sort(function (a: any, b: any) {
                 return Number(b.date) - Number(a.date)
@@ -46,9 +46,10 @@ const Tasks: FC = () => {
             const tasksData: taskType[] = ((user.login === adminUser.login) ?
                 await getAllTasksFirestore() :
                 await getTasksByUserUIDFirestore(user.uid)) || []
-            setSortTaskFunc(tasksData)
+            await setSortTaskFunc(tasksData)
 
             await setPageIsLoading(false)
+
 
         })()
 
@@ -58,14 +59,14 @@ const Tasks: FC = () => {
         //фильтрация по поиску
         const searchFilterTasksItems = search.tasks.length > 0 ? taskItems.filter((task) => {
             //условие сортировки
-            return task.username.includes(search.tasks)||
-                formatDate(task.date).includes(search.tasks)||
-                task.text.includes(search.tasks)||
+            return task.username.includes(search.tasks) ||
+                formatDate(task.date).includes(search.tasks) ||
+                task.text.includes(search.tasks) ||
                 task.title.includes(search.tasks)
         }) : taskItems
 
         //вывод пользователей
-        return  pageIsLoading ?
+        return pageIsLoading ?
             [...new Array(18)].map((value, index) => <SkeletonTask key={index}/>)
             :
             searchFilterTasksItems.map((task) =>
@@ -80,13 +81,11 @@ const Tasks: FC = () => {
     }
 
 
-
     return (
         <div className={styles.container}>
             {
                 renderTasksItems()
             }
-
         </div>
     )
 }
