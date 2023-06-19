@@ -97,6 +97,7 @@ const OpenedCardHuman: FC<OpenedCardHuman> = ({
                 <OpenedCardHumanBot
                     userInfo={userInfo}
                     addTaskMode={addTaskMode}
+                    editMode={editMode}
                 />
 
 

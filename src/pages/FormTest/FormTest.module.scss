@@ -1,0 +1,64 @@
+.container {
+  .inputs{
+    input[disabled] {
+      background-color: #FFFFFF;
+    }
+
+    .block{
+      margin-bottom: 7px;
+    }
+    .regInput{
+      height: 26px;
+      border-radius: 5px;
+      border: 0;
+      padding-left: 7px;
+      padding-right: 7px;
+      width: 100%;
+      font-size: 15px;
+      margin-top: 3px;
+      margin-bottom: 10px;
+    }
+    .regInputPaddingBottom{
+      padding-bottom: 2px;
+
+    }
+    .passwordMode{
+      padding-bottom: 3px;
+    }
+    .titleFromBlocks{
+      font-size: 15px;
+      margin-left: 1px;
+    }
+    .disableInput{
+      background-color: red;
+    }
+  }
+  .continueButton {
+    position: relative;
+    height: 30px;
+    background-color: #78BBB8;
+    border-radius: 5px;
+    border: 0;
+    color: #F4F4F4;
+    width: 100%;
+    opacity: 0.8;
+    transition: opacity 0.1s linear;
+    margin-top: 20px;
+
+
+    .loadingGif{
+      position: absolute;
+      top: -5px;
+      right: 116px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .continueButtonActive {
+    opacity: 1;
+    cursor: pointer;
+
+  }
+
+}

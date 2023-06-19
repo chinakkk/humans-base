@@ -5,6 +5,7 @@ import {taskType} from "../../types/types";
 import OpenedTask from "../OpenedTask/OpenedTask";
 import CheckTaskButton from "./CheckTaskButton/CheckTaskButton";
 import {useAdminAuth} from "../../hooks/useAdminAuth";
+import {toUpperCaseHead} from "../../utils/toUpperCaseHead";
 
 
 type TaskProps = {
@@ -63,7 +64,7 @@ const Task: FC<TaskProps> = ({
                         {
                             isAdmin &&
                             <span className={styles.loginInTask}>
-                                {task.username.slice(0,7)}
+                                {toUpperCaseHead(task.username.slice(0,7))}
                             </span>
                         }
                         {

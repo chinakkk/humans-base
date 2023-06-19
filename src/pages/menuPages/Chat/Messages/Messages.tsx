@@ -3,7 +3,7 @@ import {FC, useEffect, useRef, useState} from "react"
 import Message from "./Message/Message";
 import {ref, onValue} from 'firebase/database'
 import {realTimeDB} from "../../../../firebase";
-import {messageObjType} from "../../../../types/types";
+import {messageType} from "../../../../types/types";
 import SkeletonMessage from "./Message/SkeletonMessage";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
@@ -12,7 +12,7 @@ type MessagesProps = {}
 
 
 const Messages: FC = () => {
-    const [messagesItems, setMessagesItems] = useState<messageObjType[]>([])
+    const [messagesItems, setMessagesItems] = useState<messageType[]>([])
     const messagesRef = useRef<HTMLDivElement>(null)
     const {search} = useSelector((state: RootState) => state.searchSlice)
 
@@ -33,9 +33,9 @@ const Messages: FC = () => {
             setMessagesItems([])
             const data = snapshot.val()
             if (data !== null) {
-                const masData: messageObjType[] = Object.values(data)
+                const masData: messageType[] = Object.values(data)
 
-                const filteredMessage: messageObjType[] = masData.sort(function (a: any, b: any) {
+                const filteredMessage: messageType[] = masData.sort(function (a: any, b: any) {
                     return a.date - b.date
                 })
                 setMessagesItems(filteredMessage)
@@ -56,8 +56,8 @@ const Messages: FC = () => {
         //фильтрация по поиску
         const searchFilterMessageItems = search.chat.length > 0 ? messagesItems.filter((message) => {
             //условие сортировки
-            return message.inputMessage.includes(search.chat) ||
-                message.login.includes((search.chat)) ||
+            return message.inputMessage.toLowerCase().includes(search.chat.toLowerCase()) ||
+                message.login.toLowerCase().includes((search.chat.toLowerCase())) ||
                 formatDate(message.date).includes(search.chat)
 
         }) : messagesItems
@@ -69,26 +69,27 @@ const Messages: FC = () => {
         return !messagesItems.length ? [...new Array(15)].map((value, index) => <SkeletonMessage key={index}/>) :
             searchFilterMessageItems.map((messageObj, index) => {
 
-                    createSpace = false
-                    if (Number(messageObj.date.slice(4, 6)) > month ||
-                        Number(messageObj.date.slice(6, 8)) > day) createSpace = true
+
+                    createSpace = Number(messageObj.date.slice(4, 6)) > month || Number(messageObj.date.slice(6, 8)) > day;
                     day = Number(messageObj.date.slice(6, 8))
                     month = Number(messageObj.date.slice(4, 6))
-                    const stringDay = day<10?('0'+day):day
-                    const stringMonth = month<10?('0'+month):day
+                    const stringDay = day < 10 ? ('0' + day) : day
+                    const stringMonth = month < 10 ? ('0' + month) : day
                     return (
-                        <>
+                        <div
+                            key={messageObj.uuid}
+                        >
                             {
                                 createSpace &&
                                 <div className={styles.space}>
-                                    {`${stringDay}.${stringMonth}.2023`}
+                                    <div className={styles.line}></div>
+                                    {/*{`${stringDay}.${stringMonth}.${messageObj.date.slice(0, 4)}`}*/}
                                 </div>
                             }
                             <Message
-                                key={index}//переделать
                                 messageObj={messageObj}
                             />
-                        </>
+                        </div>
 
                     )
                 }

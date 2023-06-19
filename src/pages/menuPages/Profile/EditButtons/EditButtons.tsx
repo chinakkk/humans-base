@@ -93,7 +93,7 @@ const EditButtons: FC<EditButtonsProps> = ({
         if (user.name !== editNameInput ||
             user.surname !== editSurnameInput ||
             user.about !== editAboutTextarea ||
-            user.birthday!==resetConvertDate(editDateInput)
+            resetConvertDate(user.birthday)!==editDateInput
         ) {
             const editedUserDate = {
                 name: editNameInput,

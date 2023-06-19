@@ -1,7 +1,7 @@
 import {collection, deleteDoc, doc, getDocs, setDoc, query, where, updateDoc} from "firebase/firestore";
 import {fireStoreDB} from "../firebase";
 import {uid} from "uid";
-import {currentDate} from "../utils/toUpperCaseHead";
+import {getCurrentDate} from "../utils/toUpperCaseHead";
 
 export const getAllTasksFirestore = async () => {
   try {
@@ -96,7 +96,7 @@ export const postTaskByLoginFirestore = async (username, title, text, userUID) =
     const newTask = {
       title: title,
       text: text || '',
-      date: currentDate() || '',
+      date: getCurrentDate() || '',
       username: username || '',
       state: false,
       userUID: userUID,

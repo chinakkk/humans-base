@@ -1,14 +1,15 @@
 import styles from './Message.module.scss'
 import {FC} from "react"
-import {messageObjType} from "../../../../../types/types";
+import {messageType} from "../../../../../types/types";
 import {remove, ref} from 'firebase/database'
 import {realTimeDB} from "../../../../../firebase";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
 import {useAdminAuth} from "../../../../../hooks/useAdminAuth";
+import {transformDateFromUser} from "../../../../../utils/toUpperCaseHead";
 
 type MessageProps = {
-    messageObj: messageObjType;
+    messageObj: messageType;
 }
 
 const Message: FC<MessageProps> = ({messageObj}) => {
@@ -17,8 +18,9 @@ const Message: FC<MessageProps> = ({messageObj}) => {
     const onClickRemoveMessage = () => {
         remove(ref(realTimeDB, `/${messageObj.uuid}`)).then().catch()
     }
-    const date = `${messageObj.date.slice(6, 8)}.${messageObj.date.slice(4, 6)}`
-    const time = `${messageObj.date.slice(8, 10)}:${messageObj.date.slice(10, 12)}`
+    const userDate = transformDateFromUser(messageObj.date)
+    const date = `${userDate.slice(6, 8)}.${userDate.slice(4, 6)}`
+    const time = `${userDate.slice(8, 10)}:${userDate.slice(10, 12)}`
 
     return (
         <div className={styles.container}>

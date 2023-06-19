@@ -7,7 +7,8 @@ type inputBlockProps = {
     inputValue: string;
     inputOnChange: (value: string) => void;
     buttonIsLoading?: boolean;
-    inputType?: string
+    inputType?: string;
+    maxLength?:number;
 
 }
 
@@ -18,6 +19,7 @@ const inputBlock: FC<inputBlockProps> = ({
                                              inputValue,
                                              inputOnChange,
                                              inputType='',
+                                             maxLength=30,
                                          }) => {
     const stringIncludesPassword = title.toLowerCase().includes('password')
     const isPasswordMode = (stringIncludesPassword && !showPassword)
@@ -26,6 +28,7 @@ const inputBlock: FC<inputBlockProps> = ({
             <label className={styles.titleFromBlocks}>
                 {title}
                 <input
+                    maxLength={maxLength}
                     disabled={buttonIsLoading}
                     type={inputType || (isPasswordMode ? 'password' : 'text')}
                     className={`${styles.regInput} ${!inputType&&styles.regInputPaddingBottom} ${isPasswordMode && styles.passwordMode}`}

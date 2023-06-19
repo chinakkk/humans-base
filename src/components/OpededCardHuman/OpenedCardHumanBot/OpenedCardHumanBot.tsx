@@ -7,9 +7,14 @@ import {userType} from "../../../redux/slices/authUserSlice";
 type OpenedCardHumanBotProps = {
     addTaskMode: boolean;
     userInfo: userType;
+    editMode: boolean;
 }
 
-const OpenedCardHumanBot: FC<OpenedCardHumanBotProps> = ({addTaskMode = false,userInfo}) => {
+const OpenedCardHumanBot: FC<OpenedCardHumanBotProps> = ({
+                                                             addTaskMode = false,
+                                                             userInfo,
+                                                             editMode
+                                                         }) => {
 
     return (
         <div className={styles.container}>
@@ -19,7 +24,12 @@ const OpenedCardHumanBot: FC<OpenedCardHumanBotProps> = ({addTaskMode = false,us
                         userInfo={userInfo}
                     />
                     :
-                    <div className={styles.note}>{userInfo.about||''}</div>
+                    <div className={styles.note}>
+                        {
+                            !editMode &&
+                            (userInfo.about || '')
+                        }
+                    </div>
             }
 
         </div>

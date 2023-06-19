@@ -59,10 +59,10 @@ const Tasks: FC = () => {
         //фильтрация по поиску
         const searchFilterTasksItems = search.tasks.length > 0 ? taskItems.filter((task) => {
             //условие сортировки
-            return task.username.includes(search.tasks) ||
+            return task.username.toLowerCase().includes(search.tasks.toLowerCase()) ||
                 formatDate(task.date).includes(search.tasks) ||
-                task.text.includes(search.tasks) ||
-                task.title.includes(search.tasks)
+                task.text.toLowerCase().includes(search.tasks.toLowerCase()) ||
+                task.title.toLowerCase().includes(search.tasks.toLowerCase())
         }) : taskItems
 
         //вывод пользователей

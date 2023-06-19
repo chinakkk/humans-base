@@ -7,6 +7,7 @@ type inputBlockArrType = {
     inputValue: string,
     inputOnChange: (value: string) => void;
     inputType?:string;
+    maxLength?:number;
 }
 
 type inputBlocksProps = {

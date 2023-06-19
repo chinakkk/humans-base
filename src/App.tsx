@@ -12,6 +12,7 @@ import Chat from "./pages/menuPages/Chat/Chat";
 import RegistrationLogin from "./pages/formPages/RegistrationLogin";
 import {useSelector} from "react-redux";
 import {RootState} from "./redux/store";
+import FormTest from "./pages/FormTest/FormTest";
 
 
 function App() {
@@ -22,8 +23,10 @@ function App() {
     return (
         <div className={styles.container}>
             <Routes>
+                <Route path={'/test'} element={<FormTest/>}/>
                 <Route path={'/'} element={<Home/>}/>
                 <Route path={'/*'} element={<Navigate to={'/'}/>}/>
+
 
                 {
                     //Если пользователь не авторизован, рендер окна авторизации.

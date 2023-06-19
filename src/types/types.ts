@@ -8,7 +8,7 @@ export type taskType = {
     state:boolean;
     username:string;
 }
-export type messageObjType ={
+export type messageType ={
     inputMessage:string;
     uuid:string;
     login:string;

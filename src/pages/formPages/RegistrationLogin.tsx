@@ -64,6 +64,22 @@ const RegistrationLogin: FC = () => {
         }))
     }
 
+    const loginIsValid = (name: string) => {
+        return !!name.match(/^[A-Za-z]+$/);
+    }
+
+    const isValid = () => {
+        if (!loginIsValid(loginInputValue)) {
+            setErrorMessage('Username must have alpha bet characters only.')
+            return false
+        }
+        if (passwordInputValue.length<6){
+            setErrorMessage('Password must contain at least 6 characters.')
+            return false
+        }
+        return true
+    }
+
     const onClickSignUp = async () => {
         setButtonIsLoading(true)
 
@@ -72,37 +88,42 @@ const RegistrationLogin: FC = () => {
             password: passwordInputValue,
             repeatPassword: repeatPasswordInputValue
         }))
-        const userIsExists = await usernameIsExistsFirestore(loginInputValue)
 
-        if (passwordInputValue === repeatPasswordInputValue && !userIsExists) {
-            const newCurrentUser = {
-                login: loginInputValue || '',
-                password: passwordInputValue || '',
-                name: registrationUser.name || '',
-                surname: registrationUser.surname || '',
-                level: registrationUser.level || '',
-                birthday: registrationUser.birthday || '',
-                uid: '',
-                imageURL: ''
+        if (isValid()) {
+            const userIsExists = await usernameIsExistsFirestore(loginInputValue)
+
+            if (passwordInputValue === repeatPasswordInputValue && !userIsExists) {
+                const newCurrentUser = {
+                    login: loginInputValue || '',
+                    password: passwordInputValue || '',
+                    name: registrationUser.name?.toLowerCase() || '',
+                    surname: registrationUser.surname?.toLowerCase() || '',
+                    level: registrationUser.level || '',
+                    birthday: registrationUser.birthday || '',
+                    uid: '',
+                    imageURL: ''
+                }
+                const uid = await postUserFirestore(newCurrentUser)
+                newCurrentUser.uid = uid || ''
+                await dispatch(setUser(newCurrentUser))
+                await navigate('/menu/profile')
+                const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+                localStorage.setItem('user', JSON.stringify({uid, ...currentUser}))
+                setTimeout(() => dispatch(clearRegistrationData()), 1000)//удаление регистрационных данных после регистрации
+
+                //создание приветственного сообщения в тасках
+                await postTaskByLoginFirestore(newCurrentUser.name,
+                    'Приветствие',
+                    'В данном разделе адимн будет выдавать тебе задания, выполняй из вовремя, и будет тебе повышение!!!',
+                    uid)
+
+            } else {
+                const errorMessage = userIsExists ? 'This username already exists.' : 'Passwords don\'t match, please try again.'
+                setErrorMessage(errorMessage)
             }
-            const uid = await postUserFirestore(newCurrentUser)
-            newCurrentUser.uid = uid || ''
-            await dispatch(setUser(newCurrentUser))
-            await navigate('/menu/profile')
-            const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
-            localStorage.setItem('user', JSON.stringify({uid, ...currentUser}))
-            setTimeout(() => dispatch(clearRegistrationData()), 1000)//удаление регистрационных данных после регистрации
-            await postTaskByLoginFirestore(newCurrentUser.name,
-                'Приветствие',
-                'В данном разделе адимн будет выдавать тебе задания, выполняй из вовремя, и будет тебе повышение!!!',
-                uid)
-            //создание приветственного сообщения в тасках
-
-        } else {
-            const errorMessage = userIsExists ? 'This username already exists.' : 'Passwords don\'t match, please try again.'
-            setErrorMessage(errorMessage)
         }
         setButtonIsLoading(false)
+
 
     }
 
@@ -110,6 +131,7 @@ const RegistrationLogin: FC = () => {
         //очищение сообщения об ошибке, если пользователь отредактировал пароль
         setErrorMessage('')
     }, [repeatPasswordInputValue, passwordInputValue, loginInputValue])
+
 
     return (
         <div>

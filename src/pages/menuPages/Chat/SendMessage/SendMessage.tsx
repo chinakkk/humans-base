@@ -6,7 +6,7 @@ import {set, ref} from 'firebase/database'
 import React from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
-import {currentDate} from "../../../../utils/toUpperCaseHead";
+import {getCurrentDate, getCurrentDateUTC, transformDateFromUser} from "../../../../utils/toUpperCaseHead";
 
 
 type SendMessageProps = {}
@@ -25,11 +25,13 @@ const SendMessage: FC = () => {
                     uuid: uuid,
                     inputMessage: inputMessage,
                     login: user.login,
-                    date: currentDate(),
+                    date: getCurrentDateUTC(),
                 }
 
             set(ref(realTimeDB, `/${uuid}`), newMessageObj).then().catch()
         }
+        console.log(transformDateFromUser(getCurrentDateUTC()))
+
 
         setInputMessage('')
     }

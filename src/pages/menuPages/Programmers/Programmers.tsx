@@ -38,9 +38,9 @@ const Programmers: FC = () => {
         //фильтрация по поиску
         const searchFilterProgrammersItems = search.programmers.length > 0 ? usersCardItems.filter((user) => {
             //условие сортировки
-            return user.name.includes(search.programmers) ||
-                user.surname.includes(search.programmers) ||
-                user.level.includes(search.programmers)
+            return user.name.toLowerCase().includes(search.programmers.toLowerCase()) ||
+                user.surname.toLowerCase().includes(search.programmers.toLowerCase()) ||
+                user.level.toLowerCase().includes(search.programmers.toLowerCase())
         }) : usersCardItems
 
         //вывод пользователей

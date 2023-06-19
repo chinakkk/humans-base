@@ -36,11 +36,14 @@ const PersonInfo: FC<PersonInfo> = ({userInfo,
                                onChange={(event) => setEditNameInput(event.target.value)}
                                className={styles.input+ ' '+ styles.nameInput}
                                type="text"
+                               maxLength={15}
                         />
                         <input value={editSurnameInput}
                                onChange={(event) => setEditSurnameInput(event.target.value)}
                                className={styles.input+ ' '+ styles.surnameInput}
                                type="text"
+                               maxLength={15}
+
                         />
                         <input className={styles.input+ ' '+ styles.dateInput}
                                type="date"
