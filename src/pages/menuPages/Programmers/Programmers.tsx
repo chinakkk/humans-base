@@ -30,10 +30,7 @@ const Programmers: FC = () => {
 
     }, [])
 
-    useEffect(() => {
 
-
-    }, [search])
     const renderProgrammersItems = () => {
         //фильтрация по поиску
         const searchFilterProgrammersItems = search.programmers.length > 0 ? usersCardItems.filter((user) => {

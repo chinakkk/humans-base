@@ -47,7 +47,7 @@ const Message: FC<MessageProps> = ({messageObj}) => {
                 {
                     isAdmin&&
                     <button className={styles.removeButton} onClick={onClickRemoveMessage}>
-                      <svg className={styles.buttonSVG} width="25px" height="25px" viewBox="0 0 24 24" fill="none"
+                      <svg className={styles.buttonSVG} width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                            xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 6L18 18" stroke="#9BD0D0" strokeLinecap="round"/>
                         <path d="M18 6L6.00001 18" stroke="#9BD0D0" strokeLinecap="round"/>

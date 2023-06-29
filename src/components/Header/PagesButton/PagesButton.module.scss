@@ -1,10 +1,15 @@
-.pages{
+.pages {
   display: flex;
-  position: absolute;
+  //position: absolute;
   z-index: 1;
-  top: 20px;
+  max-width: 1280px;
+  width: 100%;
+  //top: 20px;
 
-  .page{
+  .page {
+    touch-action: manipulation;
+    margin-right: 40px;
+    transform: translateY(20px);
     border-radius: 16px 16px 0 0;
     text-align: center;
     background-color: #638892;
@@ -12,24 +17,30 @@
     font-family: "Titillium Web", sans-serif;
     font-weight: 500;
     font-size: 21px;
-    margin-right: 40px;
     height: 70px;
-    width: 200px;
+    max-width: 200px;
+    width: 100%;
+    min-width: 200px;
     padding-top: 10px;
     transition: transform 0.05s linear, background-image 1s linear;
-  ;
     cursor: pointer;
-    &:hover{
-      transform: translateY(-10px);
+
+    &:hover {
+      transform: translateY(10px);
+    }
+    @media (max-width: 1185px) {
+      min-width: 160px;
     }
 
   }
-  .opened{
+
+  .opened {
     background-color: #F4F6F7;
 
     color: #264E58;
-    transform: translateY(-10px);
-    transition: background-image 1s linear ;
+    transform: translateY(10px);
+
+    transition: background-image 1s linear;
 
   }
 }

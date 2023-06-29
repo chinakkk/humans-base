@@ -44,7 +44,7 @@ const Authentication: FC = () => {
 
 
     return (
-        <div>
+        <div className={commonStyles.container}>
             <div className={commonStyles.window}>
 
                 <form>

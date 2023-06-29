@@ -8,10 +8,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(9, 1fr);
-
-
   height: 650px;
+  width: 100%;
   overflow: auto;
+  grid-column-gap: 35px;
+  grid-row-gap: 0px;
+
 
 }
 

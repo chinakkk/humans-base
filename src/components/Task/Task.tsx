@@ -32,7 +32,7 @@ const Task: FC<TaskProps> = ({
 
 
     return (
-        <div>
+        <>
             {
                 taskIsOpen && <OpenedTask
                     setTaskIsOpen={setTaskIsOpen}
@@ -76,7 +76,7 @@ const Task: FC<TaskProps> = ({
                     </span>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 export default Task;

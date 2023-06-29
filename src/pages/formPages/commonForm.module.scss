@@ -1,11 +1,20 @@
-.window{
-  position: relative;
-  background-color: #E2E2E2;
-  border-radius: 10px;
-  padding: 15px 25px 25px 25px;
-  margin-bottom: 15px;
-  box-shadow: 0 0 10px 0 gray;
-  width: 320px;
-  user-select: none;
+.container{
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  .window{
+    position: relative;
+    background-color: #E2E2E2;
+    border-radius: 10px;
+    padding: 15px 25px 25px 25px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 10px 0 gray;
+    width: 320px;
+    user-select: none;
+  }
+
+
 }
 

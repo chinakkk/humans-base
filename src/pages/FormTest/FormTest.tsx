@@ -14,6 +14,39 @@ const FormTest: FC = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
+
+    const [chet, setChet] = useState<number>(0)
+    const [nechet, setNechet] = useState<number>(0)
+    const [count, setCount] = useState<string>('')
+
+    const [firstFinger,setFirstFinger]=useState<string>('')
+    const [secondFinger,setSecondFinger]=useState<string>('')
+
+    const onClickTestButton = () => {
+        let chetn = 0
+        let nechetn = 0
+        for (let i = 0; i < Number(count); i++) {
+            const firstMan: number = Math.floor(Math.random() * Number( firstFinger))
+            const secondMan: number = Math.floor(Math.random() * Number(secondFinger))
+            if ((firstMan + secondMan) % 2) nechetn = nechetn + 1
+            else chetn = chetn + 1
+        }
+        setChet(chetn)
+        setNechet(nechetn)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     const [buttonIsLoading, setButtonIsLoading] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [inputLogin, setInputLogin] = useState<string>('')
@@ -55,47 +88,14 @@ const FormTest: FC = () => {
     }, [])
 
 
-
-
-
     return (
+
+
+
+
         <div className={styles.container}>
-            <div className={commonStyles.window}>
-                <form onSubmit={handleSubmit(onClickSubmit)}>
-                    <div className={styles.inputs}>
-                        <label className={styles.titleFromBlocks}>
-                            Login
-                            <input
 
-                                className={`${styles.regInput}`}
-                                autoFocus={true}
-                                autoComplete={'off'}
-                                maxLength={15}
-                                {...register('login')}
 
-                            />
-                        </label>
-                        <label className={styles.titleFromBlocks}>
-                            Password
-                            <input
-                                className={`${styles.regInput}`}
-                                autoComplete={'off'}
-                                maxLength={15}
-
-                                {...register('password')}
-                            />
-                        </label>
-                    </div>
-                    <ErrorMessage errorMessage={errorMessage}/>
-                    <button
-                        className={styles.continueButton}
-                    >
-                        click
-                    </button>
-
-                </form>
-
-            </div>
         </div>
     )
 }

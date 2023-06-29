@@ -13,6 +13,7 @@ type MessagesProps = {}
 
 const Messages: FC = () => {
     const [messagesItems, setMessagesItems] = useState<messageType[]>([])
+    const [stopScroll, setStopScroll] = useState<boolean>(false)
     const messagesRef = useRef<HTMLDivElement>(null)
     const {search} = useSelector((state: RootState) => state.searchSlice)
 
@@ -67,14 +68,12 @@ const Messages: FC = () => {
         let createSpace: boolean = false
         //вывод пользователей
         return !messagesItems.length ? [...new Array(15)].map((value, index) => <SkeletonMessage key={index}/>) :
-            searchFilterMessageItems.map((messageObj, index) => {
+            searchFilterMessageItems.map((messageObj) => {
 
 
                     createSpace = Number(messageObj.date.slice(4, 6)) > month || Number(messageObj.date.slice(6, 8)) > day;
                     day = Number(messageObj.date.slice(6, 8))
                     month = Number(messageObj.date.slice(4, 6))
-                    const stringDay = day < 10 ? ('0' + day) : day
-                    const stringMonth = month < 10 ? ('0' + month) : day
                     return (
                         <div
                             key={messageObj.uuid}
@@ -82,8 +81,7 @@ const Messages: FC = () => {
                             {
                                 createSpace &&
                                 <div className={styles.space}>
-                                    <div className={styles.line}></div>
-                                    {/*{`${stringDay}.${stringMonth}.${messageObj.date.slice(0, 4)}`}*/}
+                                  <div className={styles.line}></div>
                                 </div>
                             }
                             <Message

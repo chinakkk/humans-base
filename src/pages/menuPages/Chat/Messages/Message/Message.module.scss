@@ -19,7 +19,8 @@
       position: relative;
 
 
-      width: 1061px;
+      max-width: 1061px;
+      width: 100%;
 
       .login {
         height: 28px;
@@ -78,9 +79,10 @@
       .buttonSVG {
         opacity: 0;
         position: absolute;
-        left: -4px;
-        top: -4px;
+        left: -1.5px;
+        top: -1px;
         transition: opacity 0.2s linear;
+
       }
 
 

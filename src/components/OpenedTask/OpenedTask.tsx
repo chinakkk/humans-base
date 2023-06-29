@@ -3,6 +3,7 @@ import React, {FC, useState} from "react"
 import {taskType} from "../../types/types";
 import DeleteTaskButton from "./DeleteTaskButton/DeleteTaskButton";
 import {updateTaskByUIDFirestore} from "../../dataBaseResponse/tasksFirestore";
+import {useAdminAuth} from "../../hooks/useAdminAuth";
 
 type OpenedTaskProps = {
     setTaskIsOpen: (value: boolean) => void;
@@ -21,6 +22,7 @@ const OpenedTask: FC<OpenedTaskProps> = ({
     const [editMode, setEditMode] = useState<boolean>(false)
     const [titleInput, setTitleInput] = useState<string>(task.title)
     const [textInput, setTextInput] = useState<string>(task.text)
+    const isAdmin = useAdminAuth()
     const onClickEditTask = () => {
         if (editMode && (titleInput !== task.title || textInput !== task.text)) {
             updateTaskByUIDFirestore(task.uid, {title: titleInput, text: textInput}).then().catch()
@@ -73,16 +75,22 @@ const OpenedTask: FC<OpenedTaskProps> = ({
 
 
                     }
-                    <button onClick={onClickEditTask}
-                            className={styles.editButton}>{editMode ? 'Save' : 'Edit mode'}
-                    </button>
+                    {
+                        isAdmin && <button onClick={onClickEditTask}
+                                           className={styles.editButton}>{editMode ? 'Save' : 'Edit mode'}
+                        </button>
+                    }
+
                 </form>
 
-                <DeleteTaskButton
-                    task={task}
-                    taskItems={taskItems}
-                    setTaskItems={setTaskItems}
-                />
+                {
+                    isAdmin && <DeleteTaskButton
+                        task={task}
+                        taskItems={taskItems}
+                        setTaskItems={setTaskItems}
+                    />
+                }
+
 
             </div>
 

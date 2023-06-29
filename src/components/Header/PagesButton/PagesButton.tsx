@@ -1,6 +1,7 @@
 import styles from './PagesButton.module.scss'
 import {FC, useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
+import Search from "../Search/Search";
 
 type ButtonPagesProps = {
     pagesArr: string[];
@@ -38,6 +39,9 @@ const PagesButton: FC<ButtonPagesProps> = ({pagesArr}) => {
                     </Link>
                 )
             }
+
+            <Search/>
+
         </div>
     )
 }

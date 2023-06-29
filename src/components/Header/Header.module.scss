@@ -1,12 +1,13 @@
 .container {
   position: relative;
-  background-color: #264E58;
+  background-color: transparent;
+  //background-color: #4e4e4e;
   height: 70px;
-  max-width: 1280px;
   margin: 0 auto;
-
   display: flex;
+  justify-content: space-between;
 
+  max-width: 1280px;
 
 
 }

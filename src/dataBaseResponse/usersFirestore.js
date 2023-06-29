@@ -115,7 +115,7 @@ export const getUserByUidFirestore = async (uid) => {
 
   } catch (error) {
     console.log(error)
-    alert('Ошибка при получении пользователя по id.')
+    console.log('Ошибка при получении пользователя по id.')
   }
 
 }

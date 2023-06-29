@@ -1,62 +1,74 @@
-body{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Titillium Web", sans-serif;
-  background-color: #264E58;
-  /*background-color: #F4F6F7;*/
-  min-width: 1280px;
-  position: relative;
-  overflow: visible;
+body {
+    font-family: "Titillium Web", sans-serif;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    background-color: #264E58;
 
+    position: relative;
+    /*overflow: visible;*/
+
+    background-image: url("./assets/background/oceanAnimate.svg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
 }
+
+@media (max-width: 1280px) {
+    body {
+        background-image: none;
+    }
+}
+
 /*убрать полосу прокрутки*/
 ::-webkit-scrollbar {
-  /*width: 0; !* ширина полосы *!*/
-  /*height: 0;*/
+    /*width: 0; !* ширина полосы *!*/
+    /*height: 0;*/
 }
 
-textarea{
-  resize: none;
+textarea {
+    resize: none;
 }
-
 
 
 /*button{*/
 /*  user-select: none;*/
 /*}*/
 a {
-  text-decoration: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+    text-decoration: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
-input{
 
-  /*-webkit-user-select: none;*/
-  outline: none;
+input {
+
+    /*-webkit-user-select: none;*/
+    outline: none;
 }
+
 input::placeholder {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* Указываем box sizing */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* Убираем внутренние отступы */
 ul[class],
 ol[class] {
-  padding: 0;
+    padding: 0;
 }
 
 /* Убираем внешние отступы */
@@ -74,37 +86,37 @@ figcaption,
 blockquote,
 dl,
 dd {
-  margin: 0;
+    margin: 0;
 }
 
 /* Выставляем основные настройки по-умолчанию для body */
 body {
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
 ul[class],
 ol[class] {
-  list-style: none;
+    list-style: none;
 }
 
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
+    text-decoration-skip-ink: auto;
 }
 
 /* Упрощаем работу с изображениями */
 img {
-  max-width: 100%;
-  display: block;
+    max-width: 100%;
+    display: block;
 }
 
 /* Указываем понятную периодичность в потоке данных у article*/
 article > * + * {
-  margin-top: 1em;
+    margin-top: 1em;
 }
 
 /* Наследуем шрифты для инпутов и кнопок */
@@ -112,5 +124,5 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }

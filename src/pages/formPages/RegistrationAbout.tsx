@@ -142,7 +142,7 @@ const RegistrationAbout: FC = memo(() => {
 
 
     return (
-        <div>
+        <div className={commonStyles.container}>
             <div className={commonStyles.window}>
 
                 <form>
