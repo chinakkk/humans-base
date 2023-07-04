@@ -80,3 +80,58 @@
   }
 
 }
+
+@media (max-width: 820px) {
+  .container{
+    padding-top: 90px;
+    height: 100vh;
+
+    .contentTop{
+      .photoContainer{
+        width: 250px;
+        height: 250px;
+      }
+    }
+    .contentBot{
+      .aboutMeInput{
+        //height: 350px;
+
+
+      }
+    }
+  }
+}
+@media (max-width: 820px) {
+  .container{
+    padding: 80px 20px 20px 20px ;
+
+    .contentTop{
+      .photoContainer{
+        width: 180px;
+        height: 180px;
+      }
+    }
+    .contentBot{
+      .aboutMeInput{
+        font-size: 16px;
+        height: 48vh;
+      }
+    }
+  }
+}
+@media (max-width: 400px) {
+  .container{
+
+    .contentTop{
+      .photoContainer{
+        width: 130px;
+        height: 130px;
+      }
+    }
+    .contentBot{
+      .aboutMeInput{
+
+      }
+    }
+  }
+}

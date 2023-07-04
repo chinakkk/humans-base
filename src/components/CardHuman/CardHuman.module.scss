@@ -16,7 +16,7 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   }
 
-  .photoContainer{
+  .photoContainer {
     min-height: 124px;
     min-width: 124px;
     height: 124px;
@@ -36,12 +36,12 @@
     }
   }
 
-
   .photo {
     border-radius: 14px;
     margin-right: 23px;
   }
-  .noPhoto{
+
+  .noPhoto {
     padding: 15px;
 
   }
@@ -53,8 +53,26 @@
       font-size: 18px;
       font-weight: 600;
     }
+  }
+}
 
+@media (max-width: 820px) {
+  .container {
+    cursor: default;
 
   }
+}
 
+
+@media (max-width: 630px) {
+  .container {
+    padding: 10px;
+
+    .photoContainer {
+      min-height: 100px;
+      min-width: 100px;
+      height: 100px;
+      width: 100px;
+    }
+  }
 }

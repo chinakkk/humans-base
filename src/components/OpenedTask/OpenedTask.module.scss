@@ -6,19 +6,19 @@
   z-index: 50;
 
 
-  .overlay{
+  .overlay {
     position: fixed;
     height: 100vh;
     width: 100vw;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background-color: black;
     opacity: 0.4;
   }
 
 
-  .window{
+  .window {
     position: absolute;
     transform: translate(-50%, -44%);
     height: 550px;
@@ -29,8 +29,7 @@
     font-size: 18px;
 
 
-
-    .titleBlock{
+    .titleBlock {
       display: flex;
       width: 596px;
       height: 50px;
@@ -40,7 +39,8 @@
       color: #FFFFFF;
       justify-content: center;
       align-items: center;
-      .titleInput{
+
+      .titleInput {
         background-color: transparent;
         color: white;
         border: 0;
@@ -48,17 +48,18 @@
         text-align: center;
       }
     }
-    .textBlock{
+
+    .textBlock {
       width: 570px;
       height: 425px;
       background-color: #FFFFFF;
       border-radius: 10px;
       margin: 0 auto;
-      padding: 15px 20px 20px 20px ;
+      padding: 15px 20px 20px 20px;
       white-space: pre-wrap;
       overflow: auto;
 
-      .textInput{
+      .textInput {
         height: 100%;
         width: 100%;
         padding: 0;
@@ -67,18 +68,21 @@
         outline: none;
       }
     }
-    .time{
+
+    .time {
       position: absolute;
       left: 13px;
       bottom: 13px;
 
     }
-    .yearMonthDay{
+
+    .yearMonthDay {
       position: absolute;
       left: 90px;
       bottom: 13px;
 
     }
+
     .date {
       display: flex;
       height: 29px;
@@ -88,6 +92,7 @@
       text-align: center;
       align-items: center;
     }
+
     .greenDate {
       background-color: #9EDE95;
     }
@@ -95,7 +100,8 @@
     .redDate {
       background-color: #ff8b90;
     }
-    .editButton{
+
+    .editButton {
       position: absolute;
       bottom: 13px;
       right: 130px;
@@ -109,17 +115,30 @@
       height: 29px;
 
 
-      &:active{
+      &:active {
         transform: translateY(1px);
       }
 
     }
-    }
-  .borderEdit{
+  }
+
+  .borderEdit {
     border: 2px solid #4e4e4e;
   }
 
-  }
+}
 
+@media (max-width: 820px) {
+
+  .container{
+    .window{
+      .editButton{
+
+      cursor: default;
+      }
+    }
+
+  }
+}
 
 

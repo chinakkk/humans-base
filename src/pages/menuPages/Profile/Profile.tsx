@@ -74,7 +74,6 @@ const Profile: FC = () => {
                     />
                 }
 
-
                 <PersonInfo userInfo={userInfo}
                             editMode={editMode}
                             editNameInput={editNameInput}
@@ -85,13 +84,7 @@ const Profile: FC = () => {
                             setEditDateInput={setEditDateInput}
                 />
 
-                {/*<div className={styles.cardProfile}>*/}
-                {/*    <CardHuman*/}
-                {/*        userInfo={userInfo}*/}
-                {/*        openOnClick={false}*/}
-                {/*        userImageUrl={userImageUrl}*/}
-                {/*    />*/}
-                {/*</div>*/}
+
 
             </div>
             <div className={styles.contentBot}>

@@ -5,11 +5,17 @@ import Search from "../Search/Search";
 
 type ButtonPagesProps = {
     pagesArr: string[];
+    openedPage: string;
+    setOpenedPage: (value: string) => void;
 }
 
-const PagesButton: FC<ButtonPagesProps> = ({pagesArr}) => {
+const PagesButton: FC<ButtonPagesProps> = ({
+                                               pagesArr,
+                                               openedPage,
+                                               setOpenedPage
+                                           }) => {
     const location = useLocation()
-    const [openedPage, setOpenedPage] = useState<string>()
+
 
     const onClickPage = (page: string) => {
         setOpenedPage(page)
@@ -23,26 +29,30 @@ const PagesButton: FC<ButtonPagesProps> = ({pagesArr}) => {
     }, [location])
 
 
-
     return (
-        <div className={styles.pages}>
-            {
-                pagesArr.map((page: string) =>
-                    <Link className={styles.page + ' ' + (openedPage === page ? styles.opened : '')}
-                          to={`/menu/${page.toLowerCase()}`}
-                          key={page}
-                          onClick={() => {
-                              onClickPage(page)
-                          }}
-                    >
-                        {page}
-                    </Link>
-                )
-            }
 
-            <Search/>
+            <div className={styles.tabsPages}>
+                {
+                    pagesArr.map((page: string) =>
+                        <Link className={`${styles.page} ${openedPage === page ? styles.opened : ''}`}
+                              to={`/menu/${page.toLowerCase()}`}
+                              key={page}
+                              onClick={() => {
+                                  onClickPage(page)
+                              }}
+                        >
+                            {page}
+                        </Link>
+                    )
+                }
 
-        </div>
+                <Search/>
+
+            </div>
+
+
+
+
     )
 }
 export default PagesButton;
