@@ -62,7 +62,6 @@ const EditUserInfo: FC<EditUserInfoProps> = ({userInfo,
             <form onSubmit={handleSubmit(onClickSave)}>
                 <input defaultValue={toUpperCaseHead(userInfo.level)} type="text"
                        className={styles.aboutInputs + ' ' + styles.levelInput}
-                       autoFocus
                        required
                        autoComplete={'off'}
                        placeholder={'Level'}

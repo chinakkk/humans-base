@@ -15,3 +15,9 @@
     transform: scale(100.5%);
   }
 }
+
+@media (max-width: 820px) {
+  .buttonUnderWindow{
+    cursor: default;
+  }
+}

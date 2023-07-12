@@ -1,22 +1,18 @@
 .container {
 
   font-size: 20px;
-  .level{
+
+  .level {
     font-weight: 550;
     font-size: 28px;
 
   }
-  .name{
 
-  }
-  .birthday{
-
-  }
-
-  .inputs{
+  .inputs {
     display: flex;
     flex-direction: column;
-    .input{
+
+    .input {
       width: 200px;
       height: 26px;
       border-radius: 5px;
@@ -26,14 +22,44 @@
       margin-top: 3px;
       border: 1px solid #264e58;
     }
-    .nameInput{
+
+    .nameInput {
       padding-bottom: 2px;
     }
-    .surnameInput{
+
+    .surnameInput {
       padding-bottom: 2px;
     }
-    .dateInput{
+
+    .dateInput {
 
     }
   }
 }
+
+@media (max-width: 470px) {
+  .container {
+    .inputs {
+      .input {
+        width: 150px;
+      }
+
+
+    }
+  }
+}
+@media (max-width: 360px) {
+  .container {
+    .inputs {
+      .input {
+        font-size: 14px;
+        width: 110px;
+
+      }
+
+
+    }
+  }
+}
+
+

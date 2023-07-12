@@ -1,10 +1,7 @@
 import styles from './ImageButtons.module.scss'
 import React, {FC, useRef} from "react"
-import {storage} from "../../../../firebase";
-import {ref, uploadBytesResumable, getDownloadURL, deleteObject} from "firebase/storage";
 import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../../../redux/store";
-import {updateImgByUidFirestore} from "../../../../dataBaseResponse/usersFirestore";
 import {setUser} from "../../../../redux/slices/authUserSlice";
 
 

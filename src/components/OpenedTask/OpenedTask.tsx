@@ -39,27 +39,33 @@ const OpenedTask: FC<OpenedTaskProps> = ({
             <div className={styles.window + ' ' + (editMode ? styles.borderEdit : '')}>
 
                 <form>
-                    <div className={styles.titleBlock}>
-                        {
-                            editMode ? <input className={styles.titleInput}
-                                              onChange={(event) => setTitleInput(event.target.value)}
-                                              value={titleInput}
-                                              autoFocus={true}
-                                              maxLength={40}
-                                />
-                                :
-                                task.title
-                        }
+
+                    <div className={styles.titleBlockWrapper}>
+                        <div className={styles.titleBlock}>
+                            {
+                                editMode ? <input className={styles.titleInput}
+                                                  onChange={(event) => setTitleInput(event.target.value)}
+                                                  value={titleInput}
+                                                  maxLength={40}
+                                    />
+                                    :
+                                    task.title
+                            }
+                        </div>
                     </div>
-                    <div className={styles.textBlock}>
-                        {editMode ?
-                            <textarea
-                                className={styles.textInput}
-                                onChange={(event) => setTextInput(event.target.value)}
-                                value={textInput}
-                            >
-                        </textarea> :
-                            task.text}
+
+                    <div className={styles.textBlockWrapper}>
+                        <div className={styles.textBlock}>
+                            {
+                                editMode ?
+                                    <textarea
+                                        className={styles.textInput}
+                                        onChange={(event) => setTextInput(event.target.value)}
+                                        value={textInput}
+                                    ></textarea> :
+                                    task.text
+                            }
+                        </div>
                     </div>
 
                     {

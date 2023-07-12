@@ -14,19 +14,66 @@
       //position: relative;
       z-index: 120;
     }
-    .testButton{
+    .burgerMenuButton{
       position: absolute;
-      top: 10px;
-      left: 10px;
-      height: 30px;
+      top: 18px;
+      left: 20px;
+      height: 25px;
       width: 30px;
       z-index: 200;
-      background-color: white;
       border: 0;
       border-radius: 5px;
-      &:active {
-        transform: translateY(1px);
+      background-color: transparent;
+      padding: 0;
+
+
+      .topLine,.middleLine,.bottomLine{
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: white;
+        transition: all 0.2s linear;
+        border-radius: 1px;
+
       }
+      .topLine{
+
+        position: absolute;
+        top: 0;
+
+      }
+      .middleLine{
+        //position: absolute;
+        scale: 1;
+      }
+
+      .bottomLine{
+
+        position: absolute;
+        bottom: 0;
+
+      }
+    }
+    .burgerMenuButtonActive{
+
+      .topLine{
+        rotate: -45deg;
+        top: 46%;
+
+      }
+      .middleLine{
+        scale: 0;
+        opacity: 0;
+
+      }
+
+      .bottomLine{
+        rotate: 45deg;
+        bottom: 47%;
+
+
+      }
+
     }
     .burgerMenu{
       height: 100vh;

@@ -10,7 +10,22 @@
     border-radius: 7px;
     padding: 10px 15px 10px 15px;
     overflow: auto;
-
+    word-break: break-all;
 
   }
+}
+
+
+@media (max-width: 470px) {
+  .container{
+    .note{
+      height: 275px;
+  }}
+}
+
+@media (max-width: 350px) {
+  .container{
+    .note{
+      height: 170px;
+    }}
 }

@@ -1,18 +1,13 @@
 import styles from './ExitButton.module.scss'
 import {FC} from "react"
-import {removeUser} from "../../../redux/slices/authUserSlice";
 import {Link} from "react-router-dom";
-import {useAppDispatch} from "../../../redux/store";
-import {clearRegistrationData} from "../../../redux/slices/registrationSlice";
-import {clearAllSearch} from "../../../redux/slices/searchSlice";
 
-const ExitButton: FC = () => {
-    const dispatch = useAppDispatch()
-    const onClickExitButton = () => {
-        dispatch(removeUser())
-        dispatch(clearRegistrationData())
-        dispatch(clearAllSearch())
-    }
+
+type ExitButtonType={
+    onClickExitButton:() => void;
+}
+const ExitButton: FC <ExitButtonType>= ({onClickExitButton}) => {
+
     return (
         <div className={styles.container}>
             <Link to={'/authentication'}>

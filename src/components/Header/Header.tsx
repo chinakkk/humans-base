@@ -4,12 +4,24 @@ import PagesButton from "./PagesButton/PagesButton";
 import Search from "./Search/Search";
 import ExitButton from "./ExitButton/ExitButton";
 import {Link} from "react-router-dom";
+import {useAppDispatch} from "../../redux/store";
+import {removeUser} from "../../redux/slices/authUserSlice";
+import {clearRegistrationData} from "../../redux/slices/registrationSlice";
+import {clearAllSearch} from "../../redux/slices/searchSlice";
 
 const Header: FC = () => {
+    const dispatch = useAppDispatch()
+
     const titlePagesArr: string[] = ['Profile', 'Programmers', 'Tasks', 'Chat']
     const [burgerPagesIsOpen, setBurgerPagesIsOpen] = useState<boolean>(false)
     const [openedPage, setOpenedPage] = useState<string>('')
 
+
+    const onClickExitButton = () => {
+        dispatch(removeUser())
+        dispatch(clearRegistrationData())
+        dispatch(clearAllSearch())
+    }
 
     return (
         <div className={styles.container}>
@@ -17,9 +29,13 @@ const Header: FC = () => {
 
             <div className={styles.burgerPages}>
                 <button
-                    className={styles.testButton}
+                    className={styles.burgerMenuButton + ' ' + (burgerPagesIsOpen ? styles.burgerMenuButtonActive : '')}
                     onClick={() => setBurgerPagesIsOpen(!burgerPagesIsOpen)}
                 >
+                    <div className={styles.topLine}></div>
+                    <div className={styles.middleLine}></div>
+                    <div className={styles.middleLineTest}></div>
+                    <div className={styles.bottomLine}></div>
                 </button>
 
                 <div className={styles.openedBurgerPage}>
@@ -29,15 +45,15 @@ const Header: FC = () => {
                     <div className={styles.burgerButtons}>
                         {titlePagesArr.map((page) => {
                                 return (
-                                    <div>
+                                    <div key={page}>
 
                                         <Link
                                             className={styles.burgerButton}
-                                              to={`/menu/${page.toLowerCase()}`}
-                                              key={page}
-                                              onClick={() => {
-                                                  setBurgerPagesIsOpen(false)
-                                              }}
+                                            to={`/menu/${page.toLowerCase()}`}
+                                            key={page}
+                                            onClick={() => {
+                                                setBurgerPagesIsOpen(false)
+                                            }}
                                         >
                                             {page}
                                         </Link>
@@ -46,6 +62,15 @@ const Header: FC = () => {
                                     </div>)
                             }
                         )}
+                        <Link
+                            className={styles.burgerButton}
+                            to={`/menu/authentication`}
+                            onClick={onClickExitButton}
+                        >
+                            Exit
+                        </Link>
+
+                        <span className={styles.line}></span>
 
                     </div>
                 </div>
@@ -58,7 +83,7 @@ const Header: FC = () => {
                     openedPage={openedPage}
                     setOpenedPage={setOpenedPage}
                 />
-                <ExitButton/>
+                <ExitButton onClickExitButton={onClickExitButton}/>
 
 
             </div>

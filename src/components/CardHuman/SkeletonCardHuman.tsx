@@ -13,9 +13,9 @@ const SkeletonCardHuman = () => (
             backgroundColor="#f0f0f0"
             foregroundColor="#dedede"
         >
-            <rect x="23" y="23" rx="14" ry="14" width="124" height="124" />
-            <rect x="168" y="51" rx="3" ry="3" width="80" height="14" />
-            <rect x="168" y="30" rx="3" ry="3" width="80" height="14" />
+            <rect className={styles.skeletonPhoto} x="23" y="23" rx="14" ry="14" />
+            <rect className={styles.skeletonName} x="168" y="51" rx="3" ry="3" width="80" height="14" />
+            <rect className={styles.skeletonName} x="168" y="30" rx="3" ry="3" width="80" height="14" />
         </ContentLoader>
 
     </div>

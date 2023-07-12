@@ -28,11 +28,13 @@
       align-items: center;
       justify-content: center;
       line-height: 17px;
-
+      word-break: break-all;
 
     }
-    .info{
+
+    .info {
       display: flex;
+
       .loginInTask {
         display: flex;
         font-size: 15px;
@@ -81,7 +83,30 @@
 @media (max-width: 820px) {
   .container {
     cursor: default;
+    font-size: 14px;
 
+    .textBlock {
+      .info {
+        .loginInTask {
+          font-size: 13px;
+        }
+
+        .date {
+          font-size: 13px;
+
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .container {
+    .textBlock {
+      .title {
+        font-size: 13px;
+      }
+    }
   }
 }
 

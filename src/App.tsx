@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './App.module.scss'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import MenuLayout from "./layouts/MenuLayout/MenuLayout";
@@ -26,10 +26,16 @@ function App() {
 
 
                 <Routes>
-                    <Route path={'/test'} element={<FormTest/>}/>
+                    {/*<Route path={'/test'} element={<FormTest/>}/>*/}
                     {/*домашняя страница*/}
-                    <Route path={'/'} element={<Home/>}/>
-                    <Route path={'/*'} element={<Navigate to={'/'}/>}/>
+                    {/*<Route path={'/'} element={<Home/>}/>*/}
+                    {
+                        !user.login?
+                            <Route path={'/*'} element={<Navigate to={'/authentication'}/>}/>:
+                            <Route path={'/*'} element={<Navigate to={'/menu/profile'}/>}/>
+
+                    }
+
 
 
                     {

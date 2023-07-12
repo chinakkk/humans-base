@@ -32,11 +32,14 @@
   .container {
     .editButton{
       cursor: default;
-
+      right: 20px;
+      bottom: 20px;
     }
 
     .cancelButton{
       cursor: default;
+      left: 20px;
+      bottom: 20px;
     }
   }
 }

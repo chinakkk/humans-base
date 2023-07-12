@@ -29,5 +29,22 @@
 
   }
 }
+@media (max-width: 470px) {
+  .container{
+    font-size: 14px;
+    .deleteButton{
+      width: 80px;
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .container{
+    font-size: 12px;
+    .deleteButton{
+      width: 70px;
+    }
+  }
+}
 
 
