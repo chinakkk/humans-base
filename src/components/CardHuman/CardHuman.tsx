@@ -27,18 +27,13 @@ const CardHuman: FC<CardHumanProps> = ({
     const onClickCard = async () => {
         setCardIsOpen(true)
     }
-
-
     return (
-
         <div>
             {
                 (cardIsOpen && openOnClick) && <OpenedCardHuman
                     setCardIsOpen={setCardIsOpen}
                     setUsersCardArr={setUsersCardArr}
                     userInfo={userInfo}
-
-
                 />
             }
             <div

@@ -1,18 +1,15 @@
 body {
     font-family: "Titillium Web", sans-serif;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
     background-color: #264E58;
 
     position: relative;
-    /*overflow: visible;*/
 
     background-image: url("./assets/background/oceanAnimate.svg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    overflow: hidden;
 
 }
 

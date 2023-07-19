@@ -1,5 +1,5 @@
 import React from "react"
-import styles from './Message.module.scss'
+import styles from './MessageLast.module.scss'
 
 import ContentLoader from "react-content-loader"
 import {useAdminAuth} from "../../../../../hooks/useAdminAuth";

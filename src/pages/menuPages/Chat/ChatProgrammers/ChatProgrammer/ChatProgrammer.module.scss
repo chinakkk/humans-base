@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  padding: 0 20px 0 20px;
+  //margin-bottom: 10px;
+  .content{
+    height: 100%;
+    //border: 1px white solid;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px 6px 10px;
+    color: white;
+    font-size: 17px;
+
+
+    &:hover{
+      background-color: #6E939D;
+    }
+    //transition: scale 0.05s linear;
+
+    .photo{
+      width: 56px;
+      height: 56px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-size: 10px;
+      object-fit: cover;
+      object-position: center center;
+    }
+    .level{
+
+    }
+    .name{
+    }
+
+  }
+}

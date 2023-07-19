@@ -1,61 +1,96 @@
 import styles from './Message.module.scss'
-import {FC} from "react"
+import React, {FC, useEffect, useRef, useState} from "react"
 import {messageType} from "../../../../../types/types";
-import {remove, ref} from 'firebase/database'
-import {realTimeDB} from "../../../../../firebase";
-import {useSelector} from "react-redux";
 import {RootState} from "../../../../../redux/store";
-import {useAdminAuth} from "../../../../../hooks/useAdminAuth";
-import {transformDateFromUser} from "../../../../../utils/toUpperCaseHead";
+import {useSelector} from "react-redux";
+import ContextMenu from "./ContextMenu/ContextMenu";
 
-type MessageProps = {
+type MessageNewProps = {
     messageObj: messageType;
+    contextMenuMessagesState: boolean;
+    setContextMenuMessagesIsOpen: (value: boolean) => void;
+    setContextMenuMessagesState: (value: boolean) => void;
+
 }
 
-const Message: FC<MessageProps> = ({messageObj}) => {
-    const {adminUser, user} = useSelector((state: RootState) => state.userSlice)
-    const isAdmin=useAdminAuth()
-    const onClickRemoveMessage = () => {
-        remove(ref(realTimeDB, `/${messageObj.uuid}`)).then().catch()
+const Message: FC<MessageNewProps> = ({
+                                          messageObj,
+                                          contextMenuMessagesState,
+                                          setContextMenuMessagesIsOpen,
+                                          setContextMenuMessagesState,
+                                      }) => {
+    const [contextMenuIsOpen, setContextMenuIsOpen] = useState<boolean>(false)
+    const [mouseX, setMouseX] = useState<number>(0)
+    const [mouseY, setMouseY] = useState<number>(0)
+
+    const contentRef = useRef<HTMLDivElement>(null)
+
+    const {user, adminUser} = useSelector((state: RootState) => state.userSlice)
+    const isUserMessage = user.login === messageObj.login
+    const time = `${messageObj.date.slice(8, 10)}:${messageObj.date.slice(10, 12)}`
+    const nameInMessage = messageObj.login === user.login ? '' : (messageObj.login === adminUser.login ? 'admin' : messageObj.login)
+
+    const onClickContentBlock = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.preventDefault()
+        setContextMenuMessagesState(!contextMenuMessagesState)
+        if (event.button === 2) {
+            setTimeout(() => {
+                setMouseX(event.clientX)
+                setMouseY(event.clientY)
+                setContextMenuIsOpen(true)
+                setContextMenuMessagesIsOpen(true)
+
+            }, 200)
+        }
     }
-    const userDate = transformDateFromUser(messageObj.date)
-    const date = `${userDate.slice(6, 8)}.${userDate.slice(4, 6)}`
-    const time = `${userDate.slice(8, 10)}:${userDate.slice(10, 12)}`
+
+
+    useEffect(() => {
+        //удаление нажатия правой кнопкой мыши на сообщение
+        if (contentRef.current) {
+            contentRef.current.addEventListener('contextmenu', (event) => {
+                event.preventDefault()
+            })
+
+        }
+
+    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setContextMenuMessagesIsOpen(false)
+    //         setContextMenuIsOpen(false)
+    //     },200)
+    //
+    //
+    // }, [contextMenuMessagesState])
 
     return (
-        <div className={styles.container}>
-
-            <div className={styles.wrapper}>
-                <span className={styles.message}>
+        <div className={styles.container + ' ' + (isUserMessage ? styles.userMessage : '')}>
+            <div className={styles.content}
+                 onMouseDown={(event) => onClickContentBlock(event)}
+                 ref={contentRef}
+            >
+                <div className={styles.name}>{nameInMessage}</div>
                 <div>
-                    <span
-                        className={styles.login + ' ' + (messageObj.login === user.login ? styles.isUserLogin : '')}
-                    >
-                        {messageObj.login === adminUser.login ? 'admin' : messageObj.login.slice(0,5)}:
-                    </span>
-                    <span>
-                        {messageObj.inputMessage}
-                    </span>
+                    <span className={styles.message}>{messageObj.inputMessage}</span>
+                    <span className={styles.timeHidden}>{time}</span>
+                    <span className={styles.time}>{time}</span>
                 </div>
-                <div className={styles.time}> {time}</div>
 
-
-            </span>
-                <div className={styles.date}> {date}</div>
-
-
-                {
-                    isAdmin&&
-                    <button className={styles.removeButton} onClick={onClickRemoveMessage}>
-                      <svg className={styles.buttonSVG} width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 6L18 18" stroke="#9BD0D0" strokeLinecap="round"/>
-                        <path d="M18 6L6.00001 18" stroke="#9BD0D0" strokeLinecap="round"/>
-                      </svg>
-                    </button>
-                }
+                {/* 593 321 561 318*/}
             </div>
-
+            {
+                contextMenuIsOpen &&
+                <ContextMenu
+                    messageObj={messageObj}
+                    isUserContextMenu={(messageObj.login === user.login)}
+                    setContextMenuIsOpen={setContextMenuIsOpen}
+                    contextMenuIsOpen={contextMenuIsOpen}
+                    mouseX={mouseX}
+                    mouseY={mouseY}
+                    setContextMenuMessagesIsOpen={setContextMenuMessagesIsOpen}
+                />
+            }
 
         </div>
     )

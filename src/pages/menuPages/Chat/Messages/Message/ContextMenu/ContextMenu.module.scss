@@ -1,0 +1,61 @@
+.container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 1000;
+  height: 100vh;
+  width: 100vw;
+  .overlay {
+    .contextMenu {
+      position: absolute;
+      opacity: 0;
+      scale: 0.5;
+      transition: opacity 0.2s linear, scale 0.2s linear;
+
+      display: inline-block;
+      width: 90px;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: #9BD0D0;
+      color: white;
+      font-size: 18px;
+
+      li {
+        list-style-type: none; /* Убираем маркеры */
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      .buttonAction {
+        padding: 0 15px 0 5px;
+        cursor: pointer;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: #7BA6B1;
+        }
+      }
+
+    }
+
+    .contextMenuActive {
+      display: block;
+      opacity: 1;
+      scale: 1;
+      transition: opacity 0.2s linear, scale 0.2s linear;
+
+
+    }
+
+    .isUserContextMenu {
+      background-color: #638D9A;
+
+    }
+  }
+
+
+}

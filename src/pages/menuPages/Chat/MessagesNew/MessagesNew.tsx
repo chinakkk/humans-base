@@ -1,23 +1,19 @@
-import styles from './Messages.module.scss'
-import React, {FC, useEffect, useRef, useState} from "react"
-import {ref, onValue} from 'firebase/database'
-import {realTimeDB} from "../../../../firebase";
+import styles from './MessagesNew.module.scss'
+import {FC, useEffect, useRef, useState} from "react"
+import Message from "../Messages/Message/Message";
 import {messageType} from "../../../../types/types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
-import Message from "./Message/Message";
-import {getFullDate} from "../../../../utils/toUpperCaseHead";
+import {onValue, ref} from "firebase/database";
+import {realTimeDB} from "../../../../firebase";
+import SkeletonMessage from "./MessageLast/SkeletonMessage";
+import MessageLast from "./MessageLast/MessageLast";
 
-type MessagesProps = {
-    messagesRef:React.Ref<HTMLDivElement>;
-    scrollToBottom:() => void;
-}
+type MessagesNewProps = {}
 
-
-const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
+const MessagesNew: FC = () => {
     const [messagesItems, setMessagesItems] = useState<messageType[]>([])
-    const [contextMenuMessagesIsOpen, setContextMenuMessagesIsOpen] = useState<boolean>(false)
-    const [contextMenuMessagesState, setContextMenuMessagesState] = useState<boolean>(false)
+    const messagesRef = useRef<HTMLDivElement>(null)
     const {search} = useSelector((state: RootState) => state.searchSlice)
 
 
@@ -26,7 +22,12 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
         const time = `${date.slice(8, 10)}:${date.slice(10, 12)}`
         return `${day} ${time}`
     }
-
+    const scrollToBottom = () => {
+        if (messagesRef.current) {
+            const {scrollHeight, clientHeight} = messagesRef.current;
+            messagesRef.current.scrollTop = scrollHeight - clientHeight;
+        }
+    };
     useEffect(() => {
         onValue(ref(realTimeDB), (snapshot) => {
             setMessagesItems([])
@@ -39,7 +40,7 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
                 })
                 setMessagesItems(filteredMessage)
             }
-            // setTimeout(() => scrollToBottom(), 0)
+            setTimeout(() => scrollToBottom(), 0)
 
         })
 
@@ -65,29 +66,26 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
         let month: number = 99
         let createSpace: boolean = false
         //вывод пользователей
-        return !messagesItems.length ? [...new Array(15)].map((value, index) => <></>) :
+        return !messagesItems.length ? [...new Array(15)].map((value, index) => <SkeletonMessage key={index}/>) :
             searchFilterMessageItems.map((messageObj) => {
+
 
                     createSpace = Number(messageObj.date.slice(4, 6)) > month || Number(messageObj.date.slice(6, 8)) > day;
                     day = Number(messageObj.date.slice(6, 8))
                     month = Number(messageObj.date.slice(4, 6))
                     return (
-                        <div key={messageObj.uuid}>
+                        <div
+                            key={messageObj.uuid}
+                        >
                             {
                                 createSpace &&
-                                <div className={styles.newDateWrapper}>
-                                  <span className={styles.newDate}>
-                                      {getFullDate(Number(month), Number(day))}
-                                </span>
+                                <div className={styles.space}>
+                                  <div className={styles.line}></div>
                                 </div>
-
                             }
-                            <Message
-                                messageObj={messageObj}
-                                setContextMenuMessagesIsOpen={setContextMenuMessagesIsOpen}
-                                contextMenuMessagesState={contextMenuMessagesState}
-                                setContextMenuMessagesState={setContextMenuMessagesState}
-                            />
+                            {/*<Message*/}
+                            {/*    messageObj={messageObj}*/}
+                            {/*/>*/}
                         </div>
 
                     )
@@ -98,14 +96,15 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
 
 
     return (
-        <div className={styles.container +' '+(contextMenuMessagesIsOpen ? styles.containerOverflowBlock : '')}
-             ref={messagesRef}
-             onClick={() => setContextMenuMessagesState(!contextMenuMessagesState)}
-        >
-            {
-                renderMessageItems()
-            }
+        <div className={styles.container}>
+            <div className={styles.messages}
+                 ref={messagesRef}
+            >
+                {
+                    renderMessageItems()
+                }
+            </div>
         </div>
     )
 }
-export default Messages;
+export default MessagesNew;

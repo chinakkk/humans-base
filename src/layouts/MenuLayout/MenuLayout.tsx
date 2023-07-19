@@ -11,6 +11,7 @@ const MenuLayout: FC = () => {
                 <Outlet/>
             </div>
         </div>
+
     )
 }
 export default MenuLayout;

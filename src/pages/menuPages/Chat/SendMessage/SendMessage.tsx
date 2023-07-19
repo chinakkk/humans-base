@@ -9,9 +9,11 @@ import {RootState} from "../../../../redux/store";
 import {getCurrentDate, getCurrentDateUTC, transformDateFromUser} from "../../../../utils/toUpperCaseHead";
 
 
-type SendMessageProps = {}
+type SendMessageProps = {
+    scrollToBottom:() =>void ;
+}
 
-const SendMessage: FC = () => {
+const SendMessage: FC <SendMessageProps>= ({scrollToBottom}) => {
     const {user} = useSelector((state: RootState) => state.userSlice)
     const [inputMessage, setInputMessage] = useState<string>('')
 
@@ -28,10 +30,11 @@ const SendMessage: FC = () => {
                     date: getCurrentDateUTC(),
                 }
 
-            set(ref(realTimeDB, `/${uuid}`), newMessageObj).then().catch()
+            set(ref(realTimeDB, `/${uuid}`), newMessageObj).then( ).catch()
         }
         console.log(transformDateFromUser(getCurrentDateUTC()))
 
+        setTimeout(() => scrollToBottom(),0)
 
         setInputMessage('')
     }
@@ -44,10 +47,11 @@ const SendMessage: FC = () => {
             >
 
             </input>
-            <button onClick={sendMessageToDatabase} className={styles.sendButton}>
-                <svg className={styles.buttonSVG} width={'13px'} height={'13px'} viewBox="3 3 18 18" fill="none"
+            <button onClick={sendMessageToDatabase} className={styles.sendButton + ' ' + (!!inputMessage.length ? styles.sendButtonActive : '')}>
+                <svg className={styles.buttonSVG}
+                     width={'13px'} height={'13px'} viewBox="3 3 18 18" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 12L4 4L6 12M20 12L4 20L6 12M20 12H6" stroke="#78BBB8" strokeWidth="2"
+                    <path d="M20 12L4 4L6 12M20 12L4 20L6 12M20 12H6" stroke="#67AEA9" strokeWidth="2"
                           strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </button>

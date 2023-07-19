@@ -1,7 +1,7 @@
 import styles from './Search.module.scss'
 import React, {FC, useEffect, useRef, useState} from "react"
 import {useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {setChatSearch, setProgrammersSearch, setTasksSearch} from "../../../redux/slices/searchSlice";
 import {RootState, useAppDispatch} from "../../../redux/store";
 import programmers from "../../../pages/menuPages/Programmers/Programmers";
