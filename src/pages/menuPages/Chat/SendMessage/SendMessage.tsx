@@ -11,11 +11,13 @@ import {getCurrentDate, getCurrentDateUTC, transformDateFromUser} from "../../..
 
 type SendMessageProps = {
     scrollToBottom:() =>void ;
+    inputMessage:string;
+    setInputMessage:(value:string) => void;
 }
 
-const SendMessage: FC <SendMessageProps>= ({scrollToBottom}) => {
+const SendMessage: FC <SendMessageProps>= ({scrollToBottom,inputMessage,
+                                               setInputMessage}) => {
     const {user} = useSelector((state: RootState) => state.userSlice)
-    const [inputMessage, setInputMessage] = useState<string>('')
 
 
     const sendMessageToDatabase = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

@@ -6,6 +6,7 @@
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.1s linear, box-shadow 0.1s linear, opacity 0.2s linear;
+  height: 50px;
 
 
   .leftBlock {
@@ -28,6 +29,8 @@
       align-items: center;
       justify-content: center;
       line-height: 17px;
+      word-wrap: break-word;
+      //white-space: pre-wrap;
       word-break: break-all;
 
     }

@@ -28,9 +28,10 @@ const CardHuman: FC<CardHumanProps> = ({
         setCardIsOpen(true)
     }
     return (
-        <div>
+        <>
             {
-                (cardIsOpen && openOnClick) && <OpenedCardHuman
+                (cardIsOpen && openOnClick) &&
+                <OpenedCardHuman
                     setCardIsOpen={setCardIsOpen}
                     setUsersCardArr={setUsersCardArr}
                     userInfo={userInfo}
@@ -55,7 +56,7 @@ const CardHuman: FC<CardHumanProps> = ({
                 </div>
             </div>
 
-        </div>
+        </>
     )
 }
 export default CardHuman;

@@ -1,5 +1,5 @@
 import styles from './CreateTaskForm.module.scss'
-import React, {FC} from "react"
+import React, {FC, useRef} from "react"
 import {useForm} from "react-hook-form";
 import {userType} from "../../../../redux/slices/authUserSlice";
 import {postTaskByLoginFirestore} from "../../../../dataBaseResponse/tasksFirestore";
@@ -32,6 +32,7 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({userInfo}) => {
                            autoFocus={true}
                            autoComplete={'off'}
                            maxLength={40}
+                           // ref={taskInputRef}
                     />
                     <textarea
                         className={`${styles.taskInput} ${styles.taskTextArea}`}

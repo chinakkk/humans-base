@@ -1,8 +1,10 @@
 .container {
   white-space: pre-wrap;
+
   ::-webkit-scrollbar {
     //height: 100px;
   }
+
   .note {
     height: 220px;
     width: 100%;
@@ -10,22 +12,35 @@
     border-radius: 7px;
     padding: 10px 15px 10px 15px;
     overflow: auto;
-    word-break: break-all;
+    word-wrap: break-word;
 
+
+
+  }
+}
+
+@media (max-height: 430px) {
+  .container {
+    .note {
+      height: 20vh;
+
+    }
   }
 }
 
 
 @media (max-width: 470px) {
-  .container{
-    .note{
+  .container {
+    .note {
       height: 275px;
-  }}
+    }
+  }
 }
 
 @media (max-width: 350px) {
-  .container{
-    .note{
+  .container {
+    .note {
       height: 170px;
-    }}
+    }
+  }
 }

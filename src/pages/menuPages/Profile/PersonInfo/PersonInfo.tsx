@@ -3,18 +3,19 @@ import {FC, useState} from "react"
 import {userType} from "../../../../redux/slices/authUserSlice";
 
 type PersonInfo = {
-    userInfo:userType;
-    editMode:boolean;
-    editNameInput:string;
-    editSurnameInput:string;
-    setEditNameInput:(value:string) => void;
-    setEditSurnameInput:(value:string) => void;
-    editDateInput:string;
-    setEditDateInput:(value:string) => void;
+    userInfo: userType;
+    editMode: boolean;
+    editNameInput: string;
+    editSurnameInput: string;
+    setEditNameInput: (value: string) => void;
+    setEditSurnameInput: (value: string) => void;
+    editDateInput: string;
+    setEditDateInput: (value: string) => void;
 
 }
 
-const PersonInfo: FC<PersonInfo> = ({userInfo,
+const PersonInfo: FC<PersonInfo> = ({
+                                        userInfo,
                                         editMode,
                                         editNameInput,
                                         editSurnameInput,
@@ -30,22 +31,28 @@ const PersonInfo: FC<PersonInfo> = ({userInfo,
             <div className={styles.level}>{userInfo.level}</div>
 
             {
-                editMode?
+                editMode ?
                     <div className={styles.inputs}>
+                        {/*<div className={styles.group}>*/}
+                        {/*    <input required className={styles.input}/>*/}
+                        {/*    <span className={styles.bar}></span>*/}
+                        {/*    <label>Name</label>*/}
+
+                        {/*</div>*/}
                         <input value={editNameInput}
                                onChange={(event) => setEditNameInput(event.target.value)}
-                               className={styles.input+ ' '+ styles.nameInput}
+                               className={styles.infoInput + ' ' + styles.nameInput}
                                type="text"
                                maxLength={15}
                         />
                         <input value={editSurnameInput}
                                onChange={(event) => setEditSurnameInput(event.target.value)}
-                               className={styles.input+ ' '+ styles.surnameInput}
+                               className={styles.infoInput + ' ' + styles.surnameInput}
                                type="text"
                                maxLength={15}
 
                         />
-                        <input className={styles.input+ ' '+ styles.dateInput}
+                        <input className={styles.infoInput + ' ' + styles.dateInput}
                                type="date"
                                onChange={(event) => setEditDateInput(event.target.value)}
                                value={editDateInput}
@@ -58,7 +65,6 @@ const PersonInfo: FC<PersonInfo> = ({userInfo,
                     </>
 
             }
-
 
 
         </div>

@@ -7,10 +7,10 @@ import {RootState} from "../../../../redux/store";
 import {getUsersFirestore} from "../../../../dataBaseResponse/usersFirestore";
 
 type ChatProgrammersProps = {
-
+    setInputMessage: (value: string) => void;
 }
 
-const ChatProgrammers: FC = () => {
+const ChatProgrammers: FC<ChatProgrammersProps> = ({setInputMessage,}) => {
     const [chatUsersCardItems, setChatUsersCardItems] = useState<userType[]>([])
 
     const {user} = useSelector((state: RootState) => state.userSlice)
@@ -26,20 +26,19 @@ const ChatProgrammers: FC = () => {
     }, [])
 
 
-
-
-
     return (
         <div className={styles.container}>
 
             {
                 chatUsersCardItems.map((user) => {
-                    return(
+                    return (
                         <ChatProgrammer
-                            key={user.uid}
+                            setInputMessage={setInputMessage}
                             user={user}
+                            key={user.uid}
+
                         />
-                        )
+                    )
                 })
             }
         </div>

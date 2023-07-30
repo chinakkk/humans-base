@@ -1,6 +1,6 @@
 import styles from './Messages.module.scss'
 import React, {FC, useEffect, useRef, useState} from "react"
-import {ref, onValue} from 'firebase/database'
+import {ref, onValue, get} from 'firebase/database'
 import {realTimeDB} from "../../../../firebase";
 import {messageType} from "../../../../types/types";
 import {useSelector} from "react-redux";
@@ -9,12 +9,13 @@ import Message from "./Message/Message";
 import {getFullDate} from "../../../../utils/toUpperCaseHead";
 
 type MessagesProps = {
-    messagesRef:React.Ref<HTMLDivElement>;
-    scrollToBottom:() => void;
+    messagesRef: React.Ref<HTMLDivElement>;
+    scrollToBottom: () => void;
 }
 
 
-const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
+const Messages: FC<MessagesProps> = ({messagesRef, scrollToBottom}) => {
+    const [firstScroll, setFirstScroll] = useState<boolean>(false)
     const [messagesItems, setMessagesItems] = useState<messageType[]>([])
     const [contextMenuMessagesIsOpen, setContextMenuMessagesIsOpen] = useState<boolean>(false)
     const [contextMenuMessagesState, setContextMenuMessagesState] = useState<boolean>(false)
@@ -28,6 +29,7 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
     }
 
     useEffect(() => {
+
         onValue(ref(realTimeDB), (snapshot) => {
             setMessagesItems([])
             const data = snapshot.val()
@@ -39,12 +41,18 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
                 })
                 setMessagesItems(filteredMessage)
             }
-            // setTimeout(() => scrollToBottom(), 0)
-
         })
-
-
     }, [])
+
+
+    //скролл при загрузке бд
+    useEffect(() => {
+        (async () => {
+            await get(ref(realTimeDB));
+            setTimeout(() => scrollToBottom(), 0);
+        })()
+
+    }, []);
 
     useEffect(() => {
         scrollToBottom()
@@ -98,7 +106,7 @@ const Messages: FC <MessagesProps>= ({messagesRef,scrollToBottom}) => {
 
 
     return (
-        <div className={styles.container +' '+(contextMenuMessagesIsOpen ? styles.containerOverflowBlock : '')}
+        <div className={styles.container + ' ' + (contextMenuMessagesIsOpen ? styles.containerOverflowBlock : '')}
              ref={messagesRef}
              onClick={() => setContextMenuMessagesState(!contextMenuMessagesState)}
         >

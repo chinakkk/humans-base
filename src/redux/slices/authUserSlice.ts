@@ -33,7 +33,7 @@ const initialState: userSliceType = {
 
     },
     adminUser: {
-        login: 'a'
+        login: 'admin'
     }
 }
 

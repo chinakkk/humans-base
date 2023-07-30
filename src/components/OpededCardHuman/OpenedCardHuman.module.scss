@@ -73,6 +73,28 @@
 
 }
 
+@media (max-height: 430px) {
+  .container {
+    .window{
+      //transform: translate(-50%, -15%);
+      height: 70vh;
+      .topWindow{
+        .photoContainer{
+          min-height: 100px;
+          min-width: 100px;
+          height: 100px;
+          width: 100px;
+          margin: 0 30px 10px 0;
+
+        }
+      }
+
+    }
+    .overlay {
+      height: 100vh;
+    }
+  }
+}
 @media (max-width: 630px) {
   .container {
     .window {
@@ -110,6 +132,7 @@
       .topWindow {
         .about {
           font-size: 15px;
+
           .level {
             font-size: 19px;
 
@@ -126,3 +149,4 @@
     }
   }
 }
+

@@ -19,6 +19,13 @@
 }
 
 
+@media (max-height: 430px) {
+  .container {
+    height: 100vh;
+    padding-top: 90px;
+  }
+}
+
 //три карточки уже не вмещаются
 @media (max-width: 970px) {
   .container{

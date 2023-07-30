@@ -3,12 +3,12 @@ import ContentLoader from "react-content-loader"
 import commonStyles from './commonStyles.module.scss'
 
 const SkeletonTask = () => (
-    <div className={commonStyles.border}>
+    <div className={commonStyles.border} style={{ width: "100%", height: "50px" }}>
         <ContentLoader
             className={commonStyles.skeleton}
             speed={2}
-            height={50}
-            viewBox="0 0 100% 50"
+            width="100%"
+            height="100%"
             backgroundColor="#f0f0f0"
             foregroundColor="#dedede"
         >

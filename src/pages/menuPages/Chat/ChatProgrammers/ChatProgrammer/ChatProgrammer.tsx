@@ -7,11 +7,19 @@ import {toUpperCaseHead} from "../../../../../utils/toUpperCaseHead";
 
 type ChatProgrammerProps = {
     user:userType;
+    setInputMessage:(value:string) => void;
 }
 
-const ChatProgrammer: FC<ChatProgrammerProps> = ({user}) => {
+const ChatProgrammer: FC<ChatProgrammerProps> = ({user,setInputMessage}) => {
+
+
+    const onClickUser = () => {
+        setInputMessage(`${toUpperCaseHead(user.name)} ${toUpperCaseHead(user.surname)}, `)
+    }
     return (
-        <div className={styles.container}>
+        <div className={styles.container}
+             onClick={onClickUser}
+        >
             <div className={styles.content}>
                 <img className={styles.photo} src={user.imageURL||noPhotoSrcBackground} alt="user"/>
                 <div>

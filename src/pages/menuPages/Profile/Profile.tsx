@@ -62,17 +62,19 @@ const Profile: FC = () => {
                     <img
                         className={styles.photo}
                         src={userImageUrl || user.imageURL || noPhotoSrc}
-                        alt="Human"/>
+                        alt="Human"
+                    />
+                    {
+                        editMode &&
+                        <ImageButtons
+                            setUserImage={setUserImageFile}
+                            setUserImageUrl={setUserImageUrl}
+                            setUserImageLastImageUrl={setUserImageLastImageUrl}
+                        />
+                    }
                 </div>
 
-                {
-                    editMode &&
-                    <ImageButtons
-                        setUserImage={setUserImageFile}
-                        setUserImageUrl={setUserImageUrl}
-                        setUserImageLastImageUrl={setUserImageLastImageUrl}
-                    />
-                }
+
 
                 <PersonInfo userInfo={userInfo}
                             editMode={editMode}

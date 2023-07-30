@@ -9,9 +9,9 @@ type ContextMenuProps = {
     messageObj: messageType;
     setContextMenuIsOpen: (value: boolean) => void;
     contextMenuIsOpen: boolean;
-    mouseX:number;
-    mouseY:number;
-    setContextMenuMessagesIsOpen:(value:boolean) => void;
+    mouseX: number;
+    mouseY: number;
+    setContextMenuMessagesIsOpen: (value: boolean) => void;
 }
 
 const ContextMenu: FC<ContextMenuProps> = ({
@@ -23,14 +23,16 @@ const ContextMenu: FC<ContextMenuProps> = ({
                                                mouseY,
                                                setContextMenuMessagesIsOpen
                                            }) => {
-    const overlayRef=useRef<HTMLDivElement>(null)
-    const [openAnimation,setOpenAnimation]=useState(false)
+    const overlayRef = useRef<HTMLDivElement>(null)
+    const [openAnimation, setOpenAnimation] = useState(false)
     useEffect(() => {
         if (overlayRef.current) {
             overlayRef.current.addEventListener('contextmenu', (event) => {
                 event.preventDefault()
                 setOpenAnimation(false)
-                setTimeout(() =>{setContextMenuIsOpen(false)},200 )
+                setTimeout(() => {
+                    setContextMenuIsOpen(false)
+                }, 200)
                 setContextMenuMessagesIsOpen(false)
             })
             overlayRef.current.addEventListener('click', (event) => {
@@ -45,23 +47,29 @@ const ContextMenu: FC<ContextMenuProps> = ({
         }
         setTimeout(() => {
             setOpenAnimation(true)
-        },1)
+        }, 1)
 
     }, [])
     const onClickDelete = () => {
-        setContextMenuIsOpen(false)
+        setOpenAnimation(false)
+        setTimeout(() => {
+            setContextMenuIsOpen(false)
+        }, 200)
         remove(ref(realTimeDB, `/${messageObj.uuid}`)).then().catch(() => console.log('Не удалось удалить сообщение.'))
     }
     const onClickCopy = () => {
-        setContextMenuIsOpen(false)
+        setOpenAnimation(false)
+        setTimeout(() => {
+            setContextMenuIsOpen(false)
+        }, 200)
         navigator.clipboard.writeText(messageObj.inputMessage).then().catch(() => console.log('Не удалось скопировать.'))
     }
     return (
-        <div className={styles.container } ref={overlayRef}>
+        <div className={styles.container} ref={overlayRef}>
             <div className={styles.overlay}>
                 <div
                     className={`${styles.contextMenu} ${openAnimation ? styles.contextMenuActive : ''} ${isUserContextMenu ? styles.isUserContextMenu : ''}`}
-                    style={{ left: `${mouseX}px` ,top:`${mouseY}px`}}
+                    style={{left: `${mouseX}px`, top: `${mouseY}px`}}
                 >
                     <ul>
                         <li onClick={onClickCopy} className={styles.buttonAction}>Copy</li>

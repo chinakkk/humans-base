@@ -4,6 +4,7 @@ import {messageType} from "../../../../../types/types";
 import {RootState} from "../../../../../redux/store";
 import {useSelector} from "react-redux";
 import ContextMenu from "./ContextMenu/ContextMenu";
+import {transformDateFromUser} from "../../../../../utils/toUpperCaseHead";
 
 type MessageNewProps = {
     messageObj: messageType;
@@ -27,7 +28,8 @@ const Message: FC<MessageNewProps> = ({
 
     const {user, adminUser} = useSelector((state: RootState) => state.userSlice)
     const isUserMessage = user.login === messageObj.login
-    const time = `${messageObj.date.slice(8, 10)}:${messageObj.date.slice(10, 12)}`
+    const userDate=transformDateFromUser(messageObj.date)
+    const time = `${userDate.slice(8, 10)}:${userDate.slice(10, 12)}`
     const nameInMessage = messageObj.login === user.login ? '' : (messageObj.login === adminUser.login ? 'admin' : messageObj.login)
 
     const onClickContentBlock = (event: React.MouseEvent<HTMLDivElement>) => {
