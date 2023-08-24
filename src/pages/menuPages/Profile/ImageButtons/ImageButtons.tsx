@@ -1,17 +1,19 @@
 import styles from './ImageButtons.module.scss'
-import React, {FC, useRef} from "react"
+import React, {FC, useEffect, useRef, useState} from "react"
 import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../../../redux/store";
 import {setUser} from "../../../../redux/slices/authUserSlice";
 
 
 type BottomProfileType = {
-    setUserImage: (value: File|null) => void;
+    setUserImage: (value: File | null) => void;
     setUserImageUrl: (value: string) => void;
     setUserImageLastImageUrl: (value: string) => void;
+    imageIsDeleted: boolean;
 }
 
 const ImageButtons: FC<BottomProfileType> = ({
+                                                 imageIsDeleted,
                                                  setUserImage,
                                                  setUserImageUrl,
                                                  setUserImageLastImageUrl
@@ -19,6 +21,8 @@ const ImageButtons: FC<BottomProfileType> = ({
     const dispatch = useAppDispatch()
     const {user} = useSelector((state: RootState) => state.userSlice)
     const inputFileRef = useRef<HTMLInputElement | null>(null)
+    const [editImageMode,setEditImageMode]=useState<boolean>(false)
+    const editImageRef = useRef<HTMLDivElement>(null)
 
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
@@ -36,21 +40,38 @@ const ImageButtons: FC<BottomProfileType> = ({
             }
         }
     }
-
-
     const onClickPickImg = () => {
         inputFileRef.current?.click();
+        setEditImageMode(false)
     }
 
     const onClickDelete = () => {
         setUserImageUrl('')
         setUserImage(null)
-        setUserImageLastImageUrl(user.imageURL||'')
-        dispatch(setUser({...user,imageURL:''}))
+        setUserImageLastImageUrl(user.imageURL || '')
+        dispatch(setUser({...user, imageURL: ''}))
     }
 
+    useEffect(() => {
+
+        const clickOutsideImage = (event: MouseEvent) => {
+            const _event = event as MouseEvent & {
+                path: Node[]
+            }
+            if (editImageRef.current && !event.composedPath().includes(editImageRef.current))
+                setEditImageMode(false)
+        }
+        document.body.addEventListener('click', clickOutsideImage)
+
+        return () => document.body.removeEventListener('click', clickOutsideImage)
+
+    }, [])
+
     return (
-        <div className={styles.container}>
+        <div className={styles.container + ' ' + (editImageMode? styles.editImageModeMobile:'')}
+             ref={editImageRef}
+             onClick={() => setEditImageMode(true)}
+        >
 
 
             <input className={styles.inputFile}
@@ -59,14 +80,18 @@ const ImageButtons: FC<BottomProfileType> = ({
                    type="file"
                    accept={'.png,.jpg,.jpeg'}
             />
-
-            <button onClick={onClickPickImg} className={styles.uploadButton}>
-                Upload image
+            {/*Загрузка фотографии*/}
+            <button onClick={onClickPickImg}
+                    className={styles.uploadButton + ' ' + (!imageIsDeleted ? styles.imageIsDeleted : '')}>
+                Choose image
             </button>
-
-            <button onClick={onClickDelete} className={styles.deleteButton}>
-                Delete image
-            </button>
+            {/*Удалить фотографию*/}
+            {
+                imageIsDeleted &&
+                <button onClick={onClickDelete} className={styles.deleteButton}>
+                  Delete image
+                </button>
+            }
 
 
         </div>

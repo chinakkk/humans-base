@@ -24,7 +24,7 @@ const Programmers: FC = () => {
 
             setUsersCardItems(usersWithoutLoginUser)
             setPageIsLoading(false)
-
+            console.log(usersCardItems)
 
         })()
 
@@ -45,9 +45,11 @@ const Programmers: FC = () => {
             [...new Array(9)].map((value, index) => <SkeletonCardHuman key={index}/>)
             :
             searchFilterProgrammersItems.map((userCard) =>
-                <CardHuman userInfo={userCard}
-                           key={userCard.uid}
-                           setUsersCardArr={setUsersCardItems}
+                <CardHuman
+                    data-testId={'userTestId'}
+                    userInfo={userCard}
+                    key={userCard.uid}
+                    setUsersCardArr={setUsersCardItems}
                 />
             )
     }

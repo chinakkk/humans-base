@@ -50,6 +50,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
         }, 1)
 
     }, [])
+
     const onClickDelete = () => {
         setOpenAnimation(false)
         setTimeout(() => {
@@ -57,6 +58,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
         }, 200)
         remove(ref(realTimeDB, `/${messageObj.uuid}`)).then().catch(() => console.log('Не удалось удалить сообщение.'))
     }
+
     const onClickCopy = () => {
         setOpenAnimation(false)
         setTimeout(() => {
@@ -64,6 +66,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
         }, 200)
         navigator.clipboard.writeText(messageObj.inputMessage).then().catch(() => console.log('Не удалось скопировать.'))
     }
+
     return (
         <div className={styles.container} ref={overlayRef}>
             <div className={styles.overlay}>

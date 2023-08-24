@@ -44,9 +44,9 @@ const Profile: FC = () => {
     //форматированные данные
     const userInfo: userType = {
         uid: user.uid,
-        name: toUpperCaseHead(user.name),
-        surname: toUpperCaseHead(user.surname),
-        level: toUpperCaseHead(user.level),
+        name: !!user.name ? toUpperCaseHead(user.name) : '',
+        surname: !!user.surname ? toUpperCaseHead(user.surname) : '',
+        level: !!user.level ? toUpperCaseHead(user.level) : '',
         birthday: user.birthday,
         login: '',
         imageURL: user.imageURL,
@@ -58,6 +58,7 @@ const Profile: FC = () => {
     return (
         <div className={styles.container}>
             <div className={styles.contentTop}>
+
                 <div className={styles.photoContainer}>
                     <img
                         className={styles.photo}
@@ -67,15 +68,13 @@ const Profile: FC = () => {
                     {
                         editMode &&
                         <ImageButtons
+                            imageIsDeleted={!!(userImageUrl || user.imageURL)}
                             setUserImage={setUserImageFile}
                             setUserImageUrl={setUserImageUrl}
                             setUserImageLastImageUrl={setUserImageLastImageUrl}
                         />
                     }
                 </div>
-
-
-
                 <PersonInfo userInfo={userInfo}
                             editMode={editMode}
                             editNameInput={editNameInput}
@@ -85,12 +84,8 @@ const Profile: FC = () => {
                             editDateInput={editDateInput}
                             setEditDateInput={setEditDateInput}
                 />
-
-
-
             </div>
             <div className={styles.contentBot}>
-                <div className={styles.aboutMeInput + ' ' + (editMode && styles.aboutMeInputEditMode)}>
                     {
                         editMode ?
                             <textarea
@@ -100,10 +95,11 @@ const Profile: FC = () => {
                             >
                             </textarea>
                             :
-                            user.about
-
+                            <div className={styles.aboutMeInput + ' ' + (editMode && styles.aboutMeInputEditMode)}>
+                                {user.about}
+                            </div>
                     }
-                </div>
+
                 <EditButtons
                     editMode={editMode}
                     setEditMode={setEditMode}
@@ -118,7 +114,6 @@ const Profile: FC = () => {
                     editAboutTextarea={editAboutTextarea}
                     editDateInput={editDateInput}
                     setEditDateInput={setEditDateInput}
-
                 />
             </div>
         </div>

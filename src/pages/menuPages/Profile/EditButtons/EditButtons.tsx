@@ -124,10 +124,13 @@ const EditButtons: FC<EditButtonsProps> = ({
     }
 
     const onClickSave = () => {
-        setEditMode(!editMode)
-        uploadImgOnFirebase(userImageFile).then(() => setUserImageUrl(''))
-        if (!!userImageLastImageUrl && !user.imageURL) deleteImageFromFirebase()
-        saveEditUserInfo()
+        if (!!editDateInput&&!!editNameInput&&!!editSurnameInput){
+            setEditMode(!editMode)
+            uploadImgOnFirebase(userImageFile).then(() => setUserImageUrl(''))
+            if (!!userImageLastImageUrl && !user.imageURL) deleteImageFromFirebase()
+            saveEditUserInfo()
+        }
+
 
     }
 

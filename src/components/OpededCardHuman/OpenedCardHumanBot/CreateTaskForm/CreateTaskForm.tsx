@@ -22,8 +22,9 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({userInfo}) => {
     }
    
     return (
-        <div className={styles.container}>
-            <form onSubmit={handleSubmit(onClickSendTask)}>
+            <form
+                className={styles.container}
+                onSubmit={handleSubmit(onClickSendTask)}>
                 <div className={styles.inputsBlock}>
                     <input className={`${styles.taskInput} ${styles.taskTitleInput}`}
                            placeholder={'Enter title task...'}
@@ -47,7 +48,6 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({userInfo}) => {
                     Send task
                 </button>
             </form>
-        </div>
     )
 }
 export default CreateTaskForm;

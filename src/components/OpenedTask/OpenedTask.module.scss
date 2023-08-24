@@ -2,9 +2,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-
   z-index: 50;
-
 
   .overlay {
     position: fixed;
@@ -16,7 +14,6 @@
     background-color: black;
     opacity: 0.4;
   }
-
 
   .window {
     position: absolute;
@@ -30,28 +27,38 @@
 
     .titleBlockWrapper {
       padding: 0 10px 0 10px;
+      border-bottom: 2px #DFDFDF solid;
+      min-height: 50px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      .titleBlock {
-        word-wrap: break-word;
 
+      .titleBlock, .titleInput {
+        padding: 5px 0 5px 0;
+        color: white;
         display: flex;
-        //width: 596px;
+        font-size: 21px;
         width: 100%;
-        height: 50px;
-        border-bottom: 2px #DFDFDF solid;
-        font-size: 22px;
-        margin-bottom: 16px;
-        color: #FFFFFF;
+        border: 0;
+        margin: 0;
         justify-content: center;
         align-items: center;
+        word-break: break-word;
+        background-color: transparent;
+        text-align: center;
 
-        .titleInput {
-          background-color: transparent;
-          color: white;
-          border: 0;
-          width: 100%;
-          text-align: center;
-        }
+      }
+
+      .titleBlock {
+      }
+
+      .titleInput {
+        height: 41px;
+        outline: none;
+        overflow-y: hidden;
+        //padding-left: 5px;
       }
     }
 
@@ -59,8 +66,7 @@
     .textBlockWrapper {
       padding: 0 13px 0 13px;
 
-      .textBlock {
-        //width: 570px;
+      .textBlock, .textInput {
         width: 100%;
         height: 425px;
         background-color: #FFFFFF;
@@ -69,16 +75,8 @@
         padding: 15px 20px 20px 20px;
         white-space: pre-wrap;
         overflow: auto;
-
-        .textInput {
-          height: 98%;
-          width: 100%;
-          padding: 0;
-          background-color: transparent;
-          border: 0;
-          outline: none;
-        }
-
+        border: 0;
+        outline: none;
         word-wrap: break-word;
 
 
@@ -119,6 +117,10 @@
     }
 
     .editButton {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
       position: absolute;
       bottom: 13px;
       right: 130px;
@@ -128,7 +130,7 @@
       //border: 1px #DFDFDF solid;
       border: 0;
       border-radius: 6px;
-      width: 110px;
+      min-width: 110px;
       height: 29px;
 
 
@@ -143,173 +145,162 @@
     border: 2px solid #4e4e4e;
   }
 
+  .backButton {
+    background-color: transparent;
+    padding: 0;
+    position: absolute;
+    top: -45px;
+    right: 13px;
+    border: 0;
+    cursor: default;
+    display: none;
+    z-index: 1200;
+
+    &:active {
+      transform: translateY(0.5px);
+    }
+  }
+
 }
 
 
-@media (max-height: 430px) {
-  .container {
-    .window{
-      transform: translate(-50%, -15%);
+@media (width <= 820px) {
 
+  .container {
+    .backButton {
+      display: block;
     }
+
+    position: static;
+
+    .overlay {
+      display: none;
+    }
+
+    .window {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);
+      height: calc(100svh - 50px);
+      width: 100vw;
+      background-color: #F4F6F7;
+      border-radius: 0;
+      border: 0;
+      display: flex;
+      flex-direction: column;
+
+      .titleBlockWrapper {
+        padding: 0 10px 0 10px;
+
+        .titleBlock, .titleInput {
+          color: black;
+          font-size: 20px;
+        }
+
+        .titleInput {
+          padding-left: 0;
+          height: auto;
+        }
+      }
+
+
+      .textBlockWrapper {
+        padding: 0 15px 60px 15px;
+        height: 100%;
+
+        .textBlock, .textInput {
+          //width: 570px;
+          width: 100%;
+          //height: 425px;
+          height: 100%;
+          background-color: #FFFFFF;
+          border-radius: 10px;
+          margin: 0 auto;
+          padding: 15px 20px 20px 20px;
+          overflow: auto;
+        }
+      }
+
+      .time {
+        left: 15px;
+        bottom: 15px;
+      }
+
+      .yearMonthDay {
+        left: 89px;
+        bottom: 15px;
+
+      }
+
+      .editButton {
+        cursor: default;
+        border: 1px solid #D9D9D9;
+        bottom: 15px;
+        right: 135px;
+
+      }
+    }
+  }
+}
+
+
+@media (width <= 460px) {
+  .container {
+    .window {
+      .titleBlockWrapper {
+        .titleBlock, .titleInput {
+          font-size: 18px;
+        }
+      }
+      .textBlockWrapper {
+        padding-bottom: 15px;
+        .textBlock, .textInput {
+          font-size: 18px;
+        }
+      }
+      .taskBottom {
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px 15px 15px;
+        .dateBlock{
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 15px;
+
+          .time, .yearMonthDay {
+            position: static;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .buttonsBlock{
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          .editButton {
+            position: static;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px 0 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (height <= 430px) {
+  .container {
+    .window {
+      transform: translate(-50%, -15%);
+    }
+
     .overlay {
       height: 1020px;
     }
   }
 }
-
-@media (max-width: 820px) {
-
-  .container {
-    .window {
-      .editButton {
-
-        cursor: default;
-      }
-    }
-
-  }
-}
-
-
-@media (max-width: 630px) {
-  .container {
-    .window {
-      width: 450px;
-
-      .titleBlockWrapper {
-        .titleBlock {
-          font-size: 18px;
-          line-height: 1;
-        }
-
-      }
-
-      .textBlockWrapper {
-        .textBlock {
-          font-size: 16px;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 470px) {
-  .container {
-
-    .window {
-      .time{
-        font-size: 14px;
-      }
-      .yearMonthDay{
-        font-size: 14px;
-        left: 62px;
-      }
-      .editButton{
-        font-size: 14px;
-        width: 80px;
-        right: 101px;
-      }
-
-      .date{
-        padding: 0 3px 0 3px;
-      }
-
-
-      width: 330px;
-      .titleBlockWrapper {
-        .titleBlock {
-          font-size: 13px;
-          line-height: 1;
-        }
-
-      }
-      .textBlockWrapper {
-        .textBlock {
-          font-size: 13px;
-          padding: 10px 15px 15px 15px;
-
-        }
-
-      }
-      .topWindow {
-        .photoContainer {
-          min-height: 150px;
-          min-width: 150px;
-          height: 150px;
-          width: 150px;
-        }
-      }
-
-    }
-  }
-}
-
-@media (max-width: 350px) {
-  .container {
-
-    .window {
-      .yearMonthDay{
-        left: 52px;
-      }
-      .editButton{
-        font-size: 12px;
-
-        width: 70px;
-        right: 86px;
-      }
-
-      .date{
-        font-size: 12px;
-
-        //padding: 0 3px 0 3px;
-      }
-
-
-
-      width: 280px;
-      height: 400px;
-      font-size: 13px;
-      .titleBlockWrapper {
-        .titleBlock {
-          font-size: 11px;
-          line-height: 1;
-        }
-
-      }
-      .textBlockWrapper {
-        .textBlock {
-          font-size: 11px;
-        }
-      }
-
-      .textBlockWrapper {
-        .textBlock {
-          height: 276px;
-        }
-      }
-      .topWindow {
-        .about {
-          font-size: 15px;
-
-          .level {
-            font-size: 19px;
-
-          }
-        }
-
-        .photoContainer {
-          min-height: 100px;
-          min-width: 100px;
-          height: 100px;
-          width: 100px;
-        }
-      }
-
-
-    }
-  }
-}
-
-
 

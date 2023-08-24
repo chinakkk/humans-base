@@ -4,20 +4,21 @@ import {toUpperCaseHead} from "../../../utils/toUpperCaseHead";
 import {userType} from "../../../redux/slices/authUserSlice";
 import {useForm} from "react-hook-form";
 import {postTaskByLoginFirestore} from "../../../dataBaseResponse/tasksFirestore";
-import {updateImgByUidFirestore, updateUserInfoByUidFirestore} from "../../../dataBaseResponse/usersFirestore";
+import { updateUserInfoByUidFirestore} from "../../../dataBaseResponse/usersFirestore";
 
 type EditUserInfoProps = {
     userInfo: userType;
     setEditMode: (value: boolean) => void;
     setUserImageUrl: (value: string) => void;
-    userImageUrl:string
+    userImageUrl: string;
 }
 
-const EditUserInfo: FC<EditUserInfoProps> = ({userInfo,
+const EditUserInfo: FC<EditUserInfoProps> = ({
+                                                 userInfo,
                                                  setEditMode,
                                                  setUserImageUrl,
                                                  userImageUrl
-}) => {
+                                             }) => {
 
     const {
         register,
@@ -31,10 +32,10 @@ const EditUserInfo: FC<EditUserInfoProps> = ({userInfo,
         if (userInfo.name !== data.name ||
             userInfo.surname !== data.surname ||
             userInfo.level !== data.level ||
-            userInfo.about !== data.about||
-            userInfo.imageURL!==userImageUrl
+            userInfo.about !== data.about ||
+            userInfo.imageURL !== userImageUrl
         ) {
-            userInfo.imageURL=userImageUrl
+            userInfo.imageURL = userImageUrl
             userInfo.name = data.name
             userInfo.surname = data.surname
             userInfo.level = data.level
@@ -46,22 +47,18 @@ const EditUserInfo: FC<EditUserInfoProps> = ({userInfo,
         setEditMode(false)
 
     }
-    const onClickDeleteImg = () => {
-        // eslint-disable-next-line no-restricted-globals
-        const deleteImg: any = confirm('Вы хотите удалить изображение?')
-        if (deleteImg) {
-            updateImgByUidFirestore(userInfo.uid, '').then()
-            setUserImageUrl('')
-        }
-    }
 
 
     return (
-        <div className={styles.container}>
 
-            <form onSubmit={handleSubmit(onClickSave)}>
+        <form
+            className={styles.container}
+            onSubmit={handleSubmit(onClickSave)}>
+
+            <div className={styles.editInfoInputs}>
+
                 <input defaultValue={toUpperCaseHead(userInfo.level)} type="text"
-                       className={styles.aboutInputs + ' ' + styles.levelInput}
+                       className={styles.aboutInput + ' ' + styles.levelInput}
                        required
                        autoComplete={'off'}
                        placeholder={'Level'}
@@ -70,7 +67,7 @@ const EditUserInfo: FC<EditUserInfoProps> = ({userInfo,
 
                 />
                 <input defaultValue={toUpperCaseHead(userInfo.name)} type="text"
-                       className={styles.aboutInputs + ' ' + styles.nameInput}
+                       className={styles.aboutInput + ' ' + styles.nameInput}
                        required
                        autoComplete={'off'}
                        placeholder={'Name'}
@@ -79,39 +76,30 @@ const EditUserInfo: FC<EditUserInfoProps> = ({userInfo,
 
                 />
                 <input defaultValue={toUpperCaseHead(userInfo.surname)} type="text"
-                       className={styles.aboutInputs + ' ' + styles.birthdayInput}
+                       className={styles.aboutInput + ' ' + styles.birthdayInput}
                        required
                        autoComplete={'off'}
                        placeholder={'Surname'}
                        {...register('surname')}
 
                 />
-                <textarea
-                    className={styles.aboutArea}
-                    defaultValue={userInfo.about}
-                    autoComplete={'off'}
-                    placeholder={'About yourself'}
-                    {...register('about')}
+            </div>
+            <textarea
+                className={styles.aboutArea}
+                defaultValue={userInfo.about}
+                autoComplete={'off'}
+                placeholder={'About yourself'}
+                {...register('about')}
 
-                />
-                <button
-                    className={styles.editButtons + ' ' + styles.saveButton}
-                >
-                    Save
-                </button>
+            />
+            <button
+                className={styles.editButtons + ' ' + styles.saveButton}
+            >
+                Save
+            </button>
 
-            </form>
-            {
-                !!userInfo.imageURL &&
-                <button onClick={onClickDeleteImg} className={styles.deleteImgButton}>
-                  <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 8L8 16M8.00001 8L16 16" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"
-                          strokeLinejoin="round"/>
-                  </svg>
-                </button>
-            }
+        </form>
 
-        </div>
 
     )
 }

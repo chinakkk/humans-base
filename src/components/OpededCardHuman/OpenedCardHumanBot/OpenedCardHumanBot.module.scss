@@ -13,16 +13,37 @@
     padding: 10px 15px 10px 15px;
     overflow: auto;
     word-wrap: break-word;
+  }
 
+  //.aboutArea {
+  //  font-size: 16px;
+  //  position: absolute;
+  //  left: 25px;
+  //  bottom: 79px;
+  //  height: 220px;
+  //  width: 500px;
+  //  outline: none;
+  //  padding: 10px 13px 10px 15px;
+  //  border: 0;
+  //  background-color: transparent;
+  //}
+}
 
-
+@media (width <= 820px) {
+  .container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 54px;
+    .note{
+      height: 100%;
+    }
   }
 }
 
 @media (max-height: 430px) {
   .container {
     .note {
-      height: 20vh;
 
     }
   }
@@ -32,7 +53,6 @@
 @media (max-width: 470px) {
   .container {
     .note {
-      height: 275px;
     }
   }
 }
@@ -40,7 +60,6 @@
 @media (max-width: 350px) {
   .container {
     .note {
-      height: 170px;
     }
   }
 }

@@ -12,6 +12,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+
 }
 
 //максимальный размер header
@@ -24,7 +25,16 @@
 
 //максимальный размер header
 @media (max-width: 820px) {
-
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100svh;
+    max-height: none;
+    top: 0;
+    transform: translate(-50%, 0);
+  }
 }
 
 @media (max-width: 750px) {

@@ -1,84 +1,34 @@
-.container {
   .burgerPages {
 
     .openedBurgerPage {
+      position: relative;
       width: 100vw;
-      height: 60px;
+      height: 50px;
       background-color: #638892;
       color: white;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      font-size: 35px;
+      font-size: 24px;
       //position: relative;
-      z-index: 1200;
-    }
+      padding-left: 20px;
 
-    .burgerMenuButton {
-      position: absolute;
-      top: 18px;
-      left: 20px;
-      height: 25px;
-      width: 30px;
-      z-index: 200;
-      border: 0;
-      border-radius: 5px;
-      background-color: transparent;
-      padding: 0;
-
-
-      .topLine, .middleLine, .bottomLine {
-        display: block;
-        height: 2px;
-        width: 100%;
-        background-color: white;
-        transition: all 0.2s linear;
-        border-radius: 1px;
-
-      }
-
-      .topLine {
-
+      .burgerMenuButton {
         position: absolute;
         top: 0;
-      }
-
-      .middleLine {
-        //position: absolute;
-        scale: 1;
-      }
-
-      .bottomLine {
-
-        position: absolute;
-        bottom: 0;
-
-      }
-    }
-
-    .burgerMenuButtonActive {
-
-      .topLine {
-        rotate: -45deg;
-        top: 46%;
-
-      }
-
-      .middleLine {
-        scale: 0;
+        left: 0;
+        height: 100%;
+        display: inline;
+        font-size: 24px;
+        border: 0;
+        border-radius: 5px;
+        background-color: white;
         opacity: 0;
+        z-index: 99;
+        padding: 0 40px 0 0 ;
 
       }
-
-      .bottomLine {
-        rotate: 45deg;
-        bottom: 47%;
-
-
-      }
-
     }
-
     .burgerMenu {
       height: 100vh;
       width: 100%;
@@ -115,27 +65,22 @@
       top: 0;
     }
   }
-}
-
 //максимальный размер header
 @media (max-width: 820px) {
-  .container {
     .burgerPages {
-      position: fixed;
+      position: static;
       left: 0;
       top: 0;
       z-index: 101;
 
     }
-  }
 
 }
 
 @media (max-height: 430px) {
-  .container {
 
     .burgerPages {
-      position: fixed;
+      position: absolute;
       left: 0;
       top: 0;
       z-index: 101;
@@ -150,4 +95,3 @@
     }
   }
 
-}

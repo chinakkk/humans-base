@@ -30,21 +30,14 @@
   }
 }
 
-
-@media (max-width: 970px) {
-  .container {
-    .content {
-    }
-  }
-}
-
 @media (max-width: 820px)  {
   .container {
-    height: 100vh;
+    height: 100svh;
 
     .content {
       border-radius: 0;
-      height: 100vh;
+      height: calc(100svh - 50px);
+
     }
   }
 }
@@ -58,7 +51,7 @@
       height: 700px;
     }
     .chatStyles{
-      height: 100vh;
+      height: 100svh;
 
     }
   }

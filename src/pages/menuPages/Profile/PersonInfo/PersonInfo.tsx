@@ -28,35 +28,48 @@ const PersonInfo: FC<PersonInfo> = ({
 
     return (
         <div className={styles.container}>
-            <div className={styles.level}>{userInfo.level}</div>
+            {
+                !editMode &&
+                <div className={styles.level}>{userInfo.level}</div>
+
+            }
 
             {
                 editMode ?
                     <div className={styles.inputs}>
-                        {/*<div className={styles.group}>*/}
-                        {/*    <input required className={styles.input}/>*/}
-                        {/*    <span className={styles.bar}></span>*/}
-                        {/*    <label>Name</label>*/}
+                        <input
+                            placeholder="Name"
+                            className={styles.input}
+                            name="firstName"
+                            type="text"
+                            value={editNameInput}
+                            onChange={(event) => setEditNameInput(event.target.value)}
+                            maxLength={15}
+                            autoComplete={'off'}
+                        />
+                        <input
+                            placeholder="Surname"
+                            className={styles.input}
+                            name="firstName"
+                            type="text"
+                            value={editSurnameInput}
+                            onChange={(event) => setEditSurnameInput(event.target.value)}
+                            maxLength={15}
+                            autoComplete={'off'}
 
-                        {/*</div>*/}
-                        <input value={editNameInput}
-                               onChange={(event) => setEditNameInput(event.target.value)}
-                               className={styles.infoInput + ' ' + styles.nameInput}
-                               type="text"
-                               maxLength={15}
                         />
-                        <input value={editSurnameInput}
-                               onChange={(event) => setEditSurnameInput(event.target.value)}
-                               className={styles.infoInput + ' ' + styles.surnameInput}
-                               type="text"
-                               maxLength={15}
+                        <input
+                            placeholder="Date"
+                            className={styles.input}
+                            name="firstName"
+                            type="date"
+                            value={editDateInput}
+                            onChange={(event) => setEditDateInput(event.target.value)}
+                            maxLength={15}
+                            autoComplete={'off'}
 
                         />
-                        <input className={styles.infoInput + ' ' + styles.dateInput}
-                               type="date"
-                               onChange={(event) => setEditDateInput(event.target.value)}
-                               value={editDateInput}
-                        />
+
                     </div>
                     :
                     <>

@@ -12,37 +12,32 @@
   width: 100%;
   overflow: auto;
   grid-column-gap: 35px;
-  grid-row-gap: 0px;
+  grid-row-gap: 0;
   justify-content: flex-start;
 }
 
 
 @media (max-height: 430px) {
   .container {
-    height: 100vh;
+    height: 100svh;
     padding-top: 80px;
   }
 }
 //максимальный размер header
-@media (max-width: 820px) {
+@media (width <= 820px) {
   .container{
+    height: calc(100svh - 50px);
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(13, 1fr);
   }
 }
-@media (max-width: 820px) {
-  .container{
-    padding-top: 90px;
-    height: 100vh;
-  }
-}
-@media (max-width: 630px) {
+
+@media (width <= 630px) {
   .container {
-    padding-top: 80px;
 
   }
 }
-@media (max-width: 380px) {
+@media (width <= 380px) {
   .container {
     //grid-template-columns: repeat(1, 1fr);
     //grid-template-rows: repeat(2, 1fr);

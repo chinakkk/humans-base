@@ -13,28 +13,22 @@ import BurgerMenuButtons from "./BurgerMenuButtons/BurgerMenuButtons";
 const Header: FC = () => {
     const titlePagesArr: string[] = ['Profile', 'Programmers', 'Tasks', 'Chat']
 
-    const dispatch = useAppDispatch()
+
     const [openedPage, setOpenedPage] = useState<string>('')
 
-    const onClickExitButton = () => {
-        dispatch(removeUser())
-        dispatch(clearRegistrationData())
-        dispatch(clearAllSearch())
-    }
+
 
 
 
     return (
         <div className={styles.container}>
-
-
-            {/*кнопки в бургер меню*/}
+            {/*кнопки в мобильной версии*/}
             <div className={styles.burgerMenuButtons}>
 
                 <BurgerMenuButtons
-                    onClickExitButton={onClickExitButton}
                     openedPage={openedPage}
                     titlePagesArr={titlePagesArr}
+                    setOpenedPage={setOpenedPage}
                 />
             </div>
 
@@ -45,7 +39,7 @@ const Header: FC = () => {
                     openedPage={openedPage}
                     setOpenedPage={setOpenedPage}
                 />
-                <ExitButton onClickExitButton={onClickExitButton}/>
+                <ExitButton/>
 
 
             </div>

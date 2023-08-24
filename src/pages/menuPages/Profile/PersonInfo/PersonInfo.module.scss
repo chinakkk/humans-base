@@ -4,153 +4,86 @@
 
   .level {
     font-weight: 550;
-    font-size: 28px;
-
+    font-size: 24px;
   }
 
   .inputs {
     display: flex;
     flex-direction: column;
 
+    .input {
+      max-width: 200px;
+      width: 100%;
+      font-size: 19px;
+      margin-top: 10px;
+      border: none;
+      outline: none;
+      border-radius: 6px;
+      padding-left: 10px;
+      padding-right: 10px;
 
-
-    .group {
-      position: relative;
-
-      .input {
-        font-size: 16px;
-        display: block;
-        width: 200px;
-        border: none;
-        border-bottom: 1px solid #515151;
-        background: transparent;
-
-        &:focus {
-          outline: none;
-        }
+      background-color: rgba(0, 0, 0, 0.1);
+      transition: 300ms ease-in-out;
+      &:focus {
+        background-color: white;
+        transform: scale(1.02);
 
       }
-
-
-      label {
-        color: #999;
-        font-size: 18px;
-        font-weight: normal;
-        position: absolute;
-        pointer-events: none;
-        left: 5px;
-        top: 10px;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-      }
-
-      .input:focus ~ label, .input:valid ~ label {
-        top: -20px;
-        font-size: 14px;
-        color: #5264AE;
-      }
-
-      .bar {
-        position: relative;
-        display: block;
-        width: 200px;
-      }
-
-      .bar:before, .bar:after {
-        content: '';
-        height: 2px;
-        width: 0;
-        bottom: 1px;
-        position: absolute;
-        background: #5264AE;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-      }
-
-      .bar:before {
-        left: 50%;
-      }
-
-      .bar:after {
-        right: 50%;
-      }
-
-      .input:focus ~ .bar:before, .input:focus ~ .bar:after {
-        width: 50%;
-      }
-
-
-
-      @keyframes inputHighlighter {
-        from {
-          background: #5264AE;
-        }
-
-        to {
-          width: 0;
-          background: transparent;
-        }
-      }
-
     }
 
 
-
-
-
-
-
-
-
-
-
-    .infoInput {
-      width: 200px;
-      height: 26px;
-      border-radius: 5px;
-      padding-left: 7px;
-      padding-right: 7px;
-      font-size: 20px;
-      margin-top: 3px;
-      border: 1px solid #264e58;
-    }
-
-    .nameInput {
-      padding-bottom: 2px;
-    }
-
-    .surnameInput {
-      padding-bottom: 2px;
-    }
-
-    .dateInput {
-
-    }
   }
 }
 
 @media (max-width: 470px) {
   .container {
     .inputs {
-      .infoInput {
-        width: 150px;
-      }
-
 
     }
   }
 }
-@media (max-width: 360px) {
+
+@media (max-width: 400px) {
   .container {
     .inputs {
-      .infoInput {
-        font-size: 14px;
-        width: 110px;
-
+      .input {
+        font-size: 19px;
       }
 
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    font-size: 15px;
+
+    .level {
+      font-size: 18px;
+    }
+
+    .inputs {
+      .input {
+        font-size: 15px;
+      }
+
+    }
+  }
+}
+
+
+@media (max-width: 360px) {
+  .container {
+    font-size: 14px;
+
+    .level {
+      font-size: 17px;
+    }
+
+    .inputs {
+      .input {
+        font-size: 14px;
+      }
 
     }
   }

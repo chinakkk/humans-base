@@ -1,0 +1,19 @@
+.container {
+  .topWindow {
+    display: flex;
+    .noPhoto {
+      padding: 15px;
+
+    }
+
+    .about {
+      font-size: 17px;
+
+      .level {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+    }
+  }
+}
