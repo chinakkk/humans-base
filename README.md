@@ -1,4 +1,7 @@
-# TaskHub
+
+## Project status
+
+Completed
 
 ## Description
 
